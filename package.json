@@ -2,9 +2,8 @@
   "name": "reactjs-dev",
   "version": "0.0.1",
   "description": "Training project for ReactJS Developer course",
-  "main": "index.js",
-  "scripts": {
-  },
+  "private": true,
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/WarhamsterBoo/reactjs-dev.git"
@@ -13,5 +12,9 @@
   "bugs": {
     "url": "https://github.com/WarhamsterBoo/reactjs-dev/issues"
   },
-  "homepage": "https://github.com/WarhamsterBoo/reactjs-dev#readme"
+  "homepage": "https://github.com/WarhamsterBoo/reactjs-dev#readme",
+  "devDependencies": {
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
 }
