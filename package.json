@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "Training project for ReactJS Developer course",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode=development",
+    "build-prod": "webpack --config webpack.config.js --mode=production"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/WarhamsterBoo/reactjs-dev.git"
