@@ -1,7 +1,10 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.ts',
+    resolve: {
+        extensions: [".js", ".ts"]
+    },
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist')
@@ -9,7 +12,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.m?js$/,
+                test: /\.(js|ts)x?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader'
