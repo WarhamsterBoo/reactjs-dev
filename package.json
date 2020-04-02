@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "build": "webpack --config webpack.config.js --mode=development",
-    "build-prod": "webpack --config webpack.config.js --mode=production"
+    "build-prod": "webpack --config webpack.config.js --mode=production",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,9 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-typescript": "^7.9.0",
+    "@types/jest": "^25.1.4",
     "babel-loader": "^8.1.0",
+    "jest": "^25.2.4",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   }
