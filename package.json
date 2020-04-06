@@ -1,0 +1,48 @@
+{
+  "name": "reactjs-dev",
+  "version": "0.0.1",
+  "description": "Training project for ReactJS Developer course",
+  "private": true,
+  "scripts": {
+    "build": "webpack --config webpack.config.ts --mode=development",
+    "build-prod": "webpack --config webpack.config.ts --mode=production",
+    "test": "jest",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix ./src/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WarhamsterBoo/reactjs-dev.git"
+  },
+  "author": "warhamsterboo",
+  "bugs": {
+    "url": "https://github.com/WarhamsterBoo/reactjs-dev/issues"
+  },
+  "homepage": "https://github.com/WarhamsterBoo/reactjs-dev#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.11.0",
+    "@types/webpack": "^4.41.10",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
+    "babel-loader": "^8.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "html-webpack-plugin": "^4.0.4",
+    "husky": "^4.2.3",
+    "jest": "^25.2.4",
+    "prettier": "^2.0.2",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run test && npm run lint"
+    }
+  }
+}
