@@ -1,5 +1,7 @@
 import hello from "./hello";
 
-test("should return hello world", () => {
-  expect(hello()).toContain("Hello World");
+describe("hello", () => {
+  it('should return value with "Hello World" in it', () => {
+    expect(hello()).toContain("Hello World");
+  });
 });
