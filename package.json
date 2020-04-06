@@ -4,8 +4,8 @@
   "description": "Training project for ReactJS Developer course",
   "private": true,
   "scripts": {
-    "build": "webpack --config webpack.config.js --mode=development",
-    "build-prod": "webpack --config webpack.config.js --mode=production",
+    "build": "webpack --config webpack.config.ts --mode=development",
+    "build-prod": "webpack --config webpack.config.ts --mode=production",
     "test": "jest",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix ./src/*"
   },
@@ -23,6 +23,8 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-typescript": "^7.9.0",
     "@types/jest": "^25.1.4",
+    "@types/node": "^13.11.0",
+    "@types/webpack": "^4.41.10",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "babel-loader": "^8.1.0",
@@ -33,6 +35,7 @@
     "husky": "^4.2.3",
     "jest": "^25.2.4",
     "prettier": "^2.0.2",
+    "ts-node": "^8.8.2",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
