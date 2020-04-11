@@ -22,10 +22,10 @@ Webpack + babel + typescript базовая настройка
 Цель: Самостоятельно сконфигурировать ReactJS-проект. В результате получим готовый шаблон приложения для дальнейшей разработки.
 Необходимо:
 - [x] добавить конфигурации для JSX/TSX через babel используем preset-react
-- [x] развернуть storybook https://storybook.js.org/
-- [x] написать свой первый простой компонент "Hello World, ${username}", добавив к нему Storybook + Jest тест
-- [x] настроить jest
-- [x] настроить loki
+- [ ] развернуть storybook https://storybook.js.org/
+- [ ] написать свой первый простой компонент "Hello World, ${username}", добавив к нему Storybook + Jest тест
+- [ ] настроить jest
+- [ ] настроить loki
 
 Критерии оценки: +1 балл за конфигурации JSX/TSX
 + 1 балл за конфигурацию storybook

@@ -3,12 +3,12 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import webpack from "webpack";
 
 const config: webpack.Configuration = {
-  entry: "./src/index.ts",
+  entry: "./src/index.tsx",
   resolve: {
-    extensions: [".js", ".ts"],
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   output: {
-    filename: "main.js",
+    filename: "index.js",
     path: path.resolve(__dirname, "dist"),
   },
   module: {
@@ -16,13 +16,15 @@ const config: webpack.Configuration = {
       {
         test: /\.(js|ts)x?$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
+        loader: require.resolve("babel-loader"),
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+  ],
 };
 
 export default config;
