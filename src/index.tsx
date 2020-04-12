@@ -1,4 +1,5 @@
 import { render } from "react-dom";
 import React from "react";
+import Hello from "./Hello";
 
-render(<h1>Hello, world!</h1>, document.getElementById("root"));
+render(<Hello />, document.getElementById("root"));
