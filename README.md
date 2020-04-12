@@ -23,7 +23,7 @@ Webpack + babel + typescript базовая настройка
 Необходимо:
 - [x] добавить конфигурации для JSX/TSX через babel используем preset-react
 - [x] развернуть storybook https://storybook.js.org/
-- [ ] написать свой первый простой компонент "Hello World, ${username}", добавив к нему Storybook + Jest тест
+- [x] написать свой первый простой компонент "Hello World, ${username}", добавив к нему Storybook + Jest тест
 - [x] настроить jest
 - [ ] настроить loki
 

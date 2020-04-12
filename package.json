@@ -4,11 +4,17 @@
   "description": "Training project for ReactJS Developer course",
   "private": true,
   "scripts": {
-    "build": "webpack --config webpack.config.ts --mode=development",
-    "build-prod": "webpack --config webpack.config.ts --mode=production",
-    "test": "jest --config=./tests/jest.config.js",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix ./src/",
-    "storybook": "start-storybook"
+    "build": "npx webpack --config webpack.config.ts --mode=development",
+    "build-prod": "npx webpack --config webpack.config.ts --mode=production",
+    "build-storybook": "npx build-storybook",
+
+    "storybook": "npx start-storybook -p 6006",
+
+    "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./src/",
+    "test-jest": "npx jest --config=./tests/jest.config.js",
+    "test-loki": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
+
+    "test": "npm run lint && npm run test-jest"
   },
   "repository": {
     "type": "git",
@@ -43,6 +49,7 @@
     "html-webpack-plugin": "^4.0.4",
     "husky": "^4.2.3",
     "jest": "^25.2.4",
+    "loki": "^0.20.3",
     "prettier": "^2.0.2",
     "ts-node": "^8.8.2",
     "typescript": "^3.8.3",
@@ -51,11 +58,26 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run test && npm run lint"
+      "pre-push": "npm run test"
     }
   },
   "dependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "loki": {
+    "configurations": {
+      "chrome.laptop": {
+        "target": "chrome.docker",
+        "width": 1366,
+        "height": 768,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "chrome.iphone7": {
+        "target": "chrome.docker",
+        "preset": "iPhone 7"
+      }
+    }
   }
 }
