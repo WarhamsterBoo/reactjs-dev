@@ -7,14 +7,11 @@
     "build": "npx webpack --config webpack.config.ts --mode=development",
     "build-prod": "npx webpack --config webpack.config.ts --mode=production",
     "build-storybook": "npx build-storybook",
-
     "storybook": "npx start-storybook -p 6006",
-
     "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./src/",
     "test-jest": "npx jest --config=./tests/jest.config.js",
     "test-loki": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
-
-    "test": "npm run lint && npm run test-jest"
+    "test": "npm run lint && npm run test-jest && npm run test-loki"
   },
   "repository": {
     "type": "git",
@@ -68,14 +65,14 @@
   "loki": {
     "configurations": {
       "chrome.laptop": {
-        "target": "chrome.docker",
+        "target": "chrome.app",
         "width": 1366,
         "height": 768,
         "deviceScaleFactor": 1,
         "mobile": false
       },
       "chrome.iphone7": {
-        "target": "chrome.docker",
+        "target": "chrome.app",
         "preset": "iPhone 7"
       }
     }
