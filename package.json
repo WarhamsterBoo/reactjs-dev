@@ -4,10 +4,14 @@
   "description": "Training project for ReactJS Developer course",
   "private": true,
   "scripts": {
-    "build": "webpack --config webpack.config.ts --mode=development",
-    "build-prod": "webpack --config webpack.config.ts --mode=production",
-    "test": "jest",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix ./src/*"
+    "build": "npx webpack --config webpack.config.ts --mode=development",
+    "build-prod": "npx webpack --config webpack.config.ts --mode=production",
+    "build-storybook": "npx build-storybook",
+    "storybook": "npx start-storybook -p 6006",
+    "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./src/",
+    "test-jest": "npx jest --config=./tests/jest.config.js",
+    "test-loki": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
+    "test": "npm run lint && npm run test-jest && npm run test-loki"
   },
   "repository": {
     "type": "git",
@@ -21,19 +25,28 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
+    "@storybook/addon-knobs": "^5.3.18",
+    "@storybook/react": "^5.3.18",
+    "@types/enzyme": "^3.10.5",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.11.0",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
     "@types/webpack": "^4.41.10",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "babel-loader": "^8.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.2",
     "html-webpack-plugin": "^4.0.4",
     "husky": "^4.2.3",
     "jest": "^25.2.4",
+    "loki": "^0.20.3",
     "prettier": "^2.0.2",
     "ts-node": "^8.8.2",
     "typescript": "^3.8.3",
@@ -42,7 +55,26 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run test && npm run lint"
+      "pre-push": "npm run test"
+    }
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "loki": {
+    "configurations": {
+      "chrome.laptop": {
+        "target": "chrome.app",
+        "width": 1366,
+        "height": 768,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "chrome.iphone7": {
+        "target": "chrome.app",
+        "preset": "iPhone 7"
+      }
     }
   }
 }
