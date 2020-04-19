@@ -1,5 +1,6 @@
-import { render } from "react-dom";
 import React from "react";
-import Hello from "./Hello";
+import { render } from "react-dom";
 
-render(<Hello />, document.getElementById("root"));
+import { World } from "./components";
+
+render(<World />, document.getElementById("root"));

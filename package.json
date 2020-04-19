@@ -11,6 +11,7 @@
     "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./src/",
     "test-jest": "npx jest --config=./tests/jest.config.js",
     "test-loki": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
+    "approve": "npx loki approve",
     "test": "npm run lint && npm run test-jest && npm run test-loki"
   },
   "repository": {
