@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Creature should render dead 1`] = `
+.emotion-0 {
+  width: 25px;
+  height: 25px;
+  border: 1px solid;
+  display: inline-block;
+  border-radius: 5px;
+  line-height: 25px;
+  text-align: center;
+  margin: 5px;
+  vertical-align: bottom;
+  background: #777777;
+}
+
+<button
+  className="emotion-0"
+/>
+`;
