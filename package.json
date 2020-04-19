@@ -9,10 +9,11 @@
     "build-storybook": "npx build-storybook",
     "storybook": "npx start-storybook -p 6006",
     "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./src/",
-    "test-jest": "npx jest --config=./tests/jest.config.js",
-    "test-loki": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
-    "approve": "npx loki approve",
-    "test": "npm run lint && npm run test-jest && npm run test-loki"
+    "jest-test": "npx jest --config=./tests/jest.config.js",
+    "loki-test": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
+    "loki-update": "npx loki",
+    "loki-approve": "npx loki approve",
+    "test": "npm run lint && npm run jest-test && npm run loki-test"
   },
   "repository": {
     "type": "git",
@@ -71,10 +72,6 @@
         "height": 768,
         "deviceScaleFactor": 1,
         "mobile": false
-      },
-      "chrome.iphone7": {
-        "target": "chrome.app",
-        "preset": "iPhone 7"
       }
     }
   }

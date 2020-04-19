@@ -2,8 +2,8 @@ import { withKnobs } from "@storybook/addon-knobs";
 import React from "react";
 import { Game } from "./Game";
 
-export default { title: "Hello component", decorators: [withKnobs] };
+export default { title: "Game component", decorators: [withKnobs] };
 
-export const HelloStory: React.FC<{}> = () => {
+export const GameStory: React.FC<{}> = () => {
   return <Game />;
 };
