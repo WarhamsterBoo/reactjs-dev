@@ -1,9 +1,16 @@
 import { shallow } from "enzyme";
 import React from "react";
-import { Game } from "./Game";
+import { Game, WorldPresenter } from "./Game";
 
 describe("Game", () => {
-  it("should say Hello!", () => {
-    expect(shallow(<Game />).matchesElement(<h1>Hello!</h1>)).toBe(true);
+  const fakeWorld: WorldPresenter = () => null;
+
+  it("should render initialized World component with size 1 x 1", () => {
+    const game = shallow(<Game x={1} y={1} world={fakeWorld} />);
+    const world = game.find(fakeWorld);
+    const creatures = world.props().creatures;
+
+    expect(creatures.length).toBe(1);
+    expect(creatures[0].length).toBe(1);
   });
 });

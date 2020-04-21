@@ -3,8 +3,7 @@ import { Creature } from "./components";
 import { WorldWrapper } from "./World.styled";
 
 export interface CreatureState {
-  id: number;
-  isAlive: boolean;
+  IsAlive: boolean;
 }
 
 export interface WorldProps {
@@ -20,7 +19,7 @@ export const World: React.FC<WorldProps> = ({ creatures }) => {
     <WorldWrapper>
       {creatures.map((row, y) => [
         ...row.map((creature, x) => (
-          <Creature key={`{${x}${y}}`} IsAlive={creature.isAlive} />
+          <Creature key={`{${x}${y}}`} IsAlive={creature.IsAlive} />
         )),
         <br key={`${y}`} />,
       ])}

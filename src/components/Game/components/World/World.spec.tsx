@@ -14,7 +14,7 @@ describe("World", () => {
   });
 
   it("should render with 1 x 1 size and creature is dead", () => {
-    const creatures: CreatureState[][] = [[{ id: 1, isAlive: false }]];
+    const creatures: CreatureState[][] = [[{ IsAlive: false }]];
     expect(
       renderer.create(<World creatures={creatures} />).toJSON()
     ).toMatchSnapshot();
@@ -22,21 +22,9 @@ describe("World", () => {
 
   it("should render with 2 x 2 size filled with creatures", () => {
     const creatures: CreatureState[][] = [
-      [
-        { id: 1, isAlive: true },
-        { id: 2, isAlive: true },
-        { id: 3, isAlive: true },
-      ],
-      [
-        { id: 4, isAlive: true },
-        { id: 5, isAlive: false },
-        { id: 6, isAlive: false },
-      ],
-      [
-        { id: 7, isAlive: true },
-        { id: 8, isAlive: true },
-        { id: 9, isAlive: false },
-      ],
+      [{ IsAlive: true }, { IsAlive: true }, { IsAlive: true }],
+      [{ IsAlive: true }, { IsAlive: false }, { IsAlive: false }],
+      [{ IsAlive: true }, { IsAlive: true }, { IsAlive: false }],
     ];
     expect(
       renderer.create(<World creatures={creatures} />).toJSON()
