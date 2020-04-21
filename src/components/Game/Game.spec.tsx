@@ -13,4 +13,13 @@ describe("Game", () => {
     expect(creatures.length).toBe(1);
     expect(creatures[0].length).toBe(1);
   });
+
+  it("should render initialized World component with size 3 x 3", () => {
+    const game = shallow(<Game x={3} y={3} world={fakeWorld} />);
+    const world = game.find(fakeWorld);
+    const creatures = world.props().creatures;
+
+    expect(creatures.length).toBe(3);
+    expect(creatures[0].length).toBe(3);
+  });
 });

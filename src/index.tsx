@@ -1,6 +1,5 @@
 import React from "react";
 import { render } from "react-dom";
+import { Game, World } from "./components";
 
-import { Game } from "./components";
-
-render(<Game />, document.getElementById("root"));
+render(<Game x={3} y={3} world={World} />, document.getElementById("root"));

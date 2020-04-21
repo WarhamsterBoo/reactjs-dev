@@ -15,7 +15,13 @@ export interface WorldCreature {
 }
 
 export const Game: React.FC<GameProps> = ({ x, y, world }) => {
-  const creatures: WorldCreature[][] = [[{ IsAlive: true }]];
+  const creatures: WorldCreature[][] = Array(x)
+    .fill([])
+    .map(() =>
+      Array(y)
+        .fill({})
+        .map(() => ({ IsAlive: false }))
+    );
   const World = world;
   return <World creatures={creatures} />;
 };
