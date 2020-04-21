@@ -20,7 +20,7 @@ describe("World", () => {
     ).toMatchSnapshot();
   });
 
-  it("should render with 2 x 2 size", () => {
+  it("should render with 2 x 2 size filled with creatures", () => {
     const creatures: CreatureState[][] = [
       [
         { id: 1, isAlive: true },

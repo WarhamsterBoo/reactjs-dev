@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`World should render with 1 x 1 size and all creatures dead 1`] = `
+exports[`World should render with 1 x 1 size and creature is dead 1`] = `
 .emotion-1 {
   display: inline-block;
   padding: 1px;
@@ -17,7 +17,7 @@ exports[`World should render with 1 x 1 size and all creatures dead 1`] = `
   text-align: center;
   margin: 5px;
   vertical-align: bottom;
-  background: #13d473;
+  background: #777777;
 }
 
 <div
@@ -30,24 +30,11 @@ exports[`World should render with 1 x 1 size and all creatures dead 1`] = `
 </div>
 `;
 
-exports[`World should render with 3 x 3 size 1`] = `
+exports[`World should render with 2 x 2 size filled with creatures 1`] = `
 .emotion-9 {
   display: inline-block;
   padding: 1px;
   border: 2px solid lightgray;
-}
-
-.emotion-0 {
-  width: 25px;
-  height: 25px;
-  border: 1px solid;
-  display: inline-block;
-  border-radius: 5px;
-  line-height: 25px;
-  text-align: center;
-  margin: 5px;
-  vertical-align: bottom;
-  background: #13d473;
 }
 
 .emotion-4 {
@@ -61,6 +48,19 @@ exports[`World should render with 3 x 3 size 1`] = `
   margin: 5px;
   vertical-align: bottom;
   background: #777777;
+}
+
+.emotion-0 {
+  width: 25px;
+  height: 25px;
+  border: 1px solid;
+  display: inline-block;
+  border-radius: 5px;
+  line-height: 25px;
+  text-align: center;
+  margin: 5px;
+  vertical-align: bottom;
+  background: #13d473;
 }
 
 <div
