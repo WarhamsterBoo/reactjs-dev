@@ -8,9 +8,10 @@ export interface CreatureState {
 
 export interface WorldProps {
   creatures: CreatureState[][];
+  onClick: () => void;
 }
 
-export const World: React.FC<WorldProps> = ({ creatures }) => {
+export const World: React.FC<WorldProps> = ({ creatures, onClick }) => {
   if (creatures.length == 0 || creatures[0].length == 0) {
     return null;
   }
@@ -19,7 +20,11 @@ export const World: React.FC<WorldProps> = ({ creatures }) => {
     <WorldWrapper>
       {creatures.map((row, y) => [
         ...row.map((creature, x) => (
-          <Creature key={`{${x}${y}}`} IsAlive={creature.IsAlive} />
+          <Creature
+            key={`{${x}${y}}`}
+            IsAlive={creature.IsAlive}
+            onClick={onClick}
+          />
         )),
         <br key={`${y}`} />,
       ])}

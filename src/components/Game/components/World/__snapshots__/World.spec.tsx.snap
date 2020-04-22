@@ -24,6 +24,7 @@ exports[`World should render with 1 x 1 size and creature is dead 1`] = `
 >
   <button
     className="emotion-0"
+    onClick={[MockFunction]}
   />
   <br />
 </div>
@@ -66,32 +67,41 @@ exports[`World should render with 2 x 2 size filled with creatures 1`] = `
 >
   <button
     className="emotion-0"
+    onClick={[MockFunction]}
   />
   <button
     className="emotion-0"
+    onClick={[MockFunction]}
   />
   <button
     className="emotion-0"
+    onClick={[MockFunction]}
   />
   <br />
   <button
     className="emotion-0"
+    onClick={[MockFunction]}
   />
   <button
     className="emotion-4"
+    onClick={[MockFunction]}
   />
   <button
     className="emotion-4"
+    onClick={[MockFunction]}
   />
   <br />
   <button
     className="emotion-0"
+    onClick={[MockFunction]}
   />
   <button
     className="emotion-0"
+    onClick={[MockFunction]}
   />
   <button
     className="emotion-4"
+    onClick={[MockFunction]}
   />
   <br />
 </div>

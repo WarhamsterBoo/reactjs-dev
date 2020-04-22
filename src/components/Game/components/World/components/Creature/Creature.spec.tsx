@@ -16,7 +16,7 @@ describe("Creature", () => {
     ).toMatchSnapshot();
   });
 
-  it("shoul callback onClick function", () => {
+  it("should call onClick callback", () => {
     const fakeOnClick = jest.fn();
     const sut = mount(<Creature IsAlive={true} onClick={fakeOnClick} />);
 
