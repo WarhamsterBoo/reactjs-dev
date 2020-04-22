@@ -15,6 +15,8 @@ export const Creature: React.FC<CreatureProps> = ({
   IsAlive,
   onClick,
 }) => {
+  console.log("creatire = ", x, ":", y);
+
   const Creature = styled.button`
     ${BaseCreature};
     ${IsAlive ? AliveCreature : DeadCreature}

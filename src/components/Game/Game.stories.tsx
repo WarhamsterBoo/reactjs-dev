@@ -6,8 +6,8 @@ import { Game } from "./Game";
 export default { title: "Game component", decorators: [withKnobs] };
 
 export const GameStory: React.FC<{}> = () => {
-  const x = number("X", 2);
-  const y = number("Y", 2);
+  const x = number("X", 3);
+  const y = number("Y", 3);
 
-  return <Game x={x} y={y} world={World} />;
+  return <Game xDimension={x} yDimension={y} world={World} />;
 };

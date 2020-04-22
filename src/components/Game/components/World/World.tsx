@@ -10,7 +10,7 @@ export interface CreatureState {
 
 export interface WorldProps {
   creatures: CreatureState[][];
-  onClick: () => void;
+  onClick: (x: number, y: number) => void;
 }
 
 export const World: React.FC<WorldProps> = ({ creatures, onClick }) => {
