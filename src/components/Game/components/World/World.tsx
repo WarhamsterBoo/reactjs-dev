@@ -22,6 +22,8 @@ export const World: React.FC<WorldProps> = ({ creatures, onClick }) => {
         ...row.map((creature, x) => (
           <Creature
             key={`{${x}${y}}`}
+            x={0}
+            y={0}
             IsAlive={creature.IsAlive}
             onClick={onClick}
           />

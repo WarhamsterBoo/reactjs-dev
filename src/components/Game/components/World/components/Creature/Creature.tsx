@@ -3,15 +3,22 @@ import React from "react";
 import { BaseCreature, DeadCreature, AliveCreature } from "./Creature.styled";
 
 export interface CreatureProps {
+  x: number;
+  y: number;
   IsAlive: boolean;
-  onClick: () => void;
+  onClick: (x: number, y: number) => void;
 }
 
-export const Creature: React.FC<CreatureProps> = ({ IsAlive, onClick }) => {
+export const Creature: React.FC<CreatureProps> = ({
+  x,
+  y,
+  IsAlive,
+  onClick,
+}) => {
   const Creature = styled.button`
     ${BaseCreature};
     ${IsAlive ? AliveCreature : DeadCreature}
   `;
 
-  return <Creature onClick={onClick} />;
+  return <Creature onClick={() => onClick(x, y)} />;
 };

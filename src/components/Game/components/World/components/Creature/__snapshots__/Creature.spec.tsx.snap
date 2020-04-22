@@ -16,7 +16,7 @@ exports[`Creature should render alive 1`] = `
 
 <button
   className="emotion-0"
-  onClick={[MockFunction]}
+  onClick={[Function]}
 />
 `;
 
@@ -35,6 +35,6 @@ exports[`Creature should render dead 1`] = `
 
 <button
   className="emotion-0"
-  onClick={[MockFunction]}
+  onClick={[Function]}
 />
 `;

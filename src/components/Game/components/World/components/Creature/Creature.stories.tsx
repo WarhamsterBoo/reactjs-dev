@@ -8,5 +8,7 @@ export default { title: "Creature component", decorators: [withKnobs] };
 export const CreatureStory: React.FC<{}> = () => {
   const isAlive = boolean("Creature is alive", false);
 
-  return <Creature IsAlive={isAlive} onClick={action("button-click")} />;
+  return (
+    <Creature x={5} y={12} IsAlive={isAlive} onClick={action("button-click")} />
+  );
 };
