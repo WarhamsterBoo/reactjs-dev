@@ -37,18 +37,6 @@ exports[`World should render with 2 x 2 size filled with creatures 1`] = `
   background: #2d302b;
 }
 
-.emotion-4 {
-  width: 20px;
-  height: 20px;
-  border: none;
-  margin: 1px;
-  display: inline-block;
-  line-height: 25px;
-  text-align: center;
-  vertical-align: bottom;
-  background: #454a43;
-}
-
 .emotion-0 {
   width: 20px;
   height: 20px;
@@ -58,8 +46,7 @@ exports[`World should render with 2 x 2 size filled with creatures 1`] = `
   line-height: 25px;
   text-align: center;
   vertical-align: bottom;
-  background: #41ff00;
-  border-radius: 5px;
+  background: #454a43;
 }
 
 <div
@@ -83,11 +70,11 @@ exports[`World should render with 2 x 2 size filled with creatures 1`] = `
     onClick={[Function]}
   />
   <button
-    className="emotion-4"
+    className="emotion-0"
     onClick={[Function]}
   />
   <button
-    className="emotion-4"
+    className="emotion-0"
     onClick={[Function]}
   />
   <br />
@@ -100,7 +87,7 @@ exports[`World should render with 2 x 2 size filled with creatures 1`] = `
     onClick={[Function]}
   />
   <button
-    className="emotion-4"
+    className="emotion-0"
     onClick={[Function]}
   />
   <br />
