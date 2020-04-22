@@ -4,20 +4,19 @@ exports[`World should render with 1 x 1 size and creature is dead 1`] = `
 .emotion-1 {
   display: inline-block;
   padding: 1px;
-  border: 2px solid lightgray;
+  background: #2d302b;
 }
 
 .emotion-0 {
-  width: 25px;
-  height: 25px;
-  border: 1px solid;
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin: 1px;
   display: inline-block;
-  border-radius: 5px;
   line-height: 25px;
   text-align: center;
-  margin: 5px;
   vertical-align: bottom;
-  background: #777777;
+  background: #454a43;
 }
 
 <div
@@ -34,33 +33,32 @@ exports[`World should render with 2 x 2 size filled with creatures 1`] = `
 .emotion-9 {
   display: inline-block;
   padding: 1px;
-  border: 2px solid lightgray;
+  background: #2d302b;
 }
 
 .emotion-4 {
-  width: 25px;
-  height: 25px;
-  border: 1px solid;
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin: 1px;
   display: inline-block;
-  border-radius: 5px;
   line-height: 25px;
   text-align: center;
-  margin: 5px;
   vertical-align: bottom;
-  background: #777777;
+  background: #454a43;
 }
 
 .emotion-0 {
-  width: 25px;
-  height: 25px;
-  border: 1px solid;
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin: 1px;
   display: inline-block;
-  border-radius: 5px;
   line-height: 25px;
   text-align: center;
-  margin: 5px;
   vertical-align: bottom;
-  background: #13d473;
+  background: #41ff00;
+  border-radius: 5px;
 }
 
 <div

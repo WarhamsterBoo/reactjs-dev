@@ -2,38 +2,39 @@
 
 exports[`Creature should render alive 1`] = `
 .emotion-0 {
-  width: 25px;
-  height: 25px;
-  border: 1px solid;
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin: 1px;
   display: inline-block;
-  border-radius: 5px;
   line-height: 25px;
   text-align: center;
-  margin: 5px;
   vertical-align: bottom;
-  background: #13d473;
+  background: #41ff00;
+  border-radius: 5px;
 }
 
 <button
   className="emotion-0"
+  onClick={[MockFunction]}
 />
 `;
 
 exports[`Creature should render dead 1`] = `
 .emotion-0 {
-  width: 25px;
-  height: 25px;
-  border: 1px solid;
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin: 1px;
   display: inline-block;
-  border-radius: 5px;
   line-height: 25px;
   text-align: center;
-  margin: 5px;
   vertical-align: bottom;
-  background: #777777;
+  background: #454a43;
 }
 
 <button
   className="emotion-0"
+  onClick={[MockFunction]}
 />
 `;

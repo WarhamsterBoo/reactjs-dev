@@ -1,21 +1,21 @@
 import { css } from "@emotion/core";
 
 export const BaseCreature = css`
-  width: 25px;
-  height: 25px;
-  border: 1px solid;
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin: 1px;
   display: inline-block;
-  border-radius: 5px;
   line-height: 25px;
   text-align: center;
-  margin: 5px;
   vertical-align: bottom;
 `;
 
 export const AliveCreature = css`
-  background: #13d473;
+  background: #41ff00;
+  border-radius: 5px;
 `;
 
 export const DeadCreature = css`
-  background: #777777;
+  background: #454a43;
 `;

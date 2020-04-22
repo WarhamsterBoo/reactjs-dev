@@ -8,8 +8,6 @@ export interface CreatureProps {
 }
 
 export const Creature: React.FC<CreatureProps> = ({ IsAlive, onClick }) => {
-  console.log(onClick);
-
   const Creature = styled.button`
     ${BaseCreature};
     ${IsAlive ? AliveCreature : DeadCreature}
