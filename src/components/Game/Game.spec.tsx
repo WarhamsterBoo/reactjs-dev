@@ -24,14 +24,25 @@ describe("Game", () => {
     ]);
   });
 
-  it("should toggle Creature state when click on it", () => {
-    const sut = mount(<Game xDimension={3} yDimension={3} world={fakeWorld} />);
-    expect(sut.find(fakeWorld).props().creatures[1][2].IsAlive).toBe(false);
+  it.each`
+    initialState | expected
+    ${false}     | ${true}
+    ${true}      | ${false}
+  `(
+    "should toggle Creature IsAlive from $initialState to $expected when click on it",
+    ({ initialState, expected }) => {
+      const sut = mount(
+        <Game xDimension={3} yDimension={3} world={fakeWorld} />
+      );
+      sut.find(fakeWorld).props().creatures[1][2].IsAlive = initialState;
 
-    act(() => {
-      sut.find(fakeWorld).props().onClick(1, 2);
-    });
+      act(() => {
+        sut.find(fakeWorld).props().onClick(1, 2);
+      });
 
-    expect(sut.find(fakeWorld).props().creatures[1][2].IsAlive).toBe(true);
-  });
+      expect(sut.find(fakeWorld).props().creatures[1][2].IsAlive).toBe(
+        expected
+      );
+    }
+  );
 });

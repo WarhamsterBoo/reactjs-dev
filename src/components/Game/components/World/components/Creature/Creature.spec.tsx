@@ -6,6 +6,7 @@ import { Creature } from "./Creature";
 describe("Creature", () => {
   it("should render dead", () => {
     const sut = <Creature x={0} y={0} IsAlive={false} onClick={jest.fn()} />;
+
     expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });
 
