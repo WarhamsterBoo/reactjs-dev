@@ -29,7 +29,7 @@ export const Game: React.FC<GameProps> = ({
         (_, i) =>
           Array(yDimension)
             .fill({})
-            .map((_, j) => ({ xCoordinate: 0, yCoordinate: 0, IsAlive: false })) // TODO fix error through test
+            .map((_, j) => ({ xCoordinate: i, yCoordinate: j, IsAlive: false })) // TODO fix error through test
       )
   );
   const f = (x: number, y: number) => {

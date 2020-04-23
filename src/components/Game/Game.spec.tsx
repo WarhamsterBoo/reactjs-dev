@@ -29,6 +29,21 @@ describe("Game", () => {
     expect(creatures[0].length).toBe(3);
   });
 
+  it("should initialize creatures with correctly assigned state", () => {
+    const sut = mount(<Game xDimension={2} yDimension={2} world={fakeWorld} />);
+
+    expect(sut.find(fakeWorld).props().creatures).toEqual([
+      [
+        { xCoordinate: 0, yCoordinate: 0, IsAlive: false },
+        { xCoordinate: 0, yCoordinate: 1, IsAlive: false },
+      ],
+      [
+        { xCoordinate: 1, yCoordinate: 0, IsAlive: false },
+        { xCoordinate: 1, yCoordinate: 1, IsAlive: false },
+      ],
+    ]);
+  });
+
   it("should toggle Creature state on click on it", () => {
     const sut = mount(<Game xDimension={3} yDimension={3} world={fakeWorld} />);
     expect(sut.find(fakeWorld).props().creatures[1][1].IsAlive).toBe(false);
