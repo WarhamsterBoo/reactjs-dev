@@ -11,9 +11,7 @@ export type WorldPresenter = React.FC<{
   onClick: (x: number, y: number) => void;
 }>;
 
-export interface WorldCreature {
-  xCoordinate: number;
-  yCoordinate: number;
+interface WorldCreature {
   IsAlive: boolean;
 }
 
@@ -25,22 +23,20 @@ export const Game: React.FC<GameProps> = ({
   const [creatures, setCreatures] = useState(
     Array(xDimension)
       .fill([])
-      .map(
-        (_, i) =>
-          Array(yDimension)
-            .fill({})
-            .map((_, j) => ({ xCoordinate: i, yCoordinate: j, IsAlive: false })) // TODO fix error through test
+      .map(() =>
+        Array(yDimension)
+          .fill({})
+          .map(() => ({ IsAlive: false }))
       )
   );
-  const f = (x: number, y: number) => {
-    console.log(x, ":", y);
-
+  const onClickCallback = (x: number, y: number) => {
     setCreatures((prevState) => {
-      var t = [...prevState];
-      t[x][y].IsAlive = !prevState[x][y].IsAlive;
-      return t;
+      var result = [...prevState];
+      result[x][y].IsAlive = !prevState[x][y].IsAlive;
+      return [...prevState];
     });
   };
   const World = world;
-  return <World creatures={creatures} onClick={f} />;
+
+  return <World creatures={creatures} onClick={onClickCallback} />;
 };
