@@ -1,13 +1,9 @@
-import { withKnobs, number } from "@storybook/addon-knobs";
 import React from "react";
 import { World } from "./components";
 import { Game } from "./Game";
 
-export default { title: "Game component", decorators: [withKnobs] };
+export default { title: "Game component" };
 
 export const GameStory: React.FC<{}> = () => {
-  const x = number("X", 3);
-  const y = number("Y", 3);
-
-  return <Game xDimension={x} yDimension={y} world={World} />;
+  return <Game xDimension={5} yDimension={5} world={World} />;
 };
