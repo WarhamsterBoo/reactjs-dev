@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`World should render with 1 x 1 size and creature is dead 1`] = `
+.emotion-1 {
+  display: inline-block;
+  padding: 1px;
+  background: #2d302b;
+}
+
+.emotion-0 {
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin: 1px;
+  display: inline-block;
+  line-height: 25px;
+  text-align: center;
+  vertical-align: bottom;
+  background: #454a43;
+}
+
+<div
+  className="emotion-1"
+>
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+  <br />
+</div>
+`;
+
+exports[`World should render with 2 x 2 size filled with creatures 1`] = `
+.emotion-9 {
+  display: inline-block;
+  padding: 1px;
+  background: #2d302b;
+}
+
+.emotion-0 {
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin: 1px;
+  display: inline-block;
+  line-height: 25px;
+  text-align: center;
+  vertical-align: bottom;
+  background: #454a43;
+}
+
+<div
+  className="emotion-9"
+>
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+  <br />
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+  <br />
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+  <br />
+</div>
+`;

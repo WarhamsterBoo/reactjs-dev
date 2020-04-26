@@ -10,5 +10,13 @@
     ],
     "@babel/preset-typescript",
     "@babel/preset-react"
-  ]
+  ],
+  "env": {
+    "production": {
+      "plugins": ["emotion"]
+    },
+    "development": {
+      "plugins": [["emotion", { "sourceMap": true }]]
+    }
+  }
 }

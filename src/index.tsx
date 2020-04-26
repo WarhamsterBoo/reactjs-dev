@@ -1,5 +1,8 @@
-import { render } from "react-dom";
 import React from "react";
-import Hello from "./Hello";
+import { render } from "react-dom";
+import { Game, World } from "./components";
 
-render(<Hello />, document.getElementById("root"));
+render(
+  <Game xDimension={5} yDimension={5} world={World} />,
+  document.getElementById("root")
+);
