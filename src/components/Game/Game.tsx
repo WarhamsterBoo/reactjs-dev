@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export interface GameProps {
   xDimension: number;
@@ -25,7 +25,20 @@ export const Game: React.FC<GameProps> = ({
       Array.from({ length: yDimension }).map(() => ({ IsAlive: false }))
     )
   );
-  const onClickCallback = (x: number, y: number) => {
+
+  useEffect(() => {
+    setCreatures((prevState) =>
+      Array.from({ length: xDimension }).map((_, i) =>
+        Array.from({ length: yDimension }).map((_, j) => {
+          return prevState[i] && prevState[i][j]
+            ? prevState[i][j]
+            : { IsAlive: false };
+        })
+      )
+    );
+  }, [xDimension, yDimension]);
+
+  const toggleCreatureState = (x: number, y: number) => {
     setCreatures((prevState) => {
       const newState = prevState.map((row, _) =>
         row.map((value, _) => ({
@@ -38,5 +51,5 @@ export const Game: React.FC<GameProps> = ({
   };
   const World = world;
 
-  return <World creatures={creatures} onClick={onClickCallback} />;
+  return <World creatures={creatures} onClick={toggleCreatureState} />;
 };

@@ -36,4 +36,26 @@ describe("Game", () => {
       !initialState
     );
   });
+
+  it("should be able to increase size without state reset", () => {
+    const sut = mount(<Game xDimension={2} yDimension={2} world={fakeWorld} />);
+    act(() => {
+      sut.find(fakeWorld).props().onClick(0, 1);
+      sut.find(fakeWorld).props().onClick(1, 1);
+    });
+    sut.update();
+    expect(sut.find(fakeWorld).props().creatures).toEqual([
+      [{ IsAlive: false }, { IsAlive: true }],
+      [{ IsAlive: false }, { IsAlive: true }],
+    ]);
+
+    sut.setProps({ xDimension: 3, yDimension: 3 });
+
+    sut.update();
+    expect(sut.find(fakeWorld).props().creatures).toEqual([
+      [{ IsAlive: false }, { IsAlive: true }, { IsAlive: false }],
+      [{ IsAlive: false }, { IsAlive: true }, { IsAlive: false }],
+      [{ IsAlive: false }, { IsAlive: false }, { IsAlive: false }],
+    ]);
+  });
 });
