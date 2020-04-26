@@ -21,13 +21,9 @@ export const Game: React.FC<GameProps> = ({
   world,
 }) => {
   const [creatures, setCreatures] = useState(
-    Array(xDimension)
-      .fill([])
-      .map(() =>
-        Array(yDimension)
-          .fill({})
-          .map(() => ({ IsAlive: false }))
-      )
+    Array.from({ length: xDimension }).map(() =>
+      Array.from({ length: yDimension }).map(() => ({ IsAlive: false }))
+    )
   );
   const onClickCallback = (x: number, y: number) => {
     setCreatures((prevState) => {
