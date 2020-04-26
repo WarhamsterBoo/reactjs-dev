@@ -1,11 +1,10 @@
 import { mount } from "enzyme";
 import React from "react";
-import TestRenderer from "react-test-renderer";
+import { act } from "react-dom/test-utils";
 import { Game, WorldPresenter } from "./Game";
 
 describe("Game", () => {
   const fakeWorld: WorldPresenter = () => null;
-  const { act } = TestRenderer;
 
   it("should render initialized World component with size 1 x 1", () => {
     const sut = mount(<Game xDimension={1} yDimension={1} world={fakeWorld} />);
@@ -24,25 +23,17 @@ describe("Game", () => {
     ]);
   });
 
-  it.each`
-    initialState | expected
-    ${false}     | ${true}
-    ${true}      | ${false}
-  `(
-    "should toggle Creature IsAlive from $initialState to $expected when click on it",
-    ({ initialState, expected }) => {
-      const sut = mount(
-        <Game xDimension={3} yDimension={3} world={fakeWorld} />
-      );
-      sut.find(fakeWorld).props().creatures[1][2].IsAlive = initialState;
+  it("should toggle Creature IsAlive when click on it", () => {
+    const sut = mount(<Game xDimension={3} yDimension={3} world={fakeWorld} />);
+    const initialState = sut.find(fakeWorld).props().creatures[1][2].IsAlive;
 
-      act(() => {
-        sut.find(fakeWorld).props().onClick(1, 2);
-      });
+    act(() => {
+      sut.find(fakeWorld).props().onClick(1, 2);
+    });
+    sut.update();
 
-      expect(sut.find(fakeWorld).props().creatures[1][2].IsAlive).toBe(
-        expected
-      );
-    }
-  );
+    expect(sut.find(fakeWorld).props().creatures[1][2].IsAlive).toBe(
+      !initialState
+    );
+  });
 });

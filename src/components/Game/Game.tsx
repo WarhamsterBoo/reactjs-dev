@@ -27,9 +27,13 @@ export const Game: React.FC<GameProps> = ({
   );
   const onClickCallback = (x: number, y: number) => {
     setCreatures((prevState) => {
-      var result = [...prevState];
-      result[x][y].IsAlive = !prevState[x][y].IsAlive;
-      return [...prevState];
+      const newState = prevState.map((row, _) =>
+        row.map((value, _) => ({
+          IsAlive: value.IsAlive,
+        }))
+      );
+      newState[x][y].IsAlive = !prevState[x][y].IsAlive;
+      return newState;
     });
   };
   const World = world;
