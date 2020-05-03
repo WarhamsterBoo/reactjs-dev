@@ -1,5 +1,6 @@
+import { SerializedStyles } from "@emotion/core";
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AliveCreature, BaseCreature, DeadCreature } from "./Creature.styled";
 
 export interface CreatureProps {
@@ -15,10 +16,18 @@ export const Creature: React.FC<CreatureProps> = ({
   IsAlive,
   onClick,
 }) => {
-  const Creature = styled.button`
+  const [creatureStyle, setCreatureStyle] = useState<SerializedStyles>(
+    IsAlive ? AliveCreature : DeadCreature
+  );
+
+  useEffect(() => {
+    setCreatureStyle(IsAlive ? AliveCreature : DeadCreature);
+  }, [IsAlive]);
+
+  const StyledCreature = styled.button`
     ${BaseCreature};
-    ${IsAlive ? AliveCreature : DeadCreature}
+    ${creatureStyle};
   `;
 
-  return <Creature onClick={() => onClick(x, y)} />;
+  return <StyledCreature onClick={() => onClick(x, y)} />;
 };
