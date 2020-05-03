@@ -27,15 +27,15 @@ export const Creature: React.FC<CreatureProps> = ({
   const [creatureStyle, setCreatureStyle] = useState<SerializedStyles>(
     DeadCreature
   );
-  const firstUpdate = useRef(true);
+  const [firstUpdate, setFirstUpdate] = useState(true);
 
   useEffect(() => {
     setCreatureStyle(IsAlive ? AliveCreature : DeadCreature);
   }, []);
 
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
+    if (firstUpdate) {
+      setFirstUpdate(false);
       return;
     }
 
