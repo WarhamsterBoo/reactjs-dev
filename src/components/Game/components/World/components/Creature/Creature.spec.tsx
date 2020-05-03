@@ -1,7 +1,8 @@
 import { mount } from "enzyme";
 import React from "react";
-import { Creature, CreatureProps } from "./Creature";
 import { act } from "react-dom/test-utils";
+import renderer from "react-test-renderer";
+import { Creature, CreatureProps } from "./Creature";
 import { matchers } from "jest-emotion";
 
 describe("Creature", () => {
@@ -14,15 +15,15 @@ describe("Creature", () => {
   };
 
   it("should render dead", () => {
-    const sut = mount(<Creature {...defaultProps} />);
+    const sut = <Creature {...defaultProps} />;
 
-    expect(sut).toMatchSnapshot();
+    expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });
 
   it("should render alive", () => {
-    const sut = mount(<Creature {...defaultProps} IsAlive={true} />);
+    const sut = <Creature {...defaultProps} IsAlive={true} />;
 
-    expect(sut).toMatchSnapshot();
+    expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });
 
   it("should start to brighten after birth", () => {
