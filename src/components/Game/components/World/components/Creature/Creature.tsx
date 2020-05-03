@@ -1,13 +1,5 @@
-import { SerializedStyles } from "@emotion/core";
-import styled from "@emotion/styled";
-import React, { useEffect, useState, useRef } from "react";
-import {
-  AliveCreature,
-  BaseCreature,
-  DeadCreature,
-  BornCreature,
-  DyingCreature,
-} from "./Creature.styled";
+import React, { useEffect, useState } from "react";
+import { StyledCreature, StyledCreaturePhase } from "./StyledCreature";
 
 export interface CreatureProps {
   x: number;
@@ -24,13 +16,15 @@ export const Creature: React.FC<CreatureProps> = ({
   onClick,
   transitionMs = 500,
 }) => {
-  const [creatureStyle, setCreatureStyle] = useState<SerializedStyles>(
-    DeadCreature
+  const [creaturePhase, setCreaturePhase] = useState<StyledCreaturePhase>(
+    StyledCreaturePhase.Dead
   );
   const [firstUpdate, setFirstUpdate] = useState(true);
 
   useEffect(() => {
-    setCreatureStyle(IsAlive ? AliveCreature : DeadCreature);
+    setCreaturePhase(
+      IsAlive ? StyledCreaturePhase.Alive : StyledCreaturePhase.Dead
+    );
   }, []);
 
   useEffect(() => {
@@ -39,10 +33,14 @@ export const Creature: React.FC<CreatureProps> = ({
       return;
     }
 
-    setCreatureStyle(IsAlive ? BornCreature : DyingCreature);
+    setCreaturePhase(
+      IsAlive ? StyledCreaturePhase.Born : StyledCreaturePhase.Dying
+    );
 
     const timer = setTimeout(() => {
-      setCreatureStyle(IsAlive ? AliveCreature : DeadCreature);
+      setCreaturePhase(
+        IsAlive ? StyledCreaturePhase.Alive : StyledCreaturePhase.Dead
+      );
     }, transitionMs);
 
     return () => {
@@ -50,10 +48,5 @@ export const Creature: React.FC<CreatureProps> = ({
     };
   }, [IsAlive]);
 
-  const StyledCreature = styled.button`
-    ${BaseCreature};
-    ${creatureStyle};
-  `;
-
-  return <StyledCreature onClick={() => onClick(x, y)} />;
+  return <StyledCreature phase={creaturePhase} onClick={() => onClick(x, y)} />;
 };
