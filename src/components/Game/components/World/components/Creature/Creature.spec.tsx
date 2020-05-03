@@ -5,6 +5,8 @@ import renderer from "react-test-renderer";
 import { Creature, CreatureProps } from "./Creature";
 import { matchers } from "jest-emotion";
 
+expect.extend(matchers);
+
 describe("Creature", () => {
   const defaultProps: CreatureProps = {
     x: 0,
