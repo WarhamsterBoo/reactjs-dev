@@ -1,6 +1,8 @@
 import { mount } from "enzyme";
 import React from "react";
 import { Creature, CreatureProps } from "./Creature";
+import { act } from "react-dom/test-utils";
+import { matchers } from "jest-emotion";
 
 describe("Creature", () => {
   const defaultProps: CreatureProps = {
@@ -31,7 +33,22 @@ describe("Creature", () => {
 
     jest.advanceTimersByTime(100);
 
-    expect(sut).toMatchSnapshot();
+    sut.update();
+    expect(sut).toHaveStyleRule("background", "#208000");
+  });
+
+  it("should become alive after birth", () => {
+    jest.useFakeTimers();
+    const sut = mount(<Creature {...defaultProps} />);
+    sut.setProps({ IsAlive: true, transitionMs: 500 });
+    sut.update();
+
+    act(() => {
+      jest.advanceTimersByTime(510);
+    });
+
+    sut.update();
+    expect(sut).toHaveStyleRule("background", "#41ff00");
   });
 
   it("should start to fade after death", () => {
@@ -42,7 +59,22 @@ describe("Creature", () => {
 
     jest.advanceTimersByTime(100);
 
-    expect(sut).toMatchSnapshot();
+    sut.update();
+    expect(sut).toHaveStyleRule("background", "#9fff80");
+  });
+
+  it("should become dead", () => {
+    jest.useFakeTimers();
+    const sut = mount(<Creature {...defaultProps} />);
+    sut.setProps({ IsAlive: true, transitionMs: 500 });
+    sut.update();
+
+    act(() => {
+      jest.advanceTimersByTime(510);
+    });
+
+    sut.update();
+    expect(sut).toHaveStyleRule("background", "#41ff00");
   });
 
   it("should call onClick callback with it's coordinates", () => {
