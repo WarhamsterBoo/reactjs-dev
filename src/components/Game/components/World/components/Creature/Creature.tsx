@@ -17,8 +17,12 @@ export const Creature: React.FC<CreatureProps> = ({
   onClick,
 }) => {
   const [creatureStyle, setCreatureStyle] = useState<SerializedStyles>(
-    IsAlive ? AliveCreature : DeadCreature
+    DeadCreature
   );
+
+  useEffect(() => {
+    setCreatureStyle(IsAlive ? AliveCreature : DeadCreature);
+  }, []);
 
   useEffect(() => {
     setCreatureStyle(IsAlive ? AliveCreature : DeadCreature);

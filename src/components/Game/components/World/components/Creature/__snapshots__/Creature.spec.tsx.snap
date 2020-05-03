@@ -14,10 +14,14 @@ exports[`Creature should render alive 1`] = `
   border-radius: 5px;
 }
 
-<button
-  className="emotion-0"
+<Styled(button)
   onClick={[Function]}
-/>
+>
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+</Styled(button)>
 `;
 
 exports[`Creature should render dead 1`] = `
@@ -33,8 +37,12 @@ exports[`Creature should render dead 1`] = `
   background: #454a43;
 }
 
-<button
-  className="emotion-0"
+<Styled(button)
   onClick={[Function]}
-/>
+>
+  <button
+    className="emotion-0"
+    onClick={[Function]}
+  />
+</Styled(button)>
 `;
