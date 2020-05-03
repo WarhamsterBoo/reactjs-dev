@@ -11,8 +11,18 @@ export const BaseCreature = css`
   vertical-align: bottom;
 `;
 
+export const BornCreature = css`
+  background: #208000;
+  border-radius: 5px;
+`;
+
 export const AliveCreature = css`
   background: #41ff00;
+  border-radius: 5px;
+`;
+
+export const DyingCreature = css`
+  background: #9fff80;
   border-radius: 5px;
 `;
 
