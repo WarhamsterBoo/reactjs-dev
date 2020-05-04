@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Settings should render 1`] = `
+exports[`SettingsForm should render 1`] = `
 .emotion-3 {
   width: 1300px;
   display: -webkit-box;

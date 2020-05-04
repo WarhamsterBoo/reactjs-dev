@@ -1,10 +1,10 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import { Settings } from "./Settings";
+import { SettingsForm } from "./SettingsForm";
 
-describe("Settings", () => {
+describe("SettingsForm", () => {
   it("should render", () => {
-    const sut = <Settings onSubmit={() => {}} />;
+    const sut = <SettingsForm onSubmit={() => {}} />;
 
     expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });

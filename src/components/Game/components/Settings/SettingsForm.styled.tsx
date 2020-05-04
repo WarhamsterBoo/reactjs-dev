@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const SettingsContainer = styled.div`
+export const InputsContainer = styled.div`
   width: 1300px;
   display: flex;
   flex-direction: row;
