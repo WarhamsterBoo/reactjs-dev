@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 
 export const InputsContainer = styled.div`
-  width: 1300px;
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
 `;

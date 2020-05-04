@@ -2,11 +2,10 @@
 
 exports[`SettingsForm should render 1`] = `
 .emotion-3 {
-  width: 1300px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
