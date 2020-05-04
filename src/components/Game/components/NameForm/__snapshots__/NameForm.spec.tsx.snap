@@ -36,7 +36,9 @@ exports[`Name Form should render 1`] = `
         Name:
         <input
           className="emotion-0"
+          onChange={[Function]}
           type="text"
+          value=""
         />
       </label>
       <button
