@@ -1,3 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ControlPanel should render 1`] = `[Function]`;
+exports[`ControlPanel should render 1`] = `
+.emotion-5 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  border: solid 1px black;
+  padding: 10px 10px 10px 10px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.emotion-0 {
+  margin-left: 7px;
+  margin-right: 7px;
+  border-radius: 4px;
+}
+
+<div
+  className="emotion-5"
+>
+  <button
+    className="emotion-0"
+  >
+    Stop
+  </button>
+  <button
+    className="emotion-0"
+  >
+    Pause
+  </button>
+  <button
+    className="emotion-0"
+  >
+    Faster
+  </button>
+  <button
+    className="emotion-0"
+  >
+    1x
+  </button>
+  <button
+    className="emotion-0"
+  >
+    Slower
+  </button>
+</div>
+`;

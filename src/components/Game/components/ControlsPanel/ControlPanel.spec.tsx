@@ -6,6 +6,6 @@ describe("ControlPanel", () => {
   it("should render", () => {
     const sut = <ControlPanel />;
 
-    expect(renderer.create(sut).toJSON).toMatchSnapshot();
+    expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });
 });
