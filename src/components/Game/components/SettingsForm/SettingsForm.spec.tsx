@@ -5,27 +5,51 @@ import { mount } from "enzyme";
 
 describe("SettingsForm", () => {
   it("should render", () => {
-    const sut = <SettingsForm onSubmit={() => {}} />;
+    const sut = <SettingsForm onSubmit={jest.fn()} />;
 
     expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });
 
-  it("should change values in inputs", () => {
+  it.each`
+    inputName              | value
+    ${"xDimension"}        | ${"10"}
+    ${"yDimension"}        | ${"20"}
+    ${"fillingPercentage"} | ${"30"}
+  `(
+    "should change value to $value in $inputName input",
+    ({ inputName, value }) => {
+      const sut = mount(<SettingsForm onSubmit={jest.fn()} />);
+
+      sut.find(`input[name="${inputName}"]`).simulate("change", {
+        target: { value: value, name: inputName },
+      });
+
+      expect(sut.find(`input[name="${inputName}"]`).prop("value")).toBe(
+        parseInt(value)
+      );
+    }
+  );
+
+  it("should call onSubmit with values from inputs", () => {
     const fakeOnSubmit = jest.fn();
     const sut = mount(<SettingsForm onSubmit={fakeOnSubmit} />);
-
     sut.find(`input[name="xDimension"]`).simulate("change", {
       target: { value: "10", name: "xDimension" },
     });
     sut.find(`input[name="yDimension"]`).simulate("change", {
-      target: { value: "10", name: "yDimension" },
+      target: { value: "20", name: "yDimension" },
     });
     sut.find(`input[name="fillingPercentage"]`).simulate("change", {
-      target: { value: "10", name: "fillingPercentage" },
+      target: { value: "30", name: "fillingPercentage" },
     });
 
-    expect(sut.find(`input[name="xDimension"]`).prop("value")).toBe(10);
-    expect(sut.find(`input[name="yDimension"]`).prop("value")).toBe(10);
-    expect(sut.find(`input[name="fillingPercentage"]`).prop("value")).toBe(10);
+    sut.find("button").simulate("submit");
+
+    expect(fakeOnSubmit).toHaveBeenCalledTimes(1);
+    expect(fakeOnSubmit).toHaveBeenCalledWith({
+      xDimension: 10,
+      yDimension: 20,
+      fillingPercentage: 30,
+    });
   });
 });

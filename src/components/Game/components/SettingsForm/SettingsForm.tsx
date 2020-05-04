@@ -3,7 +3,7 @@ import { InputNumber } from ".";
 import { InputsContainer } from "./SettingsForm.styled";
 
 export interface SettingsFormProps {
-  onSubmit: () => void;
+  onSubmit: (settings: Settings) => void;
 }
 
 export interface Settings {
@@ -13,7 +13,7 @@ export interface Settings {
 }
 
 export const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }) => {
-  const [settings, setSettings] = useState({
+  const [settings, setSettings] = useState<Settings>({
     xDimension: 0,
     yDimension: 0,
     fillingPercentage: 0,
@@ -22,14 +22,13 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }) => {
   const onHandleSubmit = useCallback(
     (ev: FormEvent) => {
       ev.preventDefault();
-      onSubmit();
+      onSubmit({ ...settings });
     },
-    [onSubmit]
+    [onSubmit, settings]
   );
 
   const onHandleInputChange = useCallback((ev: FormEvent<HTMLInputElement>) => {
     const { name, value } = ev.target as HTMLInputElement;
-    console.log("###", name, value);
 
     setSettings((prevSettings) => ({
       ...prevSettings,
