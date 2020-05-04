@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Settings should render something 1`] = `
+<h1>
+  I'am setttings
+</h1>
+`;
