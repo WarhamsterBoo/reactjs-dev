@@ -1,7 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Name Form should render 1`] = `
-<h1>
-  I'm name form
-</h1>
+.emotion-2 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-0 {
+  border-radius: 4px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 25px;
+}
+
+.emotion-1 {
+  margin-left: 7px;
+  margin-right: 7px;
+  border-radius: 4px;
+}
+
+<div
+  className="emotion-2"
+>
+  <form>
+    <fieldset>
+      <legend>
+        Hello!
+      </legend>
+      <label>
+        Name:
+        <input
+          className="emotion-0"
+          type="text"
+        />
+      </label>
+      <button
+        className="emotion-1"
+      >
+        Ok
+      </button>
+    </fieldset>
+  </form>
+</div>
 `;

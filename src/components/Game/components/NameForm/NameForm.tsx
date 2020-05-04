@@ -1,5 +1,20 @@
 import React from "react";
+import { Button, InputText } from "shared/";
+import { InputsContainer } from "./NameForm.styled";
 
 export const NameForm: React.FC<{}> = () => {
-  return <h1>I'm name form</h1>;
+  return (
+    <InputsContainer>
+      <form>
+        <fieldset>
+          <legend>Hello!</legend>
+          <label>
+            Name:
+            <InputText />
+          </label>
+          <Button>Ok</Button>
+        </fieldset>
+      </form>
+    </InputsContainer>
+  );
 };
