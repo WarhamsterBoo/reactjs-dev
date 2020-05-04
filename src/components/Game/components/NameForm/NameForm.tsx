@@ -1,6 +1,6 @@
 import React, { useState, useCallback, FormEvent } from "react";
 import { Button, InputText } from "shared/";
-import { InputsContainer } from "./NameForm.styled";
+import { FormWrapper, StartButton } from "./NameForm.styled";
 
 export interface NameFormProps {
   onSubmit: (userName: string) => void;
@@ -23,17 +23,16 @@ export const NameForm: React.FC<NameFormProps> = ({ onSubmit }) => {
   );
 
   return (
-    <InputsContainer>
+    <FormWrapper>
+      <label>Hello!</label>
       <form onSubmit={onHandleSubmit}>
-        <fieldset>
-          <legend>Hello!</legend>
-          <label>
-            Name:
-            <InputText value={userName} onChange={onHandleInputChange} />
-          </label>
-          <Button>Ok</Button>
-        </fieldset>
+        <InputText
+          value={userName}
+          onChange={onHandleInputChange}
+          placeholder="Enter your name"
+        />
+        <StartButton>Start</StartButton>
       </form>
-    </InputsContainer>
+    </FormWrapper>
   );
 };

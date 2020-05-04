@@ -2,13 +2,25 @@
 
 exports[`Name Form should render 1`] = `
 .emotion-2 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  width: 200px;
+  height: 120px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  border: solid 1px black;
+  padding: 10px 10px 10px 10px;
+  -webkit-box-pack: space-around;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: space-around;
+  justify-content: space-around;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .emotion-0 {
@@ -22,33 +34,30 @@ exports[`Name Form should render 1`] = `
   margin-left: 7px;
   margin-right: 7px;
   border-radius: 4px;
+  text-align: center;
 }
 
 <div
   className="emotion-2"
 >
+  <label>
+    Hello!
+  </label>
   <form
     onSubmit={[Function]}
   >
-    <fieldset>
-      <legend>
-        Hello!
-      </legend>
-      <label>
-        Name:
-        <input
-          className="emotion-0"
-          onChange={[Function]}
-          type="text"
-          value=""
-        />
-      </label>
-      <button
-        className="emotion-1"
-      >
-        Ok
-      </button>
-    </fieldset>
+    <input
+      className="emotion-0"
+      onChange={[Function]}
+      placeholder="Enter your name"
+      type="text"
+      value=""
+    />
+    <button
+      className="emotion-1"
+    >
+      Start
+    </button>
   </form>
 </div>
 `;

@@ -1,6 +1,6 @@
 import React, { FormEvent, useCallback, useState } from "react";
 import { Button, InputNumber } from "shared/";
-import { InputsContainer } from "./SettingsForm.styled";
+import { FormWrapper } from "./SettingsForm.styled";
 
 export interface SettingsFormProps {
   onSubmit: (settings: Settings) => void;
@@ -37,7 +37,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }) => {
   }, []);
 
   return (
-    <InputsContainer>
+    <FormWrapper>
       <form onSubmit={onHandleSubmit}>
         <fieldset>
           <legend>Game settings</legend>
@@ -68,6 +68,6 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }) => {
           <Button>Apply</Button>
         </fieldset>
       </form>
-    </InputsContainer>
+    </FormWrapper>
   );
 };
