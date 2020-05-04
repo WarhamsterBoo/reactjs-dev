@@ -36,7 +36,10 @@ exports[`SettingsForm should render 1`] = `
           className="emotion-0"
           max="100"
           min="1"
+          name="xDimension"
+          onChange={[Function]}
           type="number"
+          value={0}
         />
       </label>
       <label>
@@ -45,7 +48,10 @@ exports[`SettingsForm should render 1`] = `
           className="emotion-0"
           max="100"
           min="1"
+          name="yDimension"
+          onChange={[Function]}
           type="number"
+          value={0}
         />
       </label>
       <label>
@@ -54,7 +60,10 @@ exports[`SettingsForm should render 1`] = `
           className="emotion-0"
           max="100"
           min="1"
+          name="fillingPercentage"
+          onChange={[Function]}
           type="number"
+          value={0}
         />
       </label>
       <button>
