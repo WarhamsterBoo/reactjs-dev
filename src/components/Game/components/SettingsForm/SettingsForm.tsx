@@ -1,6 +1,7 @@
 import React, { useCallback, useState, FormEvent } from "react";
 import { InputNumber } from ".";
 import { InputsContainer } from "./SettingsForm.styled";
+import { Button } from "shared/";
 
 export interface SettingsFormProps {
   onSubmit: (settings: Settings) => void;
@@ -65,7 +66,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }) => {
               name="fillingPercentage"
             />
           </label>
-          <button>Apply</button>
+          <Button>Apply</Button>
         </fieldset>
       </form>
     </InputsContainer>

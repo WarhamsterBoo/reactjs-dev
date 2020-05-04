@@ -6,6 +6,9 @@ const config: webpack.Configuration = {
   entry: "./src/index.tsx",
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
+    alias: {
+      shared: path.resolve(__dirname, "src/components/Shared/index"),
+    },
   },
   output: {
     filename: "index.js",

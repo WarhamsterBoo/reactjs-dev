@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "shared/*": ["src/components/Shared/index"]
+    },
     "module": "commonjs",
     "target": "es5",
     "esModuleInterop": true,

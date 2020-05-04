@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SettingsForm should render 1`] = `
-.emotion-3 {
+.emotion-4 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -19,8 +19,14 @@ exports[`SettingsForm should render 1`] = `
   margin-right: 25px;
 }
 
+.emotion-3 {
+  margin-left: 7px;
+  margin-right: 7px;
+  border-radius: 4px;
+}
+
 <div
-  className="emotion-3"
+  className="emotion-4"
 >
   <form
     onSubmit={[Function]}
@@ -65,7 +71,9 @@ exports[`SettingsForm should render 1`] = `
           value={0}
         />
       </label>
-      <button>
+      <button
+        className="emotion-3"
+      >
         Apply
       </button>
     </fieldset>

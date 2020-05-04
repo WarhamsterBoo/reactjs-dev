@@ -8,4 +8,7 @@ module.exports = {
   },
   rootDir: "../",
   snapshotSerializers: ["jest-emotion"],
+  moduleNameMapper: {
+    "shared/(.*)": "<rootDir>/src/components/Shared/$1",
+  },
 };

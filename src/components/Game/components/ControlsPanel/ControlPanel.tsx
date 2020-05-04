@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
-import { ButtonsContainer, ControlButton } from "./ControlPanel.styled";
+import { ButtonsContainer } from "./ControlPanel.styled";
+import { Button } from "shared/";
 
 export type Action = "stop" | "run" | "pause" | "slower" | "normal" | "faster";
 
@@ -18,24 +19,24 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({ onClick }) => {
 
   return (
     <ButtonsContainer>
-      <ControlButton id={"stop"} onClick={onClickHandler}>
+      <Button id={"stop"} onClick={onClickHandler}>
         Stop
-      </ControlButton>
-      <ControlButton id={"run"} onClick={onClickHandler}>
+      </Button>
+      <Button id={"run"} onClick={onClickHandler}>
         Run
-      </ControlButton>
-      <ControlButton id={"pause"} onClick={onClickHandler}>
+      </Button>
+      <Button id={"pause"} onClick={onClickHandler}>
         Pause
-      </ControlButton>
-      <ControlButton id={"faster"} onClick={onClickHandler}>
+      </Button>
+      <Button id={"faster"} onClick={onClickHandler}>
         Faster
-      </ControlButton>
-      <ControlButton id={"normal"} onClick={onClickHandler}>
+      </Button>
+      <Button id={"normal"} onClick={onClickHandler}>
         Normal
-      </ControlButton>
-      <ControlButton id={"slower"} onClick={onClickHandler}>
+      </Button>
+      <Button id={"slower"} onClick={onClickHandler}>
         Slower
-      </ControlButton>
+      </Button>
     </ButtonsContainer>
   );
 };

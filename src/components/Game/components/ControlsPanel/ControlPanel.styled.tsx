@@ -7,9 +7,3 @@ export const ButtonsContainer = styled.div`
   padding: 10px 10px 10px 10px;
   justify-content: center;
 `;
-
-export const ControlButton = styled.button`
-  margin-left: 7px;
-  margin-right: 7px;
-  border-radius: 4px;
-`;
