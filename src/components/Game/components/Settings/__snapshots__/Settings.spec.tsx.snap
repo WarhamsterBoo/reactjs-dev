@@ -1,7 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Settings should render something 1`] = `
-<h1>
-  I'am setttings
-</h1>
+exports[`Settings should render 1`] = `
+.emotion-3 {
+  width: 1300px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.emotion-0 {
+  border-radius: 4px;
+  width: 50px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 25px;
+}
+
+<div
+  className="emotion-3"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <fieldset>
+      <legend>
+        Game settings
+      </legend>
+      <label>
+        X dimension:
+        <input
+          className="emotion-0"
+          max="100"
+          min="1"
+          type="number"
+        />
+      </label>
+      <label>
+        Y dimension:
+        <input
+          className="emotion-0"
+          max="100"
+          min="1"
+          type="number"
+        />
+      </label>
+      <label>
+        Filling Percentage:
+        <input
+          className="emotion-0"
+          max="100"
+          min="1"
+          type="number"
+        />
+      </label>
+      <button>
+        Apply
+      </button>
+    </fieldset>
+  </form>
+</div>
 `;
