@@ -1,2 +1,2 @@
 export * from "./World";
-export * from "./Settings";
+export * from "./SettingsForm";
