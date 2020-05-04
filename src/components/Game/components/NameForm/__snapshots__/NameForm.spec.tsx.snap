@@ -27,7 +27,9 @@ exports[`Name Form should render 1`] = `
 <div
   className="emotion-2"
 >
-  <form>
+  <form
+    onSubmit={[Function]}
+  >
     <fieldset>
       <legend>
         Hello!

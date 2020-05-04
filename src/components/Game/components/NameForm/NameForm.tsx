@@ -2,7 +2,11 @@ import React, { useState, useCallback, FormEvent } from "react";
 import { Button, InputText } from "shared/";
 import { InputsContainer } from "./NameForm.styled";
 
-export const NameForm: React.FC<{}> = () => {
+export interface NameFormProps {
+  onSubmit: (userName: string) => void;
+}
+
+export const NameForm: React.FC<NameFormProps> = ({ onSubmit }) => {
   const [userName, setUserName] = useState<string>("");
 
   const onHandleInputChange = useCallback((ev: FormEvent<HTMLInputElement>) => {
@@ -10,9 +14,17 @@ export const NameForm: React.FC<{}> = () => {
     setUserName(value);
   }, []);
 
+  const onHandleSubmit = useCallback(
+    (ev: FormEvent) => {
+      ev.preventDefault();
+      onSubmit(userName);
+    },
+    [onSubmit, userName]
+  );
+
   return (
     <InputsContainer>
-      <form>
+      <form onSubmit={onHandleSubmit}>
         <fieldset>
           <legend>Hello!</legend>
           <label>
