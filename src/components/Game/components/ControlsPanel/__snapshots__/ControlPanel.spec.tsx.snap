@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ControlPanel should render 1`] = `
-.emotion-5 {
+.emotion-6 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -24,30 +24,47 @@ exports[`ControlPanel should render 1`] = `
 }
 
 <div
-  className="emotion-5"
+  className="emotion-6"
 >
   <button
     className="emotion-0"
+    id="stop"
+    onClick={[Function]}
   >
     Stop
   </button>
   <button
     className="emotion-0"
+    id="run"
+    onClick={[Function]}
+  >
+    Run
+  </button>
+  <button
+    className="emotion-0"
+    id="pause"
+    onClick={[Function]}
   >
     Pause
   </button>
   <button
     className="emotion-0"
+    id="faster"
+    onClick={[Function]}
   >
     Faster
   </button>
   <button
     className="emotion-0"
+    id="normal"
+    onClick={[Function]}
   >
-    1x
+    Normal
   </button>
   <button
     className="emotion-0"
+    id="slower"
+    onClick={[Function]}
   >
     Slower
   </button>
