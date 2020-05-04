@@ -1,8 +1,9 @@
+import { action } from "@storybook/addon-actions";
 import React from "react";
 import { Form } from "./Form";
 
-export default { title: "Form component" };
+export default { title: "Form Component" };
 
-export const FormComponent: React.FC<{}> = () => {
-  return <Form />;
+export const FormStory: React.FC<{}> = () => {
+  return <Form onSubmit={action("onSubmit")} />;
 };

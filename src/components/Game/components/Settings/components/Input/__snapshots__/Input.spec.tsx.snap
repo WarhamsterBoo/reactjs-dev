@@ -2,14 +2,17 @@
 
 exports[`Input Number should render 1`] = `
 .emotion-0 {
-  type: number;
   border-radius: 4px;
   width: 50px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 25px;
 }
 
 <input
   className="emotion-0"
   max="100"
   min="1"
+  type="number"
 />
 `;
