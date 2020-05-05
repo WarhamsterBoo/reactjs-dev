@@ -1,6 +1,6 @@
 import React, { FormEvent, useCallback, useState } from "react";
-import { Button, InputNumber } from "shared/";
-import { Form, Label, Legend, FieldSet } from "./SettingsForm.styled";
+import { Button, InputNumber, Label } from "shared/";
+import { FieldSet, Form, Legend } from "./SettingsForm.styled";
 
 export interface SettingsFormProps {
   onSubmit: (settings: Settings) => void;

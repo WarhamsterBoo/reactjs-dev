@@ -12,14 +12,6 @@ export const Form = styled.form`
   align-items: center;
 `;
 
-export const Label = styled.label`
-  margin-right: 10px;
-  margin-left: 10px;
-
-  color: #addb67;
-  font-family: Inconsolata, monospace;
-`;
-
 export const Legend = styled.legend`
   color: #addb67;
   font-family: Inconsolata, monospace;
