@@ -9,4 +9,6 @@ export const Button = styled.button`
 
   background-color: #addb67;
   color: #011627;
+
+  font-family: Inconsolata, monospace;
 `;

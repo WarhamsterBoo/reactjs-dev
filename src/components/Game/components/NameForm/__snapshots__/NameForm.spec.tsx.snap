@@ -44,6 +44,7 @@ exports[`Name Form should render 1`] = `
   border: none;
   background-color: #addb67;
   color: #011627;
+  font-family: Inconsolata,monospace;
 }
 
 <form

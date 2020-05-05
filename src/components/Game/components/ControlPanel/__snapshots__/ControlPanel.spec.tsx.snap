@@ -2,6 +2,9 @@
 
 exports[`ControlPanel should render 1`] = `
 .emotion-6 {
+  padding: 10px 10px 10px 10px;
+  border: solid 1px black;
+  background-color: #011627;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -9,8 +12,6 @@ exports[`ControlPanel should render 1`] = `
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-  border: solid 1px black;
-  padding: 10px 10px 10px 10px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -24,6 +25,7 @@ exports[`ControlPanel should render 1`] = `
   border: none;
   background-color: #addb67;
   color: #011627;
+  font-family: Inconsolata,monospace;
 }
 
 <div
