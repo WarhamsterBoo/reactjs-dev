@@ -1,6 +1,6 @@
 import React, { FormEvent, useCallback, useState } from "react";
 import { Button, InputNumber } from "shared/";
-import { FormWrapper } from "./SettingsForm.styled";
+import { Form, Label, Legend, FieldSet } from "./SettingsForm.styled";
 
 export interface SettingsFormProps {
   onSubmit: (settings: Settings) => void;
@@ -19,14 +19,6 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }) => {
     fillingPercentage: 0,
   });
 
-  const onHandleSubmit = useCallback(
-    (ev: FormEvent) => {
-      ev.preventDefault();
-      onSubmit({ ...settings });
-    },
-    [onSubmit, settings]
-  );
-
   const onHandleInputChange = useCallback((ev: FormEvent<HTMLInputElement>) => {
     const { name, value } = ev.target as HTMLInputElement;
 
@@ -36,38 +28,44 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }) => {
     }));
   }, []);
 
+  const onHandleSubmit = useCallback(
+    (ev: FormEvent) => {
+      ev.preventDefault();
+      onSubmit({ ...settings });
+    },
+    [onSubmit, settings]
+  );
+
   return (
-    <FormWrapper>
-      <form onSubmit={onHandleSubmit}>
-        <fieldset>
-          <legend>Game settings</legend>
-          <label>
-            X dimension:
-            <InputNumber
-              value={settings.xDimension}
-              onChange={onHandleInputChange}
-              name="xDimension"
-            />
-          </label>
-          <label>
-            Y dimension:
-            <InputNumber
-              value={settings.yDimension}
-              onChange={onHandleInputChange}
-              name="yDimension"
-            />
-          </label>
-          <label>
-            Filling Percentage:
-            <InputNumber
-              value={settings.fillingPercentage}
-              onChange={onHandleInputChange}
-              name="fillingPercentage"
-            />
-          </label>
-          <Button>Apply</Button>
-        </fieldset>
-      </form>
-    </FormWrapper>
+    <Form onSubmit={onHandleSubmit}>
+      <FieldSet>
+        <Legend>Game settings</Legend>
+        <Label>
+          X dimension:
+          <InputNumber
+            value={settings.xDimension}
+            onChange={onHandleInputChange}
+            name="xDimension"
+          />
+        </Label>
+        <Label>
+          Y dimension:
+          <InputNumber
+            value={settings.yDimension}
+            onChange={onHandleInputChange}
+            name="yDimension"
+          />
+        </Label>
+        <Label>
+          Filling Percentage:
+          <InputNumber
+            value={settings.fillingPercentage}
+            onChange={onHandleInputChange}
+            name="fillingPercentage"
+          />
+        </Label>
+        <Button>Apply</Button>
+      </FieldSet>
+    </Form>
   );
 };

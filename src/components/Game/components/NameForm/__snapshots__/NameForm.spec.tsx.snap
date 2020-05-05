@@ -25,6 +25,8 @@ exports[`Name Form should render 1`] = `
 }
 
 .emotion-0 {
+  margin-right: 10px;
+  margin-left: 10px;
   color: #addb67;
   font-family: Inconsolata,monospace;
 }
