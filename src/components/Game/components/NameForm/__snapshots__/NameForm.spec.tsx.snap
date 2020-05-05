@@ -33,10 +33,10 @@ exports[`Name Form should render 1`] = `
 
 .emotion-1 {
   font-family: Inconsolata,monospace;
+  color: #addb67;
   border-radius: 2px;
   border: 1px solid;
   background: transparent;
-  color: #addb67;
 }
 
 .emotion-2 {
