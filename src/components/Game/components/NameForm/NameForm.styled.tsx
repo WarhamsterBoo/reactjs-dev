@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { colors } from "shared/";
 
 export const Form = styled.form`
   width: 200px;
@@ -6,7 +7,7 @@ export const Form = styled.form`
   padding: 10px 10px 10px 10px;
 
   border: solid 1px black;
-  background-color: #011627;
+  background-color: ${colors.mainForm};
 
   display: flex;
   flex-direction: column;

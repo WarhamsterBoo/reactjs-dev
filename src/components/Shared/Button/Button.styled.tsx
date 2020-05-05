@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { colors } from "../Styles/colors";
 
 export const Button = styled.button`
   margin-left: 7px;
@@ -7,8 +8,8 @@ export const Button = styled.button`
   border-radius: 4px;
   border: none;
 
-  background-color: #addb67;
-  color: #011627;
+  background-color: ${colors.mainGreen};
+  color: ${colors.mainForm};
 
   font-family: Inconsolata, monospace;
 `;

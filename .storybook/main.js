@@ -13,7 +13,8 @@ module.exports = {
     });
     config.resolve.extensions.push(".ts", ".tsx");
     config.resolve.alias = {
-      shared: path.resolve(__dirname, "../src/components/Shared"),
+      ...config.resolve.alias,
+      shared: path.resolve(__dirname, "../src/components/Shared/index"),
     };
     return config;
   },

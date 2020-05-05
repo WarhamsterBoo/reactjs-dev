@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
+import { colors } from "../Styles/colors";
 
 export const Label = styled.label`
   margin-right: 10px;
   margin-left: 10px;
 
-  color: #addb67;
+  color: ${colors.mainGreen};
   font-family: Inconsolata, monospace;
 `;
