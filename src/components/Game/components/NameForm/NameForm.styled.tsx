@@ -1,17 +1,20 @@
 import styled from "@emotion/styled";
-import { Button } from "shared/";
 
-export const FormWrapper = styled.div`
+export const Form = styled.form`
   width: 200px;
   height: 120px;
+  padding: 10px 10px 10px 10px;
+
+  border: solid 1px black;
+  background-color: #011627;
+
   display: flex;
   flex-direction: column;
-  border: solid 1px black;
-  padding: 10px 10px 10px 10px;
   justify-content: space-around;
   align-items: center;
 `;
 
-export const StartButton = styled(Button)`
-  text-align: center;
+export const Label = styled.label`
+  color: #addb67;
+  font-family: Inconsolata, monospace;
 `;
