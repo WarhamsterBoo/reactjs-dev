@@ -62,6 +62,7 @@ exports[`Name Form should render 1`] = `
     className="emotion-1"
     onChange={[Function]}
     placeholder="Enter your name"
+    required={true}
     type="text"
     value=""
   />

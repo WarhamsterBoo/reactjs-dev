@@ -5,13 +5,13 @@ import { NameForm } from "./NameForm";
 
 describe("Name Form", () => {
   it("should render", () => {
-    const sut = <NameForm onSubmit={jest.fn()} />;
+    const sut = <NameForm onNameSubmit={jest.fn()} />;
 
     expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });
 
   it("should change value in name input", () => {
-    const sut = mount(<NameForm onSubmit={jest.fn()} />);
+    const sut = mount(<NameForm onNameSubmit={jest.fn()} />);
 
     sut
       .find(`input[type="text"]`)
@@ -25,7 +25,7 @@ describe("Name Form", () => {
 
   it("should call onSubmit with values from inputs", () => {
     const fakeOnSubmit = jest.fn();
-    const sut = mount(<NameForm onSubmit={fakeOnSubmit} />);
+    const sut = mount(<NameForm onNameSubmit={fakeOnSubmit} />);
     sut.find(`input[type="text"]`).simulate("change", {
       target: { value: "Jane Doe" },
     });

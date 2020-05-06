@@ -1,9 +1,9 @@
 import React, { FormEvent, useCallback, useState } from "react";
-import { Button, InputNumber, Label } from "shared/";
+import { Button, InputNumber, Label } from "shared";
 import { FieldSet, Form, Legend } from "./SettingsForm.styled";
 
 export interface SettingsFormProps {
-  onSubmit: (settings: Settings) => void;
+  onSettingsSubmit: (settings: Settings) => void;
 }
 
 export interface Settings {
@@ -12,7 +12,9 @@ export interface Settings {
   fillingPercentage: number;
 }
 
-export const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }) => {
+export const SettingsForm: React.FC<SettingsFormProps> = ({
+  onSettingsSubmit,
+}) => {
   const [settings, setSettings] = useState<Settings>({
     xDimension: 0,
     yDimension: 0,
@@ -31,9 +33,9 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ onSubmit }) => {
   const onHandleSubmit = useCallback(
     (ev: FormEvent) => {
       ev.preventDefault();
-      onSubmit({ ...settings });
+      onSettingsSubmit({ ...settings });
     },
-    [onSubmit, settings]
+    [onSettingsSubmit, settings]
   );
 
   return (
