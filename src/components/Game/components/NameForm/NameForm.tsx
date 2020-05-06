@@ -26,6 +26,7 @@ export const NameForm: React.FC<NameFormProps> = ({ onSubmit }) => {
     <Form onSubmit={onHandleSubmit}>
       <Label>Hello there!</Label>
       <InputText
+        required
         value={userName}
         onChange={onHandleInputChange}
         placeholder="Enter your name"
