@@ -5,5 +5,5 @@ import { SettingsForm } from "./SettingsForm";
 export default { title: "Settings Form Component" };
 
 export const SettingsFormStory: React.FC<{}> = () => {
-  return <SettingsForm onSubmit={action("onSubmit")} />;
+  return <SettingsForm onSettingsSubmit={action("onSubmit")} />;
 };

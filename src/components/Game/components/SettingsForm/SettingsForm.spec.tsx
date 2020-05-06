@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 
 describe("SettingsForm", () => {
   it("should render", () => {
-    const sut = <SettingsForm onSubmit={jest.fn()} />;
+    const sut = <SettingsForm onSettingsSubmit={jest.fn()} />;
 
     expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });
@@ -18,7 +18,7 @@ describe("SettingsForm", () => {
   `(
     "should change value to $value in $inputName input",
     ({ inputName, value }) => {
-      const sut = mount(<SettingsForm onSubmit={jest.fn()} />);
+      const sut = mount(<SettingsForm onSettingsSubmit={jest.fn()} />);
 
       sut.find(`input[name="${inputName}"]`).simulate("change", {
         target: { value: value, name: inputName },
@@ -32,7 +32,7 @@ describe("SettingsForm", () => {
 
   it("should call onSubmit with values from inputs", () => {
     const fakeOnSubmit = jest.fn();
-    const sut = mount(<SettingsForm onSubmit={fakeOnSubmit} />);
+    const sut = mount(<SettingsForm onSettingsSubmit={fakeOnSubmit} />);
     sut.find(`input[name="xDimension"]`).simulate("change", {
       target: { value: "10", name: "xDimension" },
     });

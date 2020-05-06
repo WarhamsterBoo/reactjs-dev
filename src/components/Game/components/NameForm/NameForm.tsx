@@ -3,10 +3,10 @@ import { Button, InputText, Label } from "shared";
 import { Form } from "./NameForm.styled";
 
 export interface NameFormProps {
-  onSubmit: (userName: string) => void;
+  onNameSubmit: (userName: string) => void;
 }
 
-export const NameForm: React.FC<NameFormProps> = ({ onSubmit }) => {
+export const NameForm: React.FC<NameFormProps> = ({ onNameSubmit }) => {
   const [userName, setUserName] = useState<string>("");
 
   const onHandleInputChange = useCallback((ev: FormEvent<HTMLInputElement>) => {
@@ -17,9 +17,9 @@ export const NameForm: React.FC<NameFormProps> = ({ onSubmit }) => {
   const onHandleSubmit = useCallback(
     (ev: FormEvent) => {
       ev.preventDefault();
-      onSubmit(userName);
+      onNameSubmit(userName);
     },
-    [onSubmit, userName]
+    [onNameSubmit, userName]
   );
 
   return (
