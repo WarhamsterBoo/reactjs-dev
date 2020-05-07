@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "../Styles/colors";
+import { colors } from "shared";
 
 export const Label = styled.label`
   margin-right: 10px;
