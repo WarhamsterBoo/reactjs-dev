@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   stories: ["../src/**/*.stories.tsx"],
   addons: [
@@ -10,6 +12,10 @@ module.exports = {
       loader: require.resolve("babel-loader"),
     });
     config.resolve.extensions.push(".ts", ".tsx");
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      shared: path.resolve(__dirname, "../src/components/Shared/index"),
+    };
     return config;
   },
 };
