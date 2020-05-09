@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "shared/";
+import { colors } from "styles/colors";
 
 export const Form = styled.form`
   width: 200px;

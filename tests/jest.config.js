@@ -10,5 +10,11 @@ module.exports = {
   snapshotSerializers: ["jest-emotion"],
   moduleNameMapper: {
     "shared(.*)": "<rootDir>/src/components/Shared/$1",
+    "styles/(.*)": "<rootDir>/src/styles/$1",
   },
+  modulePaths: [
+    "src/components",
+    "src/styles",
+    "node_modules"
+  ],
 };
