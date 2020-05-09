@@ -16,6 +16,7 @@ module.exports = {
       ...config.resolve.alias,
       shared: path.resolve(__dirname, "../src/components/Shared/index"),
       styles: path.resolve(__dirname, "../src/styles"),
+      commonTypes: path.resolve(__dirname, "../src/commonTypes"),
     };
     return config;
   },

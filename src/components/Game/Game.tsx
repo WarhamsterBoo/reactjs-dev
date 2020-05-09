@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { WorldCreature } from "commonTypes/creature";
 
 export interface GameProps {
   xDimension: number;
@@ -10,10 +11,6 @@ export type WorldPresenter = React.FC<{
   creatures: WorldCreature[][];
   onClick: (x: number, y: number) => void;
 }>;
-
-interface WorldCreature {
-  IsAlive: boolean;
-}
 
 export const Game: React.FC<GameProps> = ({
   xDimension,

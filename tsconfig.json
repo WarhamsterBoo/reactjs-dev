@@ -3,7 +3,8 @@
     "baseUrl": "./",
     "paths": {
       "shared": ["src/components/Shared/index"],
-      "styles/*": ["src/styles/*"]
+      "styles/*": ["src/styles/*"],
+      "commonTypes/*": ["src/commonTypes/*"]
     },
     "module": "commonjs",
     "target": "es5",
