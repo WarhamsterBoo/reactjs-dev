@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "shared": ["src/components/Shared/index"]
+      "shared": ["src/components/Shared/index"],
+      "styles/*": ["src/styles/*"]
     },
     "module": "commonjs",
     "target": "es5",
