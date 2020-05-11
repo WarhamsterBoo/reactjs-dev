@@ -18,7 +18,7 @@ export const Engine: GameEngine = {
   }) => {
     return Array.from({ length: xDimension }).map((_, i) =>
       Array.from({ length: yDimension }).map((_, j) => {
-        return { IsAlive: false };
+        return { IsAlive: fillingPercentage === 1 ? true : false };
       })
     );
   },

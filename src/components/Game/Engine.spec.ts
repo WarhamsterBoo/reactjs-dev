@@ -4,6 +4,7 @@ describe("Engine", () => {
   it.each`
     xDimension | yDimension | fillingPercentage | expectedAliveCount
     ${1}       | ${1}       | ${0}              | ${0}
+    ${1}       | ${1}       | ${1}              | ${1}
   `(
     "with {x: $xDimension, y: $yDimension, %: $fillingPercentage} should return array with $expectedAliveCount alive creatures",
     ({ xDimension, yDimension, fillingPercentage, expectedAliveCount }) => {
