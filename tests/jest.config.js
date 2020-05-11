@@ -13,8 +13,5 @@ module.exports = {
     "styles/(.*)": "<rootDir>/src/styles/$1",
     "commonTypes/(.*)": "<rootDir>/src/commonTypes/$1",
   },
-  modulePaths: [
-    "src/",
-    "node_modules"
-  ],
+  modulePaths: ["src/", "node_modules"],
 };

@@ -1,35 +1,69 @@
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { Game, WorldPresenter } from "./Game";
+import { Game, WorldPresenter, GameEngine } from "./Game";
 
 describe("Game", () => {
   const fakeWorld: WorldPresenter = () => null;
+  const fakeGameEngine: GameEngine = {
+    GenerateCreatures: ({ xDimension, yDimension }) =>
+      Array.from({ length: xDimension }).map(() =>
+        Array.from({ length: yDimension }).map(() => {
+          return { IsAlive: false };
+        })
+      ),
+  };
 
   it("should pass an empty creatures list to World if demensions are negative", () => {
     const sut = mount(
-      <Game xDimension={-1} yDimension={-3} world={fakeWorld} />
+      <Game
+        xDimension={-1}
+        yDimension={-3}
+        world={fakeWorld}
+        engine={fakeGameEngine}
+      />
     );
 
     expect(sut.find(fakeWorld).props().creatures).toEqual([]);
   });
 
   it("should pass an empty creatures list to World if demensions are zero", () => {
-    const sut = mount(<Game xDimension={0} yDimension={0} world={fakeWorld} />);
+    const sut = mount(
+      <Game
+        xDimension={0}
+        yDimension={0}
+        world={fakeWorld}
+        engine={fakeGameEngine}
+      />
+    );
 
     expect(sut.find(fakeWorld).props().creatures).toEqual([]);
   });
 
   it("should render initialized World component with size 1 x 1", () => {
-    const sut = mount(<Game xDimension={1} yDimension={1} world={fakeWorld} />);
+    const sut = mount(
+      <Game
+        xDimension={1}
+        yDimension={1}
+        world={fakeWorld}
+        engine={fakeGameEngine}
+      />
+    );
 
     expect(sut.find(fakeWorld).props().creatures).toEqual([
       [{ IsAlive: false }],
     ]);
   });
 
-  it("should render initialized World component with size 3 x 3", () => {
-    const sut = mount(<Game xDimension={2} yDimension={2} world={fakeWorld} />);
+  it("should render initialized World component with size 2 x 2", () => {
+    const sut = mount(
+      <Game
+        xDimension={2}
+        yDimension={2}
+        world={fakeWorld}
+        engine={fakeGameEngine}
+      />
+    );
 
     expect(sut.find(fakeWorld).props().creatures).toEqual([
       [{ IsAlive: false }, { IsAlive: false }],
@@ -37,8 +71,39 @@ describe("Game", () => {
     ]);
   });
 
+  it("should use provided engine for initial state", () => {
+    const generateCreaturesMock = jest.fn();
+    generateCreaturesMock.mockReturnValue([
+      [{ IsAlive: true }, { IsAlive: false }],
+      [{ IsAlive: true }, { IsAlive: true }],
+    ]);
+
+    const sut = mount(
+      <Game
+        xDimension={2}
+        yDimension={2}
+        world={fakeWorld}
+        engine={{
+          GenerateCreatures: generateCreaturesMock,
+        }}
+      />
+    );
+
+    expect(sut.find(fakeWorld).props().creatures).toEqual([
+      [{ IsAlive: true }, { IsAlive: false }],
+      [{ IsAlive: true }, { IsAlive: true }],
+    ]);
+  });
+
   it("should toggle Creature IsAlive when click on it", () => {
-    const sut = mount(<Game xDimension={3} yDimension={3} world={fakeWorld} />);
+    const sut = mount(
+      <Game
+        xDimension={3}
+        yDimension={3}
+        world={fakeWorld}
+        engine={fakeGameEngine}
+      />
+    );
     const initialState = sut.find(fakeWorld).props().creatures[1][2].IsAlive;
 
     act(() => {
@@ -52,7 +117,14 @@ describe("Game", () => {
   });
 
   it("should be able to increase size without creatures state reset", () => {
-    const sut = mount(<Game xDimension={2} yDimension={2} world={fakeWorld} />);
+    const sut = mount(
+      <Game
+        xDimension={2}
+        yDimension={2}
+        world={fakeWorld}
+        engine={fakeGameEngine}
+      />
+    );
     act(() => {
       sut.find(fakeWorld).props().onClick(0, 1);
       sut.find(fakeWorld).props().onClick(1, 1);
@@ -74,7 +146,14 @@ describe("Game", () => {
   });
 
   it("should be able to decrease size without creatures state reset", () => {
-    const sut = mount(<Game xDimension={3} yDimension={3} world={fakeWorld} />);
+    const sut = mount(
+      <Game
+        xDimension={3}
+        yDimension={3}
+        world={fakeWorld}
+        engine={fakeGameEngine}
+      />
+    );
     act(() => {
       sut.find(fakeWorld).props().onClick(0, 0);
       sut.find(fakeWorld).props().onClick(1, 1);

@@ -5,7 +5,7 @@ export interface GameProps {
   xDimension: number;
   yDimension: number;
   world: WorldPresenter;
-  engine?: GameEngine;
+  engine: GameEngine;
 }
 
 export type WorldPresenter = React.FC<{
@@ -27,11 +27,10 @@ export const Game: React.FC<GameProps> = ({
   xDimension,
   yDimension,
   world,
+  engine,
 }) => {
   const [creatures, setCreatures] = useState(
-    Array.from({ length: xDimension }).map(() =>
-      Array.from({ length: yDimension }).map(() => ({ IsAlive: false }))
-    )
+    engine.GenerateCreatures({ xDimension, yDimension, fillingPercentage: 0 })
   );
 
   useEffect(() => {
