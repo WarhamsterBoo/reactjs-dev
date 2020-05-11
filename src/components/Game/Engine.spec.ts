@@ -6,6 +6,11 @@ describe("Engine", () => {
     ${1}       | ${1}       | ${0}              | ${0}
     ${1}       | ${1}       | ${1}              | ${1}
     ${2}       | ${2}       | ${0.5}            | ${2}
+    ${2}       | ${2}       | ${0.25}           | ${1}
+    ${5}       | ${2}       | ${0.75}           | ${7}
+    ${5}       | ${5}       | ${1}              | ${25}
+    ${5}       | ${5}       | ${0}              | ${0}
+    ${5}       | ${5}       | ${0.6}            | ${15}
   `(
     "with {x: $xDimension, y: $yDimension, %: $fillingPercentage} should return array with $expectedAliveCount alive creatures",
     ({ xDimension, yDimension, fillingPercentage, expectedAliveCount }) => {

@@ -12,27 +12,26 @@ export interface GameEngine {
 
 export const Engine: GameEngine = {
   GenerateCreatures: ({ xDimension, yDimension, fillingPercentage }) => {
-    const initialCreatures = Array.from({ length: xDimension }).map((_, i) =>
-      Array.from({ length: yDimension }).map((_, j) => {
+    const creatures = Array.from({ length: xDimension }).map(() =>
+      Array.from({ length: yDimension }).map(() => {
         return { IsAlive: false };
       })
     );
 
-    const totalNumberOfCreatures = xDimension * yDimension;
-    let totalNumberOfAliveCreatures = Math.trunc(
-      totalNumberOfCreatures * fillingPercentage
+    let NumberOfAliveCreatures = Math.trunc(
+      xDimension * yDimension * fillingPercentage
     );
 
-    while (totalNumberOfAliveCreatures > 0) {
+    while (NumberOfAliveCreatures > 0) {
       const x = Math.floor(Math.random() * Math.floor(xDimension));
       const y = Math.floor(Math.random() * Math.floor(yDimension));
 
-      if (!initialCreatures[x][y].IsAlive) {
-        initialCreatures[x][y].IsAlive = true;
-        totalNumberOfAliveCreatures--;
+      if (!creatures[x][y].IsAlive) {
+        creatures[x][y].IsAlive = true;
+        NumberOfAliveCreatures--;
       }
     }
 
-    return initialCreatures;
+    return creatures;
   },
 };
