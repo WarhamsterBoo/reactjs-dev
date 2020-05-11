@@ -11,15 +11,28 @@ export interface GameEngine {
 }
 
 export const Engine: GameEngine = {
-  GenerateCreatures: ({
-    xDimension: xDimension,
-    yDimension,
-    fillingPercentage,
-  }) => {
-    return Array.from({ length: xDimension }).map((_, i) =>
+  GenerateCreatures: ({ xDimension, yDimension, fillingPercentage }) => {
+    const initialCreatures = Array.from({ length: xDimension }).map((_, i) =>
       Array.from({ length: yDimension }).map((_, j) => {
-        return { IsAlive: fillingPercentage === 1 ? true : false };
+        return { IsAlive: false };
       })
     );
+
+    const totalNumberOfCreatures = xDimension * yDimension;
+    let totalNumberOfAliveCreatures = Math.trunc(
+      totalNumberOfCreatures * fillingPercentage
+    );
+
+    while (totalNumberOfAliveCreatures > 0) {
+      const x = Math.floor(Math.random() * Math.floor(xDimension));
+      const y = Math.floor(Math.random() * Math.floor(yDimension));
+
+      if (!initialCreatures[x][y].IsAlive) {
+        initialCreatures[x][y].IsAlive = true;
+        totalNumberOfAliveCreatures--;
+      }
+    }
+
+    return initialCreatures;
   },
 };
