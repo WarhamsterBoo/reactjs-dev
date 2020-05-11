@@ -2,7 +2,7 @@ import React from "react";
 import { World } from "./components";
 import { Game } from "./Game";
 import { withKnobs, number } from "@storybook/addon-knobs";
-import { Engine } from "./Engine";
+import { Engine } from "./components/Engine";
 
 export default { title: "Game component", decorators: [withKnobs] };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 import { Game, World } from "./components";
-import { Engine } from "./components/Game/Engine";
+import { Engine } from "./components/Game/components/Engine/Engine";
 
 render(
   <Game
