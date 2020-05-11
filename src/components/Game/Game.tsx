@@ -4,6 +4,7 @@ import { WorldCreature } from "commonTypes/creature";
 export interface GameProps {
   xDimension: number;
   yDimension: number;
+  fillingPercentage: number;
   world: WorldPresenter;
   engine: GameEngine;
 }
@@ -26,11 +27,12 @@ export interface EngineInitConfig {
 export const Game: React.FC<GameProps> = ({
   xDimension,
   yDimension,
+  fillingPercentage,
   world,
   engine,
 }) => {
   const [creatures, setCreatures] = useState(
-    engine.GenerateCreatures({ xDimension, yDimension, fillingPercentage: 0 })
+    engine.GenerateCreatures({ xDimension, yDimension, fillingPercentage })
   );
 
   useEffect(() => {
