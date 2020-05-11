@@ -2,6 +2,26 @@ import { Engine } from "./Engine";
 
 describe("Engine", () => {
   it.each`
+    xDimension | yDimension
+    ${0}       | ${0}
+    ${-1}      | ${-1}
+    ${-100}    | ${-100}
+  `(
+    "should return empty array for $xDimension x $yDimension dimensions",
+    ({ xDimension, yDimension }) => {
+      const sut = Engine;
+
+      const creatures = sut.GenerateCreatures({
+        xDimension,
+        yDimension,
+        fillingPercentage: 0,
+      });
+
+      expect(creatures).toEqual([]);
+    }
+  );
+
+  it.each`
     xDimension | yDimension | fillingPercentage | expectedAliveCount
     ${1}       | ${1}       | ${0}              | ${0}
     ${1}       | ${1}       | ${1}              | ${1}
