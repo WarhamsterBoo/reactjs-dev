@@ -1,14 +1,4 @@
-import { WorldCreature } from "commonTypes/creature";
-
-export interface EngineInitConfig {
-  xDimension: number;
-  yDimension: number;
-  fillingPercentage: number;
-}
-
-export interface GameEngine {
-  GenerateCreatures: (config: EngineInitConfig) => WorldCreature[][];
-}
+import { GameEngine } from "./Game";
 
 export const Engine: GameEngine = {
   GenerateCreatures: ({ xDimension, yDimension, fillingPercentage }) => {

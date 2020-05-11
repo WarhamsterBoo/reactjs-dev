@@ -5,12 +5,23 @@ export interface GameProps {
   xDimension: number;
   yDimension: number;
   world: WorldPresenter;
+  engine?: GameEngine;
 }
 
 export type WorldPresenter = React.FC<{
   creatures: WorldCreature[][];
   onClick: (x: number, y: number) => void;
 }>;
+
+export interface GameEngine {
+  GenerateCreatures: (config: EngineInitConfig) => WorldCreature[][];
+}
+
+export interface EngineInitConfig {
+  xDimension: number;
+  yDimension: number;
+  fillingPercentage: number;
+}
 
 export const Game: React.FC<GameProps> = ({
   xDimension,

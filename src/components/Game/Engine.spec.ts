@@ -7,7 +7,7 @@ describe("Engine", () => {
     ${-1}      | ${-1}
     ${-100}    | ${-100}
   `(
-    "should return empty array for $xDimension x $yDimension dimensions",
+    "GenerateCreatures should return empty array for $xDimension x $yDimension dimensions",
     ({ xDimension, yDimension }) => {
       const sut = Engine;
 
@@ -31,8 +31,9 @@ describe("Engine", () => {
     ${5}       | ${5}       | ${1}              | ${25}
     ${5}       | ${5}       | ${0}              | ${0}
     ${5}       | ${5}       | ${0.6}            | ${15}
+    ${2}       | ${2}       | ${-100}           | ${0}
   `(
-    "with {x: $xDimension, y: $yDimension, %: $fillingPercentage} should return array with $expectedAliveCount alive creatures",
+    "GenerateCreatures with {x: $xDimension, y: $yDimension, %: $fillingPercentage} should return array with $expectedAliveCount alive creatures",
     ({ xDimension, yDimension, fillingPercentage, expectedAliveCount }) => {
       const sut = Engine;
 
