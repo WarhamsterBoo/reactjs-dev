@@ -21,6 +21,30 @@ describe("Engine", () => {
     }
   );
 
+  it("should throw if fillingPercentage > 100", () => {
+    const sut = Engine;
+
+    expect(() =>
+      sut.GenerateCreatures({
+        xDimension: 2,
+        yDimension: 2,
+        fillingPercentage: 146,
+      })
+    ).toThrow("FillingPercentage cannot be greater than 1");
+  });
+
+  it("should throw if fillingPercentage < 0", () => {
+    const sut = Engine;
+
+    expect(() =>
+      sut.GenerateCreatures({
+        xDimension: 2,
+        yDimension: 2,
+        fillingPercentage: -146,
+      })
+    ).toThrow("FillingPercentage cannot be less than 0");
+  });
+
   it.each`
     xDimension | yDimension | fillingPercentage | expectedAliveCount
     ${1}       | ${1}       | ${0}              | ${0}
@@ -31,7 +55,6 @@ describe("Engine", () => {
     ${5}       | ${5}       | ${1}              | ${25}
     ${5}       | ${5}       | ${0}              | ${0}
     ${5}       | ${5}       | ${0.6}            | ${15}
-    ${2}       | ${2}       | ${-100}           | ${0}
   `(
     "GenerateCreatures with {x: $xDimension, y: $yDimension, %: $fillingPercentage} should return array with $expectedAliveCount alive creatures",
     ({ xDimension, yDimension, fillingPercentage, expectedAliveCount }) => {
