@@ -14,8 +14,8 @@ describe("Game", () => {
       ),
   };
   const gameDefaultProps: GameProps = {
-    xDimension: 0,
-    yDimension: 0,
+    xDimension: 2,
+    yDimension: 2,
     fillingPercentage: 0,
     world: fakeWorld,
     engine: fakeGameEngine,
@@ -48,9 +48,7 @@ describe("Game", () => {
   });
 
   it("should render initialized World component with size 2 x 2", () => {
-    const sut = mount(
-      <Game {...gameDefaultProps} xDimension={2} yDimension={2} />
-    );
+    const sut = mount(<Game {...gameDefaultProps} />);
 
     expect(sut.find(fakeWorld).props().creatures).toEqual([
       [{ IsAlive: false }, { IsAlive: false }],
@@ -68,8 +66,6 @@ describe("Game", () => {
     const sut = mount(
       <Game
         {...gameDefaultProps}
-        xDimension={2}
-        yDimension={2}
         engine={{
           GenerateCreatures: generateCreaturesMock,
         }}
@@ -79,6 +75,39 @@ describe("Game", () => {
     expect(sut.find(fakeWorld).props().creatures).toEqual([
       [{ IsAlive: true }, { IsAlive: false }],
       [{ IsAlive: true }, { IsAlive: true }],
+    ]);
+  });
+
+  it("should change creatures state if filling percentage changes", () => {
+    const generateCreaturesMock = jest.fn();
+    generateCreaturesMock.mockReturnValue([
+      [{ IsAlive: false }, { IsAlive: false }],
+      [{ IsAlive: false }, { IsAlive: false }],
+    ]);
+    const sut = mount(
+      <Game
+        {...gameDefaultProps}
+        engine={{
+          GenerateCreatures: generateCreaturesMock,
+        }}
+      />
+    );
+    generateCreaturesMock.mockReturnValue([
+      [{ IsAlive: true }, { IsAlive: true }],
+      [{ IsAlive: false }, { IsAlive: true }],
+    ]);
+
+    sut.setProps({ fillingPercentage: 0.75 });
+
+    expect(generateCreaturesMock).toHaveBeenCalledWith({
+      xDimension: 2,
+      yDimension: 2,
+      fillingPercentage: 0.75,
+    });
+    sut.update();
+    expect(sut.find(fakeWorld).props().creatures).toEqual([
+      [{ IsAlive: true }, { IsAlive: true }],
+      [{ IsAlive: false }, { IsAlive: true }],
     ]);
   });
 

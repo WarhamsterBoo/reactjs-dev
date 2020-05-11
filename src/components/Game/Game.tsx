@@ -47,6 +47,18 @@ export const Game: React.FC<GameProps> = ({
     );
   }, [xDimension, yDimension]);
 
+  useEffect(
+    () =>
+      setCreatures(
+        engine.GenerateCreatures({
+          xDimension,
+          yDimension,
+          fillingPercentage,
+        })
+      ),
+    [fillingPercentage]
+  );
+
   const toggleCreatureState = (x: number, y: number) => {
     setCreatures((prevState) => {
       const newState = prevState.map((row, _) =>
