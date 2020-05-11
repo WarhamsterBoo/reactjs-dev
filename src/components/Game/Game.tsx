@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { WorldCreature } from "commonTypes/creature";
+import { SettingsForm, ControlPanel } from "./components";
+import { GameWrapper } from "./Game.styled";
 
 export interface GameProps {
   xDimension: number;
@@ -72,5 +74,11 @@ export const Game: React.FC<GameProps> = ({
   };
   const World = world;
 
-  return <World creatures={creatures} onClick={toggleCreatureState} />;
+  return (
+    <GameWrapper>
+      <SettingsForm onSettingsSubmit={() => {}} />
+      <World creatures={creatures} onClick={toggleCreatureState} />
+      <ControlPanel onClick={() => {}} />
+    </GameWrapper>
+  );
 };
