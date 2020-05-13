@@ -1,14 +1,25 @@
 import React from "react";
-import { Engine, GameCore, World } from "./components";
+import {
+  ControlPanel,
+  Engine,
+  GameCore,
+  SettingsForm,
+  World,
+} from "./components";
+import { GameWrapper } from "./Game.styled";
 
 export const Game: React.FC<{}> = () => {
   return (
-    <GameCore
-      xDimension={10}
-      yDimension={10}
-      fillingPercentage={0}
-      world={World}
-      engine={Engine}
-    />
+    <GameWrapper>
+      <SettingsForm onSettingsSubmit={() => {}} />
+      <GameCore
+        xDimension={10}
+        yDimension={10}
+        fillingPercentage={0}
+        world={World}
+        engine={Engine}
+      />
+      <ControlPanel onClick={() => {}} />
+    </GameWrapper>
   );
 };

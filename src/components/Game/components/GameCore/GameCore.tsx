@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
 import { WorldCreature } from "commonTypes/creature";
-import { SettingsForm, ControlPanel } from "..";
-import { GameWrapper } from "./GameCore.styled";
+import React, { useEffect, useState } from "react";
 
 export interface GameCoreProps {
   xDimension: number;
@@ -74,11 +72,5 @@ export const GameCore: React.FC<GameCoreProps> = ({
   };
   const World = world;
 
-  return (
-    <GameWrapper>
-      <SettingsForm onSettingsSubmit={() => {}} />
-      <World creatures={creatures} onClick={toggleCreatureState} />
-      <ControlPanel onClick={() => {}} />
-    </GameWrapper>
-  );
+  return <World creatures={creatures} onClick={toggleCreatureState} />;
 };
