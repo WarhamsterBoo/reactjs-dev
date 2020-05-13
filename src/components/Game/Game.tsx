@@ -19,7 +19,7 @@ export const Game: React.FC<{}> = () => {
         world={World}
         engine={Engine}
       />
-      <ControlPanel onClick={() => {}} />
+      <ControlPanel onControlButtonClick={() => {}} />
     </GameWrapper>
   );
 };

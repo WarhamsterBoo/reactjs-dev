@@ -1,7 +1,6 @@
 import { number, withKnobs } from "@storybook/addon-knobs";
 import React from "react";
-import { World } from "..";
-import { Engine } from "../Engine";
+import { Engine, World } from ".."; // TODO - replace with some fake components just for stories
 import { GameCore } from "./GameCore";
 
 export default { title: "GameCore component", decorators: [withKnobs] };

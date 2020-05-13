@@ -1,20 +1,22 @@
 import React, { useCallback } from "react";
-import { ButtonsContainer } from "./ControlPanel.styled";
 import { Button } from "shared";
+import { ButtonsContainer } from "./ControlPanel.styled";
 
 export type Action = "stop" | "run" | "pause" | "slower" | "normal" | "faster";
 
 export interface ControlPanelProps {
-  onClick: (action: Action) => void;
+  onControlButtonClick: (action: Action) => void;
 }
 
-export const ControlPanel: React.FC<ControlPanelProps> = ({ onClick }) => {
+export const ControlPanel: React.FC<ControlPanelProps> = ({
+  onControlButtonClick,
+}) => {
   const onClickHandler = useCallback(
     (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       const target = ev.target as HTMLButtonElement;
-      onClick(target.id as Action);
+      onControlButtonClick(target.id as Action);
     },
-    [onClick]
+    [onControlButtonClick]
   );
 
   return (

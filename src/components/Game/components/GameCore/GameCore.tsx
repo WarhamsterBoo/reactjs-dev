@@ -1,4 +1,5 @@
 import { WorldCreature } from "commonTypes/creature";
+import { GameEngine } from "commonTypes/game";
 import React, { useEffect, useState } from "react";
 
 export interface GameCoreProps {
@@ -13,16 +14,6 @@ export type WorldPresenter = React.FC<{
   creatures: WorldCreature[][];
   onClick: (x: number, y: number) => void;
 }>;
-
-export interface GameEngine {
-  GenerateCreatures: (config: EngineInitConfig) => WorldCreature[][];
-}
-
-export interface EngineInitConfig {
-  xDimension: number;
-  yDimension: number;
-  fillingPercentage: number;
-}
 
 export const GameCore: React.FC<GameCoreProps> = ({
   xDimension,
