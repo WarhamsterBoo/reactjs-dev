@@ -1,12 +1,12 @@
+import { number, withKnobs } from "@storybook/addon-knobs";
 import React from "react";
 import { World } from "..";
-import { GameCore } from "./GameCore";
-import { withKnobs, number } from "@storybook/addon-knobs";
 import { Engine } from "../Engine";
+import { GameCore } from "./GameCore";
 
-export default { title: "Game component", decorators: [withKnobs] };
+export default { title: "GameCore component", decorators: [withKnobs] };
 
-export const GameStory: React.FC<{}> = () => {
+export const GameCoreStory: React.FC<{}> = () => {
   const xDimension = number("X", 5);
   const yDimension = number("Y", 5);
   const fillingPercentage = number("%", 0) / 100;
