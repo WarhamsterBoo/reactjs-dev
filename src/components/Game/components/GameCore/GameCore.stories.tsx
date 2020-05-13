@@ -1,8 +1,8 @@
 import React from "react";
-import { World } from "./components";
-import { Game } from "./Game";
+import { World } from "..";
+import { GameCore } from "./GameCore";
 import { withKnobs, number } from "@storybook/addon-knobs";
-import { Engine } from "./components/Engine";
+import { Engine } from "../Engine";
 
 export default { title: "Game component", decorators: [withKnobs] };
 
@@ -12,7 +12,7 @@ export const GameStory: React.FC<{}> = () => {
   const fillingPercentage = number("%", 0) / 100;
 
   return (
-    <Game
+    <GameCore
       xDimension={xDimension}
       yDimension={yDimension}
       fillingPercentage={fillingPercentage}

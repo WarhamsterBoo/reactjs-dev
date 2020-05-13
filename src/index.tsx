@@ -1,10 +1,10 @@
 import React from "react";
 import { render } from "react-dom";
-import { Game, World } from "./components";
+import { GameCore, World } from "./components";
 import { Engine } from "./components/Game/components/Engine/Engine";
 
 render(
-  <Game
+  <GameCore
     xDimension={5}
     yDimension={5}
     fillingPercentage={0}

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { WorldCreature } from "commonTypes/creature";
-import { SettingsForm, ControlPanel } from "./components";
-import { GameWrapper } from "./Game.styled";
+import { SettingsForm, ControlPanel } from "..";
+import { GameWrapper } from "./GameCore.styled";
 
-export interface GameProps {
+export interface GameCoreProps {
   xDimension: number;
   yDimension: number;
   fillingPercentage: number;
@@ -26,7 +26,7 @@ export interface EngineInitConfig {
   fillingPercentage: number;
 }
 
-export const Game: React.FC<GameProps> = ({
+export const GameCore: React.FC<GameCoreProps> = ({
   xDimension,
   yDimension,
   fillingPercentage,

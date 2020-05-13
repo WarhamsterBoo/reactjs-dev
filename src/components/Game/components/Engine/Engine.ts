@@ -1,4 +1,4 @@
-import { GameEngine } from "../../Game";
+import { GameEngine } from "../GameCore/GameCore";
 
 export const Engine: GameEngine = {
   GenerateCreatures: ({ xDimension, yDimension, fillingPercentage }) => {

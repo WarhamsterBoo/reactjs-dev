@@ -3,3 +3,4 @@ export * from "./Engine";
 export * from "./NameForm";
 export * from "./SettingsForm";
 export * from "./World";
+export * from "./GameCore";
