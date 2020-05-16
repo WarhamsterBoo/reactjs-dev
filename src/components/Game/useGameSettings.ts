@@ -1,10 +1,13 @@
 import { GameSettings } from "commonTypes/game";
 import { useState, useCallback } from "react";
 
-export const useGame = (): [GameSettings, (settings: GameSettings) => void] => {
+export const useGameSettings = (): [
+  GameSettings,
+  (settings: GameSettings) => void
+] => {
   const [gameSettings, setGameSettings] = useState<GameSettings>({
-    xDimension: 10,
-    yDimension: 10,
+    xDimension: 0,
+    yDimension: 0,
     fillingPercentage: 0,
   });
 

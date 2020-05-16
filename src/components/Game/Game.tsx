@@ -7,10 +7,10 @@ import {
   World,
 } from "./components";
 import { GameWrapper } from "./Game.styled";
-import { useGame } from "./useGame";
+import { useGameSettings } from "./useGameSettings";
 
 export const Game: React.FC<{}> = () => {
-  const [gameSettings, onSettingsSubmit] = useGame();
+  const [gameSettings, onSettingsSubmit] = useGameSettings();
   return (
     <GameWrapper>
       <SettingsForm onSettingsSubmit={onSettingsSubmit} />
