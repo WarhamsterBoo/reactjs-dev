@@ -8,4 +8,6 @@ describe("Game", () => {
 
     expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });
+
+  it("should pass gamesettings from SettingsForm to GameCore", () => {});
 });

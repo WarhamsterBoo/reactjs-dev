@@ -1,54 +1,36 @@
-import { WorldCreature } from "commonTypes/creature";
-import { GameEngine } from "commonTypes/game";
+import { GameEngine, GameSettings, WorldPresenter } from "commonTypes/game";
 import React, { useEffect, useState } from "react";
 
 export interface GameCoreProps {
-  xDimension: number;
-  yDimension: number;
-  fillingPercentage: number;
+  settings: GameSettings;
   world: WorldPresenter;
   engine: GameEngine;
 }
 
-export type WorldPresenter = React.FC<{
-  creatures: WorldCreature[][];
-  onClick: (x: number, y: number) => void;
-}>;
-
 export const GameCore: React.FC<GameCoreProps> = ({
-  xDimension,
-  yDimension,
-  fillingPercentage,
+  settings,
   world,
   engine,
 }) => {
   const [creatures, setCreatures] = useState(
-    engine.GenerateCreatures({ xDimension, yDimension, fillingPercentage })
+    engine.GenerateCreatures(settings)
   );
 
   useEffect(() => {
     setCreatures((prevState) =>
-      Array.from({ length: xDimension }).map((_, i) =>
-        Array.from({ length: yDimension }).map((_, j) => {
+      Array.from({ length: settings.xDimension }).map((_, i) =>
+        Array.from({ length: settings.yDimension }).map((_, j) => {
           return prevState[i] && prevState[i][j]
             ? prevState[i][j]
             : { IsAlive: false };
         })
       )
     );
-  }, [xDimension, yDimension]);
+  }, [settings.xDimension, settings.yDimension]);
 
-  useEffect(
-    () =>
-      setCreatures(
-        engine.GenerateCreatures({
-          xDimension,
-          yDimension,
-          fillingPercentage,
-        })
-      ),
-    [fillingPercentage]
-  );
+  useEffect(() => setCreatures(engine.GenerateCreatures(settings)), [
+    settings.fillingPercentage,
+  ]);
 
   const toggleCreatureState = (x: number, y: number) => {
     setCreatures((prevState) => {

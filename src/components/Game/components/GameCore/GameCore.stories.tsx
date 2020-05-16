@@ -12,9 +12,11 @@ export const GameCoreStory: React.FC<{}> = () => {
 
   return (
     <GameCore
-      xDimension={xDimension}
-      yDimension={yDimension}
-      fillingPercentage={fillingPercentage}
+      settings={{
+        xDimension,
+        yDimension,
+        fillingPercentage,
+      }}
       world={World}
       engine={Engine}
     />

@@ -1,8 +1,8 @@
-import { GameEngine } from "commonTypes/game";
+import { GameEngine, GameSettings, WorldPresenter } from "commonTypes/game";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";
-import { GameCore, GameCoreProps, WorldPresenter } from "./GameCore";
+import { GameCore, GameCoreProps } from "./GameCore";
 
 describe("GameCore", () => {
   const fakeWorld: WorldPresenter = () => null;
@@ -14,17 +14,23 @@ describe("GameCore", () => {
         })
       ),
   };
-  const gameCoreDefaultProps: GameCoreProps = {
+  const defaultGameSettings: GameSettings = {
     xDimension: 2,
     yDimension: 2,
     fillingPercentage: 0,
+  };
+  const gameCoreDefaultProps: GameCoreProps = {
+    settings: defaultGameSettings,
     world: fakeWorld,
     engine: fakeGameEngine,
   };
 
   it("should pass an empty creatures list to World if demensions are negative", () => {
     const sut = mount(
-      <GameCore {...gameCoreDefaultProps} xDimension={-1} yDimension={-3} />
+      <GameCore
+        {...gameCoreDefaultProps}
+        settings={{ ...defaultGameSettings, xDimension: -1, yDimension: -3 }}
+      />
     );
 
     expect(sut.find(fakeWorld).props().creatures).toEqual([]);
@@ -32,7 +38,10 @@ describe("GameCore", () => {
 
   it("should pass an empty creatures list to World if demensions are zero", () => {
     const sut = mount(
-      <GameCore {...gameCoreDefaultProps} xDimension={0} yDimension={0} />
+      <GameCore
+        {...gameCoreDefaultProps}
+        settings={{ ...defaultGameSettings, xDimension: 0, yDimension: 0 }}
+      />
     );
 
     expect(sut.find(fakeWorld).props().creatures).toEqual([]);
@@ -40,7 +49,10 @@ describe("GameCore", () => {
 
   it("should render initialized World component with size 1 x 1", () => {
     const sut = mount(
-      <GameCore {...gameCoreDefaultProps} xDimension={1} yDimension={1} />
+      <GameCore
+        {...gameCoreDefaultProps}
+        settings={{ ...defaultGameSettings, xDimension: 1, yDimension: 1 }}
+      />
     );
 
     expect(sut.find(fakeWorld).props().creatures).toEqual([
@@ -98,7 +110,9 @@ describe("GameCore", () => {
       [{ IsAlive: false }, { IsAlive: true }],
     ]);
 
-    sut.setProps({ fillingPercentage: 0.75 });
+    sut.setProps({
+      settings: { ...defaultGameSettings, fillingPercentage: 0.75 },
+    });
 
     expect(generateCreaturesMock).toHaveBeenCalledWith({
       xDimension: 2,
@@ -114,7 +128,10 @@ describe("GameCore", () => {
 
   it("should toggle Creature IsAlive when click on it", () => {
     const sut = mount(
-      <GameCore {...gameCoreDefaultProps} xDimension={3} yDimension={3} />
+      <GameCore
+        {...gameCoreDefaultProps}
+        settings={{ ...defaultGameSettings, xDimension: 3, yDimension: 3 }}
+      />
     );
     const initialState = sut.find(fakeWorld).props().creatures[1][2].IsAlive;
 
@@ -130,7 +147,10 @@ describe("GameCore", () => {
 
   it("should be able to increase size without creatures state reset", () => {
     const sut = mount(
-      <GameCore {...gameCoreDefaultProps} xDimension={2} yDimension={2} />
+      <GameCore
+        {...gameCoreDefaultProps}
+        settings={{ ...defaultGameSettings, xDimension: 2, yDimension: 2 }}
+      />
     );
     act(() => {
       sut.find(fakeWorld).props().onClick(0, 1);
@@ -142,7 +162,9 @@ describe("GameCore", () => {
       [{ IsAlive: false }, { IsAlive: true }],
     ]);
 
-    sut.setProps({ xDimension: 3, yDimension: 3 });
+    sut.setProps({
+      settings: { ...defaultGameSettings, xDimension: 3, yDimension: 3 },
+    });
 
     sut.update();
     expect(sut.find(fakeWorld).props().creatures).toEqual([
@@ -154,7 +176,10 @@ describe("GameCore", () => {
 
   it("should be able to decrease size without creatures state reset", () => {
     const sut = mount(
-      <GameCore {...gameCoreDefaultProps} xDimension={3} yDimension={3} />
+      <GameCore
+        {...gameCoreDefaultProps}
+        settings={{ ...defaultGameSettings, xDimension: 3, yDimension: 3 }}
+      />
     );
     act(() => {
       sut.find(fakeWorld).props().onClick(0, 0);
@@ -168,7 +193,9 @@ describe("GameCore", () => {
       [{ IsAlive: true }, { IsAlive: false }, { IsAlive: false }],
     ]);
 
-    sut.setProps({ xDimension: 2, yDimension: 2 });
+    sut.setProps({
+      settings: { ...defaultGameSettings, xDimension: 2, yDimension: 2 },
+    });
 
     sut.update();
     expect(sut.find(fakeWorld).props().creatures).toEqual([
