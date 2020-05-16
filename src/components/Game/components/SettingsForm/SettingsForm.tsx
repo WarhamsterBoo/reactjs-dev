@@ -54,6 +54,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
         <Label>
           Filling Percentage:
           <InputNumber
+            min="0"
             value={settings.fillingPercentage}
             onChange={onHandleInputChange}
             name="fillingPercentage"

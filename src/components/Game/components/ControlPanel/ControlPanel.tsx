@@ -1,11 +1,10 @@
+import { ControlAction } from "commonTypes/game";
 import React, { useCallback } from "react";
 import { Button } from "shared";
 import { ButtonsContainer } from "./ControlPanel.styled";
 
-export type Action = "stop" | "run" | "pause" | "slower" | "normal" | "faster";
-
 export interface ControlPanelProps {
-  onControlButtonClick: (action: Action) => void;
+  onControlButtonClick: (action: ControlAction) => void;
 }
 
 export const ControlPanel: React.FC<ControlPanelProps> = ({
@@ -14,7 +13,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
   const onClickHandler = useCallback(
     (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       const target = ev.target as HTMLButtonElement;
-      onControlButtonClick(target.id as Action);
+      onControlButtonClick(target.id as ControlAction);
     },
     [onControlButtonClick]
   );

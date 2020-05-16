@@ -14,3 +14,11 @@ export interface GameSettings {
   yDimension: number;
   fillingPercentage: number;
 }
+
+export type ControlAction =
+  | "stop"
+  | "run"
+  | "pause"
+  | "slower"
+  | "normal"
+  | "faster";

@@ -165,7 +165,7 @@ exports[`Game should render  1`] = `
         <input
           className="emotion-1"
           max="100"
-          min="1"
+          min="0"
           name="fillingPercentage"
           onChange={[Function]}
           type="number"

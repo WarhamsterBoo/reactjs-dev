@@ -10,7 +10,11 @@ import { GameWrapper } from "./Game.styled";
 import { useGameSettings } from "./useGameSettings";
 
 export const Game: React.FC<{}> = () => {
-  const [gameSettings, onSettingsSubmit] = useGameSettings();
+  const [
+    gameSettings,
+    onSettingsSubmit,
+    onControlButtonClick,
+  ] = useGameSettings();
   return (
     <GameWrapper>
       <SettingsForm
@@ -18,7 +22,7 @@ export const Game: React.FC<{}> = () => {
         onSettingsSubmit={onSettingsSubmit}
       />
       <GameCore settings={gameSettings} world={World} engine={Engine} />
-      <ControlPanel onControlButtonClick={() => {}} />
+      <ControlPanel onControlButtonClick={onControlButtonClick} />
     </GameWrapper>
   );
 };
