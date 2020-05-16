@@ -5,5 +5,10 @@ import { SettingsForm } from "./SettingsForm";
 export default { title: "Settings Form Component" };
 
 export const SettingsFormStory: React.FC<{}> = () => {
-  return <SettingsForm onSettingsSubmit={action("onSubmit")} />;
+  return (
+    <SettingsForm
+      gameSettings={{ xDimension: 10, yDimension: 10, fillingPercentage: 10 }}
+      onSettingsSubmit={action("onSubmit")}
+    />
+  );
 };

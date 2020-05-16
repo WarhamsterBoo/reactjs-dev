@@ -4,17 +4,15 @@ import { FieldSet, Form, Legend } from "./SettingsForm.styled";
 import { GameSettings } from "commonTypes/game";
 
 export interface SettingsFormProps {
+  gameSettings: GameSettings;
   onSettingsSubmit: (settings: GameSettings) => void;
 }
 
 export const SettingsForm: React.FC<SettingsFormProps> = ({
+  gameSettings,
   onSettingsSubmit,
 }) => {
-  const [settings, setSettings] = useState<GameSettings>({
-    xDimension: 0,
-    yDimension: 0,
-    fillingPercentage: 0,
-  });
+  const [settings, setSettings] = useState<GameSettings>(gameSettings);
 
   const onHandleInputChange = useCallback((ev: FormEvent<HTMLInputElement>) => {
     const { name, value } = ev.target as HTMLInputElement;

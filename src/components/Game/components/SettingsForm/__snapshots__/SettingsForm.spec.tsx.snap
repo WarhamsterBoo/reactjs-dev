@@ -79,7 +79,7 @@ exports[`SettingsForm should render 1`] = `
         name="xDimension"
         onChange={[Function]}
         type="number"
-        value={0}
+        value={10}
       />
     </label>
     <label
@@ -93,7 +93,7 @@ exports[`SettingsForm should render 1`] = `
         name="yDimension"
         onChange={[Function]}
         type="number"
-        value={0}
+        value={10}
       />
     </label>
     <label

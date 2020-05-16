@@ -6,8 +6,8 @@ export const useGameSettings = (): [
   (settings: GameSettings) => void
 ] => {
   const [gameSettings, setGameSettings] = useState<GameSettings>({
-    xDimension: 0,
-    yDimension: 0,
+    xDimension: 10,
+    yDimension: 10,
     fillingPercentage: 0,
   });
 

@@ -2,10 +2,22 @@ import React from "react";
 import renderer from "react-test-renderer";
 import { SettingsForm } from "./SettingsForm";
 import { mount } from "enzyme";
+import { GameSettings } from "commonTypes/game";
 
 describe("SettingsForm", () => {
+  const defaultInitialSettings: GameSettings = {
+    xDimension: 10,
+    yDimension: 10,
+    fillingPercentage: 0,
+  };
+
   it("should render", () => {
-    const sut = <SettingsForm onSettingsSubmit={jest.fn()} />;
+    const sut = (
+      <SettingsForm
+        gameSettings={defaultInitialSettings}
+        onSettingsSubmit={jest.fn()}
+      />
+    );
 
     expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });
@@ -18,7 +30,12 @@ describe("SettingsForm", () => {
   `(
     "should change value to $value in $inputName input",
     ({ inputName, value }) => {
-      const sut = mount(<SettingsForm onSettingsSubmit={jest.fn()} />);
+      const sut = mount(
+        <SettingsForm
+          gameSettings={defaultInitialSettings}
+          onSettingsSubmit={jest.fn()}
+        />
+      );
 
       sut.find(`input[name="${inputName}"]`).simulate("change", {
         target: { value: value, name: inputName },
@@ -32,7 +49,12 @@ describe("SettingsForm", () => {
 
   it("should call onSubmit with values from inputs", () => {
     const fakeOnSubmit = jest.fn();
-    const sut = mount(<SettingsForm onSettingsSubmit={fakeOnSubmit} />);
+    const sut = mount(
+      <SettingsForm
+        gameSettings={defaultInitialSettings}
+        onSettingsSubmit={fakeOnSubmit}
+      />
+    );
     sut.find(`input[name="xDimension"]`).simulate("change", {
       target: { value: "10", name: "xDimension" },
     });

@@ -34,7 +34,7 @@ describe("useGameSettings", () => {
 
   it("should transform fillingPercentage from percents to fraction", () => {
     const { result } = renderHook(() => useGameSettings());
-    
+
     act(() => {
       result.current[1]({
         xDimension: 10,
