@@ -8,27 +8,45 @@ describe("useGameSettings", () => {
       result.current[1]({
         xDimension: 1,
         yDimension: 1,
-        fillingPercentage: 0.1,
+        fillingPercentage: 0,
       });
     });
     expect(result.current[0]).toStrictEqual({
       xDimension: 1,
       yDimension: 1,
-      fillingPercentage: 0.1,
+      fillingPercentage: 0,
     });
 
     act(() => {
       result.current[1]({
         xDimension: 2,
         yDimension: 2,
-        fillingPercentage: 0.5,
+        fillingPercentage: 100,
       });
     });
 
     expect(result.current[0]).toStrictEqual({
       xDimension: 2,
       yDimension: 2,
-      fillingPercentage: 0.5,
+      fillingPercentage: 1,
+    });
+  });
+
+  it("should transform fillingPercentage from percents to fraction", () => {
+    const { result } = renderHook(() => useGameSettings());
+    
+    act(() => {
+      result.current[1]({
+        xDimension: 10,
+        yDimension: 10,
+        fillingPercentage: 10,
+      });
+    });
+
+    expect(result.current[0]).toStrictEqual({
+      xDimension: 10,
+      yDimension: 10,
+      fillingPercentage: 0.1,
     });
   });
 });

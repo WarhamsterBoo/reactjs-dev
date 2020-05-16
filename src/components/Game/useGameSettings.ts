@@ -13,7 +13,10 @@ export const useGameSettings = (): [
 
   const onSettingsSubmit = useCallback(
     (settings: GameSettings) => {
-      setGameSettings(settings);
+      setGameSettings({
+        ...settings,
+        fillingPercentage: settings.fillingPercentage / 100,
+      });
     },
     [gameSettings]
   );
