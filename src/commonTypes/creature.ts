@@ -1,3 +1,3 @@
 export interface WorldCreature {
-  IsAlive: boolean;
+  isAlive: boolean;
 }

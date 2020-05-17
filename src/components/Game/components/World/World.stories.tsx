@@ -7,9 +7,9 @@ export default { title: "World component", decorators: [withKnobs] };
 
 export const WorldStory: React.FC<{}> = () => {
   const creatures: CreatureState[][] = object("Creatures", [
-    [{ IsAlive: true }, { IsAlive: true }, { IsAlive: true }],
-    [{ IsAlive: true }, { IsAlive: false }, { IsAlive: false }],
-    [{ IsAlive: true }, { IsAlive: true }, { IsAlive: false }],
+    [{ isAlive: true }, { isAlive: true }, { isAlive: true }],
+    [{ isAlive: true }, { isAlive: false }, { isAlive: false }],
+    [{ isAlive: true }, { isAlive: true }, { isAlive: false }],
   ]);
 
   return <World creatures={creatures} onClick={action("button-click")} />;

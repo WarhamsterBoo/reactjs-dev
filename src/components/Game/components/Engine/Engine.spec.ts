@@ -69,7 +69,7 @@ describe("Engine", () => {
       const numberOfAliveCreatures = creatures.reduce<number>(
         (accumulator, creauresRow) =>
           accumulator +
-          creauresRow.filter((creature) => creature.IsAlive).length,
+          creauresRow.filter((creature) => creature.isAlive).length,
         0
       );
       expect(creatures.length).toBe(xDimension);

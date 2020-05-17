@@ -22,7 +22,7 @@ export const GameCore: React.FC<GameCoreProps> = ({
         Array.from({ length: settings.yDimension }).map((_, j) => {
           return prevState[i] && prevState[i][j]
             ? prevState[i][j]
-            : { IsAlive: false };
+            : { isAlive: false };
         })
       )
     );
@@ -36,10 +36,10 @@ export const GameCore: React.FC<GameCoreProps> = ({
     setCreatures((prevState) => {
       const newState = prevState.map((row, _) =>
         row.map((value, _) => ({
-          IsAlive: value.IsAlive,
+          isAlive: value.isAlive,
         }))
       );
-      newState[x][y].IsAlive = !prevState[x][y].IsAlive;
+      newState[x][y].isAlive = !prevState[x][y].isAlive;
       return newState;
     });
   };

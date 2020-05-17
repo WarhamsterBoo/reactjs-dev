@@ -10,7 +10,7 @@ describe("GameCore", () => {
     GenerateCreatures: ({ xDimension, yDimension }) =>
       Array.from({ length: xDimension }).map(() =>
         Array.from({ length: yDimension }).map(() => {
-          return { IsAlive: false };
+          return { isAlive: false };
         })
       ),
   };
@@ -56,7 +56,7 @@ describe("GameCore", () => {
     );
 
     expect(sut.find(fakeWorld).props().creatures).toEqual([
-      [{ IsAlive: false }],
+      [{ isAlive: false }],
     ]);
   });
 
@@ -64,16 +64,16 @@ describe("GameCore", () => {
     const sut = mount(<GameCore {...gameCoreDefaultProps} />);
 
     expect(sut.find(fakeWorld).props().creatures).toEqual([
-      [{ IsAlive: false }, { IsAlive: false }],
-      [{ IsAlive: false }, { IsAlive: false }],
+      [{ isAlive: false }, { isAlive: false }],
+      [{ isAlive: false }, { isAlive: false }],
     ]);
   });
 
   it("should use provided engine for initial state", () => {
     const generateCreaturesMock = jest.fn();
     generateCreaturesMock.mockReturnValue([
-      [{ IsAlive: true }, { IsAlive: false }],
-      [{ IsAlive: true }, { IsAlive: true }],
+      [{ isAlive: true }, { isAlive: false }],
+      [{ isAlive: true }, { isAlive: true }],
     ]);
 
     const sut = mount(
@@ -86,16 +86,16 @@ describe("GameCore", () => {
     );
 
     expect(sut.find(fakeWorld).props().creatures).toEqual([
-      [{ IsAlive: true }, { IsAlive: false }],
-      [{ IsAlive: true }, { IsAlive: true }],
+      [{ isAlive: true }, { isAlive: false }],
+      [{ isAlive: true }, { isAlive: true }],
     ]);
   });
 
   it("should change creatures state if filling percentage changes", () => {
     const generateCreaturesMock = jest.fn();
     generateCreaturesMock.mockReturnValue([
-      [{ IsAlive: false }, { IsAlive: false }],
-      [{ IsAlive: false }, { IsAlive: false }],
+      [{ isAlive: false }, { isAlive: false }],
+      [{ isAlive: false }, { isAlive: false }],
     ]);
     const sut = mount(
       <GameCore
@@ -106,8 +106,8 @@ describe("GameCore", () => {
       />
     );
     generateCreaturesMock.mockReturnValue([
-      [{ IsAlive: true }, { IsAlive: true }],
-      [{ IsAlive: false }, { IsAlive: true }],
+      [{ isAlive: true }, { isAlive: true }],
+      [{ isAlive: false }, { isAlive: true }],
     ]);
 
     sut.setProps({
@@ -121,26 +121,26 @@ describe("GameCore", () => {
     });
     sut.update();
     expect(sut.find(fakeWorld).props().creatures).toEqual([
-      [{ IsAlive: true }, { IsAlive: true }],
-      [{ IsAlive: false }, { IsAlive: true }],
+      [{ isAlive: true }, { isAlive: true }],
+      [{ isAlive: false }, { isAlive: true }],
     ]);
   });
 
-  it("should toggle Creature IsAlive when click on it", () => {
+  it("should toggle Creature isAlive when click on it", () => {
     const sut = mount(
       <GameCore
         {...gameCoreDefaultProps}
         settings={{ ...defaultGameSettings, xDimension: 3, yDimension: 3 }}
       />
     );
-    const initialState = sut.find(fakeWorld).props().creatures[1][2].IsAlive;
+    const initialState = sut.find(fakeWorld).props().creatures[1][2].isAlive;
 
     act(() => {
       sut.find(fakeWorld).props().onClick(1, 2);
     });
     sut.update();
 
-    expect(sut.find(fakeWorld).props().creatures[1][2].IsAlive).toBe(
+    expect(sut.find(fakeWorld).props().creatures[1][2].isAlive).toBe(
       !initialState
     );
   });
@@ -158,8 +158,8 @@ describe("GameCore", () => {
     });
     sut.update();
     expect(sut.find(fakeWorld).props().creatures).toEqual([
-      [{ IsAlive: false }, { IsAlive: true }],
-      [{ IsAlive: false }, { IsAlive: true }],
+      [{ isAlive: false }, { isAlive: true }],
+      [{ isAlive: false }, { isAlive: true }],
     ]);
 
     sut.setProps({
@@ -168,9 +168,9 @@ describe("GameCore", () => {
 
     sut.update();
     expect(sut.find(fakeWorld).props().creatures).toEqual([
-      [{ IsAlive: false }, { IsAlive: true }, { IsAlive: false }],
-      [{ IsAlive: false }, { IsAlive: true }, { IsAlive: false }],
-      [{ IsAlive: false }, { IsAlive: false }, { IsAlive: false }],
+      [{ isAlive: false }, { isAlive: true }, { isAlive: false }],
+      [{ isAlive: false }, { isAlive: true }, { isAlive: false }],
+      [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
     ]);
   });
 
@@ -188,9 +188,9 @@ describe("GameCore", () => {
     });
     sut.update();
     expect(sut.find(fakeWorld).props().creatures).toEqual([
-      [{ IsAlive: true }, { IsAlive: false }, { IsAlive: false }],
-      [{ IsAlive: false }, { IsAlive: true }, { IsAlive: false }],
-      [{ IsAlive: true }, { IsAlive: false }, { IsAlive: false }],
+      [{ isAlive: true }, { isAlive: false }, { isAlive: false }],
+      [{ isAlive: false }, { isAlive: true }, { isAlive: false }],
+      [{ isAlive: true }, { isAlive: false }, { isAlive: false }],
     ]);
 
     sut.setProps({
@@ -199,8 +199,8 @@ describe("GameCore", () => {
 
     sut.update();
     expect(sut.find(fakeWorld).props().creatures).toEqual([
-      [{ IsAlive: true }, { IsAlive: false }],
-      [{ IsAlive: false }, { IsAlive: true }],
+      [{ isAlive: true }, { isAlive: false }],
+      [{ isAlive: false }, { isAlive: true }],
     ]);
   });
 });

@@ -3,7 +3,7 @@ import { Creature } from "./components";
 import { WorldWrapper } from "./World.styled";
 
 export interface CreatureState {
-  IsAlive: boolean;
+  isAlive: boolean;
 }
 
 export interface WorldProps {
@@ -24,7 +24,7 @@ export const World: React.FC<WorldProps> = ({ creatures, onClick }) => {
             key={`{${x}${y}}`}
             x={x}
             y={y}
-            IsAlive={creature.IsAlive}
+            isAlive={creature.isAlive}
             onClick={onClick}
           />
         )),

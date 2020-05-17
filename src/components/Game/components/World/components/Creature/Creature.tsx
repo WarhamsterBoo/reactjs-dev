@@ -4,7 +4,7 @@ import { StyledCreature, StyledCreaturePhase } from "./StyledCreature";
 export interface CreatureProps {
   x: number;
   y: number;
-  IsAlive: boolean;
+  isAlive: boolean;
   onClick: (x: number, y: number) => void;
   transitionMs?: number;
 }
@@ -12,7 +12,7 @@ export interface CreatureProps {
 export const Creature: React.FC<CreatureProps> = ({
   x,
   y,
-  IsAlive,
+  isAlive,
   onClick,
   transitionMs = 500,
 }) => {
@@ -23,7 +23,7 @@ export const Creature: React.FC<CreatureProps> = ({
 
   useEffect(() => {
     setCreaturePhase(
-      IsAlive ? StyledCreaturePhase.Alive : StyledCreaturePhase.Dead
+      isAlive ? StyledCreaturePhase.Alive : StyledCreaturePhase.Dead
     );
   }, []);
 
@@ -34,19 +34,19 @@ export const Creature: React.FC<CreatureProps> = ({
     }
 
     setCreaturePhase(
-      IsAlive ? StyledCreaturePhase.Born : StyledCreaturePhase.Dying
+      isAlive ? StyledCreaturePhase.Born : StyledCreaturePhase.Dying
     );
 
     const timer = setTimeout(() => {
       setCreaturePhase(
-        IsAlive ? StyledCreaturePhase.Alive : StyledCreaturePhase.Dead
+        isAlive ? StyledCreaturePhase.Alive : StyledCreaturePhase.Dead
       );
     }, transitionMs);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [IsAlive]);
+  }, [isAlive]);
 
   return <StyledCreature phase={creaturePhase} onClick={() => onClick(x, y)} />;
 };

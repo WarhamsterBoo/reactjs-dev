@@ -9,6 +9,6 @@ export const CreatureStory: React.FC<{}> = () => {
   const isAlive = boolean("Creature is alive", false);
 
   return (
-    <Creature x={5} y={12} IsAlive={isAlive} onClick={action("button-click")} />
+    <Creature x={5} y={12} isAlive={isAlive} onClick={action("button-click")} />
   );
 };

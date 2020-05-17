@@ -15,7 +15,7 @@ describe("World", () => {
   });
 
   it("should render with 1 x 1 size and creature is dead", () => {
-    const creatures: CreatureState[][] = [[{ IsAlive: false }]];
+    const creatures: CreatureState[][] = [[{ isAlive: false }]];
 
     const sut = <World creatures={creatures} onClick={jest.fn()} />;
 
@@ -24,9 +24,9 @@ describe("World", () => {
 
   it("should render with 2 x 2 size filled with creatures", () => {
     const creatures: CreatureState[][] = [
-      [{ IsAlive: false }, { IsAlive: false }, { IsAlive: false }],
-      [{ IsAlive: false }, { IsAlive: false }, { IsAlive: false }],
-      [{ IsAlive: false }, { IsAlive: false }, { IsAlive: false }],
+      [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
+      [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
+      [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
     ];
 
     const sut = <World creatures={creatures} onClick={jest.fn()} />;
@@ -35,7 +35,7 @@ describe("World", () => {
   });
 
   it("should call onClick callback with passed coordinates", () => {
-    const creatures: CreatureState[][] = [[{ IsAlive: false }]];
+    const creatures: CreatureState[][] = [[{ isAlive: false }]];
     const fakeOnClick = jest.fn();
     const sut = mount(<World creatures={creatures} onClick={fakeOnClick} />);
 

@@ -11,7 +11,7 @@ export const Engine: GameEngine = {
 
     const creatures = Array.from({ length: xDimension }).map(() =>
       Array.from({ length: yDimension }).map(() => {
-        return { IsAlive: false };
+        return { isAlive: false };
       })
     );
 
@@ -22,8 +22,8 @@ export const Engine: GameEngine = {
       const x = Math.floor(Math.random() * Math.floor(xDimension));
       const y = Math.floor(Math.random() * Math.floor(yDimension));
 
-      if (!creatures[x][y].IsAlive) {
-        creatures[x][y].IsAlive = true;
+      if (!creatures[x][y].isAlive) {
+        creatures[x][y].isAlive = true;
         NumberOfAliveCreatures--;
       }
     }
