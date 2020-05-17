@@ -7,11 +7,11 @@ export const defaultGameSettings: GameSettings = {
   fillingPercentage: 0,
 };
 
-export const useGameSettings = (): [
-  GameSettings,
-  (settings: GameSettings) => void,
-  (action: ControlAction) => void
-] => {
+export const useGameSettings = (): {
+  settings: GameSettings;
+  onSettingsSubmit: (settings: GameSettings) => void;
+  onControlActionClick: (action: ControlAction) => void;
+} => {
   const [gameSettings, setGameSettings] = useState<GameSettings>(
     defaultGameSettings
   );
@@ -32,5 +32,9 @@ export const useGameSettings = (): [
     }
   }, []);
 
-  return [gameSettings, onSettingsSubmit, onConrolActionPerformed];
+  return {
+    settings: gameSettings,
+    onSettingsSubmit: onSettingsSubmit,
+    onControlActionClick: onConrolActionPerformed,
+  };
 };
