@@ -1,4 +1,8 @@
-import { GameEngine, GameSettings, WorldPresenter } from "commonTypes/GameSettings";
+import {
+  GameEngine,
+  GameSettings,
+  WorldPresenter,
+} from "commonTypes/GameSettings";
 import React, { useEffect, useState } from "react";
 
 export interface GameCoreProps {

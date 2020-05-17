@@ -1,13 +1,12 @@
-import { mount } from "enzyme";
+import { mount, shallow } from "enzyme";
 import React from "react";
-import renderer from "react-test-renderer";
 import { ControlPanel } from ".";
 
 describe("ControlPanel", () => {
   it("should render", () => {
-    const sut = <ControlPanel onControlButtonClick={jest.fn()} />;
+    const sut = shallow(<ControlPanel onControlButtonClick={jest.fn()} />);
 
-    expect(renderer.create(sut).toJSON()).toMatchSnapshot();
+    expect(sut).toMatchSnapshot();
   });
 
   it.each`

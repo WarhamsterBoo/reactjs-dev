@@ -1,8 +1,7 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import { SettingsForm } from "./SettingsForm";
-import { mount } from "enzyme";
 import { GameSettings } from "commonTypes/GameSettings";
+import { mount, shallow } from "enzyme";
+import React from "react";
+import { SettingsForm } from "./SettingsForm";
 
 describe("SettingsForm", () => {
   const defaultInitialSettings: GameSettings = {
@@ -12,14 +11,14 @@ describe("SettingsForm", () => {
   };
 
   it("should render", () => {
-    const sut = (
+    const sut = shallow(
       <SettingsForm
         gameSettings={defaultInitialSettings}
         onSettingsSubmit={jest.fn()}
       />
     );
 
-    expect(renderer.create(sut).toJSON()).toMatchSnapshot();
+    expect(sut).toMatchSnapshot();
   });
 
   it.each`

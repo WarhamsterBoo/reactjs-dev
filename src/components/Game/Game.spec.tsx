@@ -1,11 +1,11 @@
+import { shallow } from "enzyme";
 import React from "react";
-import renderer from "react-test-renderer";
 import { Game } from ".";
 
 describe("Game", () => {
-  it("should render ", () => {
-    const sut = <Game />;
+  it("should render", () => {
+    const sut = shallow(<Game />);
 
-    expect(renderer.create(sut).toJSON()).toMatchSnapshot();
+    expect(sut).toMatchSnapshot();
   });
 });
