@@ -13,7 +13,7 @@ export interface GameCoreProps {
 
 export const GameCore: React.FC<GameCoreProps> = ({
   settings,
-  world,
+  world: World,
   engine,
 }) => {
   const [creatures, setCreatures] = useState(
@@ -47,7 +47,6 @@ export const GameCore: React.FC<GameCoreProps> = ({
       return newState;
     });
   };
-  const World = world;
 
   return <World creatures={creatures} onClick={toggleCreatureState} />;
 };
