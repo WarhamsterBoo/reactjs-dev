@@ -7,7 +7,7 @@ module.exports = {
     "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
   },
   rootDir: "../",
-  snapshotSerializers: ["jest-emotion"],
+  snapshotSerializers: ["jest-emotion", "enzyme-to-json/serializer"],
   moduleNameMapper: {
     "shared(.*)": "<rootDir>/src/components/Shared/$1",
     "styles/(.*)": "<rootDir>/src/styles/$1",
