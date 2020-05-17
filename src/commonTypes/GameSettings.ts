@@ -1,4 +1,4 @@
-import { WorldCreature } from "./creature";
+import { WorldCreature } from "./WorldCreature";
 
 export interface GameEngine {
   GenerateCreatures: (settings: GameSettings) => WorldCreature[][];

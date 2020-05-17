@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import { SettingsForm } from "./SettingsForm";
 import { mount } from "enzyme";
-import { GameSettings } from "commonTypes/game";
+import { GameSettings } from "commonTypes/GameSettings";
 
 describe("SettingsForm", () => {
   const defaultInitialSettings: GameSettings = {
