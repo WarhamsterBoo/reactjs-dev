@@ -1,4 +1,3 @@
-import { GameSettings } from "commonTypes/GameSettings";
 import { mount, shallow } from "enzyme";
 import React from "react";
 import { SettingsForm } from "./SettingsForm";

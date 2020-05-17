@@ -1,7 +1,6 @@
 import React, { FormEvent, useCallback, useState } from "react";
 import { Button, InputNumber, Label } from "shared";
 import { FieldSet, Form, Legend } from "./SettingsForm.styled";
-import { GameSettings } from "commonTypes/GameSettings";
 
 export interface SettingsFormProps {
   gameSettings: GameSettings;

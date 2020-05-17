@@ -1,4 +1,3 @@
-import { ControlAction, GameSettings } from "commonTypes/GameSettings";
 import { useCallback, useState } from "react";
 
 export const defaultGameSettings: GameSettings = {

@@ -8,8 +8,7 @@ const config: webpack.Configuration = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     alias: {
       shared: path.resolve(__dirname, "src/components/Shared/index"),
-      styles: path.resolve(__dirname, "src/styles"),
-      commonTypes: path.resolve(__dirname, "src/commonTypes"),
+      styles: path.resolve(__dirname, "src/styles")
     },
   },
   output: {

@@ -1,8 +1,3 @@
-import {
-  GameEngine,
-  GameSettings,
-  WorldPresenter,
-} from "commonTypes/GameSettings";
 import React, { useEffect, useState } from "react";
 
 export interface GameCoreProps {
@@ -20,6 +15,7 @@ export const GameCore: React.FC<GameCoreProps> = ({
     engine.GenerateCreatures(settings)
   );
 
+  // TODO think about merging these two useEffect hooks into one
   useEffect(() => {
     setCreatures((prevState) =>
       Array.from({ length: settings.xDimension }).map((_, i) =>

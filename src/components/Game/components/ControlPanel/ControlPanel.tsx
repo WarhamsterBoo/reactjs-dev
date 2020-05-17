@@ -1,4 +1,3 @@
-import { ControlAction } from "commonTypes/GameSettings";
 import React, { useCallback } from "react";
 import { Button } from "shared";
 import { ButtonsContainer } from "./ControlPanel.styled";

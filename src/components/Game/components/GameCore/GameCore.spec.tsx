@@ -1,8 +1,3 @@
-import {
-  GameEngine,
-  GameSettings,
-  WorldPresenter,
-} from "commonTypes/GameSettings";
 import { mount } from "enzyme";
 import React from "react";
 import { act } from "react-dom/test-utils";

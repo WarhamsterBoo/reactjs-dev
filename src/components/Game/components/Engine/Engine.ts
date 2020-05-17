@@ -1,5 +1,3 @@
-import { GameEngine } from "commonTypes/GameSettings";
-
 export const Engine: GameEngine = {
   GenerateCreatures: ({ xDimension, yDimension, fillingPercentage }) => {
     if (fillingPercentage > 1) {
