@@ -1,95 +1,97 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`World should render nothing with 0 x 0 size: [[Array]] 1`] = `""`;
+
+exports[`World should render nothing with 0 x 0 size: [] 1`] = `""`;
+
 exports[`World should render with 1 x 1 size and creature is dead 1`] = `
-.emotion-1 {
-  display: inline-block;
-  padding: 1px;
-  background: #2d302b;
-}
-
-.emotion-0 {
-  width: 20px;
-  height: 20px;
-  border: none;
-  margin: 1px;
-  display: inline-block;
-  line-height: 25px;
-  text-align: center;
-  vertical-align: bottom;
-  background: #454a43;
-}
-
-<div
-  className="emotion-1"
->
-  <button
-    className="emotion-0"
-    onClick={[Function]}
+<Styled(div)>
+  <Creature
+    isAlive={false}
+    key="{00}"
+    onClick={[MockFunction]}
+    x={0}
+    y={0}
   />
-  <br />
-</div>
+  <br
+    key="0"
+  />
+</Styled(div)>
 `;
 
 exports[`World should render with 2 x 2 size filled with creatures 1`] = `
-.emotion-9 {
-  display: inline-block;
-  padding: 1px;
-  background: #2d302b;
-}
-
-.emotion-0 {
-  width: 20px;
-  height: 20px;
-  border: none;
-  margin: 1px;
-  display: inline-block;
-  line-height: 25px;
-  text-align: center;
-  vertical-align: bottom;
-  background: #454a43;
-}
-
-<div
-  className="emotion-9"
->
-  <button
-    className="emotion-0"
-    onClick={[Function]}
+<Styled(div)>
+  <Creature
+    isAlive={false}
+    key="{00}"
+    onClick={[MockFunction]}
+    x={0}
+    y={0}
   />
-  <button
-    className="emotion-0"
-    onClick={[Function]}
+  <Creature
+    isAlive={false}
+    key="{01}"
+    onClick={[MockFunction]}
+    x={0}
+    y={1}
   />
-  <button
-    className="emotion-0"
-    onClick={[Function]}
+  <Creature
+    isAlive={false}
+    key="{02}"
+    onClick={[MockFunction]}
+    x={0}
+    y={2}
   />
-  <br />
-  <button
-    className="emotion-0"
-    onClick={[Function]}
+  <br
+    key="0"
   />
-  <button
-    className="emotion-0"
-    onClick={[Function]}
+  <Creature
+    isAlive={false}
+    key="{10}"
+    onClick={[MockFunction]}
+    x={1}
+    y={0}
   />
-  <button
-    className="emotion-0"
-    onClick={[Function]}
+  <Creature
+    isAlive={false}
+    key="{11}"
+    onClick={[MockFunction]}
+    x={1}
+    y={1}
   />
-  <br />
-  <button
-    className="emotion-0"
-    onClick={[Function]}
+  <Creature
+    isAlive={false}
+    key="{12}"
+    onClick={[MockFunction]}
+    x={1}
+    y={2}
   />
-  <button
-    className="emotion-0"
-    onClick={[Function]}
+  <br
+    key="1"
   />
-  <button
-    className="emotion-0"
-    onClick={[Function]}
+  <Creature
+    isAlive={false}
+    key="{20}"
+    onClick={[MockFunction]}
+    x={2}
+    y={0}
   />
-  <br />
-</div>
+  <Creature
+    isAlive={false}
+    key="{21}"
+    onClick={[MockFunction]}
+    x={2}
+    y={1}
+  />
+  <Creature
+    isAlive={false}
+    key="{22}"
+    onClick={[MockFunction]}
+    x={2}
+    y={2}
+  />
+  <br
+    key="2"
+  />
+</Styled(div)>
 `;

@@ -1,0 +1,3 @@
+interface WorldCreature {
+  isAlive: boolean;
+}

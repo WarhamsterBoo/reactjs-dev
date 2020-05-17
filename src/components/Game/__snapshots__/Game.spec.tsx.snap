@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Game should render 1`] = `
+<Styled(div)>
+  <SettingsForm
+    gameSettings={
+      Object {
+        "fillingPercentage": 0,
+        "xDimension": 10,
+        "yDimension": 10,
+      }
+    }
+    onSettingsSubmit={[Function]}
+  />
+  <GameCore
+    engine={
+      Object {
+        "GenerateCreatures": [Function],
+      }
+    }
+    settings={
+      Object {
+        "fillingPercentage": 0,
+        "xDimension": 10,
+        "yDimension": 10,
+      }
+    }
+    world={[Function]}
+  />
+  <ControlPanel
+    onControlButtonClick={[Function]}
+  />
+</Styled(div)>
+`;

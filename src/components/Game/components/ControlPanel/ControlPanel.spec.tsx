@@ -1,13 +1,12 @@
-import { mount } from "enzyme";
+import { mount, shallow } from "enzyme";
 import React from "react";
-import renderer from "react-test-renderer";
 import { ControlPanel } from ".";
 
 describe("ControlPanel", () => {
   it("should render", () => {
-    const sut = <ControlPanel onClick={jest.fn()} />;
+    const sut = shallow(<ControlPanel onControlButtonClick={jest.fn()} />);
 
-    expect(renderer.create(sut).toJSON()).toMatchSnapshot();
+    expect(sut).toMatchSnapshot();
   });
 
   it.each`
@@ -22,7 +21,7 @@ describe("ControlPanel", () => {
     "should call onClick callback with action '$action' for button with Id '$buttonId'",
     ({ buttonId, action }) => {
       const fakeOnClick = jest.fn();
-      const sut = mount(<ControlPanel onClick={fakeOnClick} />);
+      const sut = mount(<ControlPanel onControlButtonClick={fakeOnClick} />);
 
       sut.find(`button[id="${buttonId}"]`).simulate("click");
 

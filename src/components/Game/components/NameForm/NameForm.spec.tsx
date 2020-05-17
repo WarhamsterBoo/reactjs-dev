@@ -1,13 +1,12 @@
-import { mount } from "enzyme";
+import { mount, shallow } from "enzyme";
 import React from "react";
-import renderer from "react-test-renderer";
 import { NameForm } from "./NameForm";
 
 describe("Name Form", () => {
   it("should render", () => {
-    const sut = <NameForm onNameSubmit={jest.fn()} />;
+    const sut = shallow(<NameForm onNameSubmit={jest.fn()} />);
 
-    expect(renderer.create(sut).toJSON()).toMatchSnapshot();
+    expect(sut).toMatchSnapshot();
   });
 
   it("should change value in name input", () => {

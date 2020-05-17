@@ -1,77 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ControlPanel should render 1`] = `
-.emotion-6 {
-  padding: 10px 10px 10px 10px;
-  border: solid 1px black;
-  background-color: #011627;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.emotion-0 {
-  margin-left: 7px;
-  margin-right: 7px;
-  border-radius: 4px;
-  border: none;
-  background-color: #addb67;
-  color: #011627;
-  font-family: Inconsolata,monospace;
-}
-
-<div
-  className="emotion-6"
->
-  <button
-    className="emotion-0"
+<Styled(div)>
+  <Styled(button)
     id="stop"
     onClick={[Function]}
   >
     Stop
-  </button>
-  <button
-    className="emotion-0"
+  </Styled(button)>
+  <Styled(button)
     id="run"
     onClick={[Function]}
   >
     Run
-  </button>
-  <button
-    className="emotion-0"
+  </Styled(button)>
+  <Styled(button)
     id="pause"
     onClick={[Function]}
   >
     Pause
-  </button>
-  <button
-    className="emotion-0"
+  </Styled(button)>
+  <Styled(button)
     id="faster"
     onClick={[Function]}
   >
     Faster
-  </button>
-  <button
-    className="emotion-0"
+  </Styled(button)>
+  <Styled(button)
     id="normal"
     onClick={[Function]}
   >
     Normal
-  </button>
-  <button
-    className="emotion-0"
+  </Styled(button)>
+  <Styled(button)
     id="slower"
     onClick={[Function]}
   >
     Slower
-  </button>
-</div>
+  </Styled(button)>
+</Styled(div)>
 `;

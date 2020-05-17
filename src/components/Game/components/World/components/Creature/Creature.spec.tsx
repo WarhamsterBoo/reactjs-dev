@@ -11,7 +11,7 @@ describe("Creature", () => {
   const defaultProps: CreatureProps = {
     x: 0,
     y: 0,
-    IsAlive: false,
+    isAlive: false,
     onClick: jest.fn(),
     transitionMs: 500,
   };
@@ -23,7 +23,7 @@ describe("Creature", () => {
   });
 
   it("should render alive", () => {
-    const sut = <Creature {...defaultProps} IsAlive={true} />;
+    const sut = <Creature {...defaultProps} isAlive={true} />;
 
     expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });
@@ -31,7 +31,7 @@ describe("Creature", () => {
   it("should start to brighten after birth", () => {
     jest.useFakeTimers();
     const sut = mount(<Creature {...defaultProps} />);
-    sut.setProps({ IsAlive: true });
+    sut.setProps({ isAlive: true });
     sut.update();
 
     jest.advanceTimersByTime(100);
@@ -43,7 +43,7 @@ describe("Creature", () => {
   it("should become alive after birth", () => {
     jest.useFakeTimers();
     const sut = mount(<Creature {...defaultProps} />);
-    sut.setProps({ IsAlive: true, transitionMs: 500 });
+    sut.setProps({ isAlive: true, transitionMs: 500 });
     sut.update();
 
     act(() => {
@@ -56,8 +56,8 @@ describe("Creature", () => {
 
   it("should start to fade after death", () => {
     jest.useFakeTimers();
-    const sut = mount(<Creature {...defaultProps} IsAlive={true} />);
-    sut.setProps({ IsAlive: false });
+    const sut = mount(<Creature {...defaultProps} isAlive={true} />);
+    sut.setProps({ isAlive: false });
     sut.update();
 
     jest.advanceTimersByTime(100);
@@ -69,7 +69,7 @@ describe("Creature", () => {
   it("should become dead", () => {
     jest.useFakeTimers();
     const sut = mount(<Creature {...defaultProps} />);
-    sut.setProps({ IsAlive: true, transitionMs: 500 });
+    sut.setProps({ isAlive: true, transitionMs: 500 });
     sut.update();
 
     act(() => {
@@ -83,7 +83,7 @@ describe("Creature", () => {
   it("should call onClick callback with it's coordinates", () => {
     const fakeOnClick = jest.fn();
     const sut = mount(
-      <Creature x={1} y={2} IsAlive={true} onClick={fakeOnClick} />
+      <Creature x={1} y={2} isAlive={true} onClick={fakeOnClick} />
     );
 
     sut.simulate("click");

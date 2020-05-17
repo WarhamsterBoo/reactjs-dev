@@ -3,23 +3,15 @@ import { Button, InputNumber, Label } from "shared";
 import { FieldSet, Form, Legend } from "./SettingsForm.styled";
 
 export interface SettingsFormProps {
-  onSettingsSubmit: (settings: Settings) => void;
-}
-
-export interface Settings {
-  xDimension: number;
-  yDimension: number;
-  fillingPercentage: number;
+  gameSettings: GameSettings;
+  onSettingsSubmit: (settings: GameSettings) => void;
 }
 
 export const SettingsForm: React.FC<SettingsFormProps> = ({
+  gameSettings,
   onSettingsSubmit,
 }) => {
-  const [settings, setSettings] = useState<Settings>({
-    xDimension: 0,
-    yDimension: 0,
-    fillingPercentage: 0,
-  });
+  const [settings, setSettings] = useState<GameSettings>(gameSettings);
 
   const onHandleInputChange = useCallback((ev: FormEvent<HTMLInputElement>) => {
     const { name, value } = ev.target as HTMLInputElement;
@@ -61,6 +53,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
         <Label>
           Filling Percentage:
           <InputNumber
+            min="0"
             value={settings.fillingPercentage}
             onChange={onHandleInputChange}
             name="fillingPercentage"
