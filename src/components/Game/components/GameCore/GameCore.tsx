@@ -38,13 +38,14 @@ export const GameCore: React.FC<GameCoreProps> = ({
 
   const toggleCreatureState = (x: number, y: number) => {
     setCreatures((prevState) => {
-      const newState = prevState.map((row, _) =>
-        row.map((value, _) => ({
-          isAlive: value.isAlive,
-        }))
-      );
-      newState[x][y].isAlive = !prevState[x][y].isAlive;
-      return newState;
+      return prevState.map((row, rowIndex) => {
+        if (rowIndex == x) {
+          return row.map((value, inRowIndex) => ({
+            isAlive: inRowIndex == y ? !value.isAlive : value.isAlive,
+          }));
+        }
+        return row;
+      });
     });
   };
 
