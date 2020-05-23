@@ -24,6 +24,9 @@ const config: webpack.Configuration = {
       },
     ],
   },
+  devServer: {
+    historyApiFallback: true,
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
