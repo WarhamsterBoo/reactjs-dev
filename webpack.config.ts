@@ -12,6 +12,7 @@ const config: webpack.Configuration = {
       components: path.resolve(__dirname, "src/components"),
       api: path.resolve(__dirname, "src/api"),
       hoc: path.resolve(__dirname, "src/hoc"),
+      screens: path.resolve(__dirname, "src/screens"),
     },
   },
   output: {

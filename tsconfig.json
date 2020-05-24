@@ -7,6 +7,7 @@
       "components/*": ["src/components/*"],
       "api/*": ["src/api/*"],
       "hoc/*": ["src/hoc/*"],
+      "screens/*": ["src/screens/*"]
     },
     "module": "commonjs",
     "target": "es5",

@@ -5,7 +5,7 @@ export const auth = {
   logOut: () => {
     localStorage.removeItem("username");
   },
-  isAuthenticated: () => {
-    console.log(`is authenticated`);
+  isAuthenticated: (): Boolean => {
+    return Boolean(localStorage["username"]);
   },
 };
