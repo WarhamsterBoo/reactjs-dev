@@ -16,6 +16,13 @@ exports[`App should render 1`] = `
     </li>
     <li>
       <Link
+        to="/forbidden"
+      >
+        Forbidden
+      </Link>
+    </li>
+    <li>
+      <Link
         to="/"
       >
         Game
@@ -28,6 +35,12 @@ exports[`App should render 1`] = `
       path="/login"
     >
       <LoginScreen />
+    </Route>
+    <Route
+      exact={true}
+      path="/forbidden"
+    >
+      <ForbiddenScreen />
     </Route>
     <Route
       exact={true}
