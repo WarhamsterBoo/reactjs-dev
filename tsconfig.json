@@ -5,7 +5,8 @@
       "shared": ["src/components/Shared/index"],
       "styles/*": ["src/styles/*"],
       "components/*": ["src/components/*"],
-      "api/*": ["src/api/*"]
+      "api/*": ["src/api/*"],
+      "hoc/*": ["src/hoc/*"],
     },
     "module": "commonjs",
     "target": "es5",

@@ -1,6 +1,4 @@
-import React from "react";
 import { Game } from "components/Game";
+import { withAuthentication } from "hoc/withAuthentication";
 
-export const GameScreen: React.FC<{}> = () => {
-  return <Game />;
-};
+export const GameScreen = withAuthentication(Game);

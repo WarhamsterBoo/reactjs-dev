@@ -46,7 +46,7 @@ exports[`App should render 1`] = `
       exact={true}
       path="/"
     >
-      <GameScreen />
+      <Component />
     </Route>
   </Switch>
 </BrowserRouter>
