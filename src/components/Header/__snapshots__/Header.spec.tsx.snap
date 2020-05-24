@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header should render 1`] = `
+<Fragment>
+  <h1>
+    Hello, 
+    username
+  </h1>
+  <button
+    onClick={[Function]}
+  >
+    Logout
+  </button>
+</Fragment>
+`;
