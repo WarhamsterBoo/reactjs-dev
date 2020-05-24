@@ -9,7 +9,8 @@ const config: webpack.Configuration = {
     alias: {
       shared: path.resolve(__dirname, "src/components/Shared/index"),
       styles: path.resolve(__dirname, "src/styles"),
-      components: path.resolve(__dirname, "src/components")
+      components: path.resolve(__dirname, "src/components"),
+      api: path.resolve(__dirname, "src/api")
     },
   },
   output: {
