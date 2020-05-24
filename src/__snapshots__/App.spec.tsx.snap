@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should render 1`] = `
+<BrowserRouter>
+  <Header
+    onLogoutClick={[Function]}
+    userName="username"
+  />
+  <ul>
+    <li>
+      <Link
+        to="/login"
+      >
+        Login
+      </Link>
+    </li>
+    <li>
+      <Link
+        to="/"
+      >
+        Game
+      </Link>
+    </li>
+  </ul>
+  <Switch>
+    <Route
+      exact={true}
+      path="/login"
+    >
+      <NameForm
+        onNameSubmit={[Function]}
+      />
+    </Route>
+    <Route
+      exact={true}
+      path="/"
+    >
+      <Game />
+    </Route>
+  </Switch>
+</BrowserRouter>
+`;
