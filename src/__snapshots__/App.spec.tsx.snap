@@ -27,15 +27,13 @@ exports[`App should render 1`] = `
       exact={true}
       path="/login"
     >
-      <NameForm
-        onNameSubmit={[Function]}
-      />
+      <LoginScreen />
     </Route>
     <Route
       exact={true}
       path="/"
     >
-      <Game />
+      <GameScreen />
     </Route>
   </Switch>
 </BrowserRouter>
