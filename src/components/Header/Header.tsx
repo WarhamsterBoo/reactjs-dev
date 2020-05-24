@@ -1,11 +1,14 @@
 import React from "react";
 
 export interface HeaderProps {
-  userName: string;
-  onLogoutClick: () => void;
+  userName?: string;
+  onLogout?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ userName, onLogoutClick }) => {
+export const Header: React.FC<HeaderProps> = ({
+  userName = "anonymous",
+  onLogout: onLogoutClick,
+}) => {
   return (
     <>
       <h1>Hello, {userName}</h1>

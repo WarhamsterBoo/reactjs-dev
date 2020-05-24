@@ -8,7 +8,6 @@ import { ForbiddenScreen } from "./screens/ForbiddenScreen";
 export const App: React.FC<{}> = () => {
   return (
     <BrowserRouter>
-      <Header userName="username" onLogoutClick={() => {}} />
       <ul>
         <li>
           <Link to="/login">Login</Link>

@@ -8,4 +8,7 @@ export const auth = {
   isAuthenticated: (): Boolean => {
     return Boolean(localStorage["username"]);
   },
+  currentUsername: (): string => {
+    return String(localStorage["username"]);
+  },
 };

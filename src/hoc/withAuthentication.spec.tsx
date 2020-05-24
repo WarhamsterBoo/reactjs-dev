@@ -28,4 +28,14 @@ describe("withAuthentication", () => {
 
     expect(sut.find(ForbiddenScreen)).toHaveLength(1);
   });
+
+  it("should pass current username to wrapped component if authenticated", () => {
+    (auth.isAuthenticated as jest.Mock).mockReturnValueOnce(true);
+    (auth.currentUsername as jest.Mock).mockReturnValueOnce("foobar");
+
+    const sut = mount(<WrappedComponent greeting={"Hello"} />);
+
+    expect(sut.find(Component)).toHaveLength(1);
+    expect(sut.find(Component).prop("userName")).toBe("foobar");
+  });
 });

@@ -2,10 +2,6 @@
 
 exports[`App should render 1`] = `
 <BrowserRouter>
-  <Header
-    onLogoutClick={[Function]}
-    userName="username"
-  />
   <ul>
     <li>
       <Link
