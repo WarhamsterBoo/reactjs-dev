@@ -7,7 +7,7 @@ export const GameWrapper = styled.div`
 
   background-color: ${colors.mainArea};
 
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   justify-content space-between;
   align-content: space-between;
