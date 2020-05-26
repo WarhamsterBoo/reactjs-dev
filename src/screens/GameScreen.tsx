@@ -3,13 +3,11 @@ import { Game } from "components/Game";
 import { withAuthentication } from "hoc/withAuthentication";
 import React from "react";
 
-export const GameScreen = withAuthentication(
-  ({ userName: username, onLogout }) => {
-    return (
-      <>
-        <Header userName={username} onLogout={onLogout} />
-        <Game />
-      </>
-    );
-  }
-);
+export const GameScreen = withAuthentication(({ userName, logOutUser }) => {
+  return (
+    <>
+      <Header userName={userName} logOutUser={logOutUser} />
+      <Game />
+    </>
+  );
+});

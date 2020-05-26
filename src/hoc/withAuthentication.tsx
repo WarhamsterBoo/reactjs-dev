@@ -4,7 +4,7 @@ import { ForbiddenScreen } from "screens/ForbiddenScreen";
 
 interface AuthProps {
   userName?: string;
-  onLogout?: () => void;
+  logOutUser?: () => void;
 }
 
 export const withAuthentication = <Props extends object>(
@@ -14,7 +14,7 @@ export const withAuthentication = <Props extends object>(
     <Component
       {...props}
       userName={auth.currentUsername()}
-      onLogout={auth.logOut}
+      logOutUser={auth.logOut}
     />
   ) : (
     <ForbiddenScreen />

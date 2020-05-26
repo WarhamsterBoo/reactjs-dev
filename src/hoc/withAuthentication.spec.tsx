@@ -43,7 +43,7 @@ describe("withAuthentication", () => {
     (auth.isAuthenticated as jest.Mock).mockReturnValueOnce(true);
     const sut = mount(<WrappedComponent greeting={"Hello"} />);
 
-    (sut.find(Component).prop("onLogout") as Function)();
+    (sut.find(Component).prop("logOutUser") as Function)();
 
     expect(auth.logOut as jest.Mock).toBeCalledTimes(1);
   });
