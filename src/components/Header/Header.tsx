@@ -7,12 +7,12 @@ export interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({
   userName = "anonymous",
-  onLogout: onLogoutClick,
+  onLogout,
 }) => {
   return (
     <>
       <h1>Hello, {userName}</h1>
-      <button onClick={onLogoutClick}>Logout</button>
+      <button onClick={onLogout}>Logout</button>
     </>
   );
 };

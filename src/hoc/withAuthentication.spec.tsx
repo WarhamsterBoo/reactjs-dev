@@ -38,4 +38,13 @@ describe("withAuthentication", () => {
     expect(sut.find(Component)).toHaveLength(1);
     expect(sut.find(Component).prop("userName")).toBe("foobar");
   });
+
+  it("should provide function that logs out user it its authenticated", () => {
+    (auth.isAuthenticated as jest.Mock).mockReturnValueOnce(true);
+    const sut = mount(<WrappedComponent greeting={"Hello"} />);
+
+    (sut.find(Component).prop("onLogout") as Function)();
+
+    expect(auth.logOut as jest.Mock).toBeCalledTimes(1);
+  });
 });
