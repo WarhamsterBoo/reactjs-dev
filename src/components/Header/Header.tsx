@@ -1,5 +1,7 @@
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
+import { Button } from "shared";
+import { Greeting, HeaderContainer } from "./Header.styled";
 
 export interface HeaderProps {
   userName?: string;
@@ -17,9 +19,9 @@ export const Header: React.FC<HeaderProps> = ({
   }, [logOutUser]);
 
   return (
-    <>
-      <h1>Hello, {userName}</h1>
-      <button onClick={onLogoutClick}>Logout</button>
-    </>
+    <HeaderContainer>
+      <Greeting>Hello, {userName}</Greeting>
+      <Button onClick={onLogoutClick}>Logout</Button>
+    </HeaderContainer>
   );
 };
