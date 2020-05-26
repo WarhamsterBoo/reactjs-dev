@@ -1,24 +1,12 @@
 import React from "react";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
-import { Header } from "./components/Header";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ForbiddenScreen } from "./screens/ForbiddenScreen";
 import { GameScreen } from "./screens/GameScreen";
 import { LoginScreen } from "./screens/LoginScreen";
-import { ForbiddenScreen } from "./screens/ForbiddenScreen";
 
 export const App: React.FC<{}> = () => {
   return (
     <BrowserRouter>
-      <ul>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/forbidden">Forbidden</Link>
-        </li>
-        <li>
-          <Link to="/">Game</Link>
-        </li>
-      </ul>
       <Switch>
         <Route exact path="/login">
           <LoginScreen />
