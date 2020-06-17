@@ -5,8 +5,8 @@ import { useHistory } from "react-router-dom";
 
 export const LoginScreen: React.FC<{}> = () => {
   const history = useHistory();
-  const onSubmit = useCallback((userName) => {
-    auth.logIn(userName);
+  const onSubmit = useCallback(async (userName) => {
+    await auth.logIn(userName);
     history.push("/");
   }, []);
 

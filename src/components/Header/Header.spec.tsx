@@ -1,4 +1,3 @@
-import { auth } from "api/auth";
 import { shallow } from "enzyme";
 import React from "react";
 import { Header } from "./Header";

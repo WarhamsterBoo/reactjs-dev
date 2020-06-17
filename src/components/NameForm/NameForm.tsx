@@ -3,7 +3,7 @@ import { Button, InputText, Label } from "shared";
 import { Form } from "./NameForm.styled";
 
 export interface NameFormProps {
-  onNameSubmit: (userName: string) => void;
+  onNameSubmit: (userName: string) => Promise<void>;
 }
 
 export const NameForm: React.FC<NameFormProps> = ({ onNameSubmit }) => {
@@ -15,9 +15,9 @@ export const NameForm: React.FC<NameFormProps> = ({ onNameSubmit }) => {
   }, []);
 
   const onHandleSubmit = useCallback(
-    (ev: FormEvent) => {
+    async (ev: FormEvent) => {
       ev.preventDefault();
-      onNameSubmit(userName);
+      await onNameSubmit(userName);
     },
     [onNameSubmit, userName]
   );

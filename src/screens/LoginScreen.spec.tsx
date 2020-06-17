@@ -11,18 +11,18 @@ jest.mock("react-router-dom", () => ({
 jest.mock("api/auth");
 
 describe("LoginScreen", () => {
-  it("should redirect to game screen after auth", () => {
+  it("should redirect to game screen after auth", async () => {
     const sut = shallow(<LoginScreen />);
 
-    (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
+    await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
 
     expect(mockHistory.push).toHaveBeenCalledWith("/");
   });
 
-  it("should call auth api with userName", () => {
+  it("should call auth api with userName", async () => {
     const sut = shallow(<LoginScreen />);
 
-    (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
+    await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
 
     expect(auth.logIn).toHaveBeenCalledWith("John Doe");
   });
