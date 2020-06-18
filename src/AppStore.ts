@@ -1,8 +1,8 @@
 import { combineReducers, createStore } from "@reduxjs/toolkit";
-import { reducer as settingsReducer } from "./components/Game";
+import { settingsSlice } from "./components/Game";
 
 const rootReducer = combineReducers({
-  settings: settingsReducer,
+  settings: settingsSlice.reducer,
 });
 
 export const store = createStore(rootReducer);

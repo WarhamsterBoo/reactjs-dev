@@ -1,4 +1,4 @@
-import { reducer, actions } from "./settings";
+import { settingsSlice } from "./settings";
 
 describe("settings reducer", () => {
   const initialState: GameSettings = {
@@ -7,12 +7,16 @@ describe("settings reducer", () => {
     fillingPercentage: 0,
   };
 
+  const defaultState: GameSettings = {
+    xDimension: 10,
+    yDimension: 10,
+    fillingPercentage: 0,
+  };
+
   it("should return initial state", () => {
-    expect(reducer(undefined, { type: "SOMEINVALIDACTIONTYPE" })).toEqual({
-      xDimension: 10,
-      yDimension: 10,
-      fillingPercentage: 0,
-    });
+    expect(
+      settingsSlice.reducer(undefined, { type: "SOMEINVALIDACTIONTYPE" })
+    ).toEqual(defaultState);
   });
 
   it("should change xDimension and yDimension settings when CHANGE action dispatched", () => {
@@ -23,7 +27,10 @@ describe("settings reducer", () => {
     };
 
     expect(
-      reducer(initialState, actions.changeSettingsTo(targetState))
+      settingsSlice.reducer(
+        initialState,
+        settingsSlice.actions.changeSettingsTo(targetState)
+      )
     ).toEqual(targetState);
   });
 
@@ -35,10 +42,19 @@ describe("settings reducer", () => {
     };
 
     expect(
-      reducer(initialState, actions.changeSettingsTo(targetState))
+      settingsSlice.reducer(
+        initialState,
+        settingsSlice.actions.changeSettingsTo(targetState)
+      )
     ).toEqual({
       ...targetState,
       fillingPercentage: 0.6,
     });
+  });
+
+  it("should reset settings to default when stop action dispatched", () => {
+    expect(
+      settingsSlice.reducer(initialState, settingsSlice.actions.stop())
+    ).toEqual(defaultState);
   });
 });

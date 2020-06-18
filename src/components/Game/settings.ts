@@ -6,17 +6,14 @@ const initialState: GameSettings = {
   fillingPercentage: 0,
 };
 
-const settingsSlice = createSlice({
+export const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
-    changeSettingsTo: (_, action: PayloadAction<GameSettings>) => {
-      return {
-        ...action.payload,
-        fillingPercentage: action.payload.fillingPercentage / 100,
-      };
-    },
+    changeSettingsTo: (_, action: PayloadAction<GameSettings>) => ({
+      ...action.payload,
+      fillingPercentage: action.payload.fillingPercentage / 100,
+    }),
+    stop: () => initialState,
   },
 });
-
-export const { reducer, actions } = settingsSlice;
