@@ -6,6 +6,7 @@ export const defaultGameSettings: GameSettings = {
   fillingPercentage: 0,
 };
 
+// TODO should be replaced with redux
 export const useGameSettings = (): {
   settings: GameSettings;
   onSettingsSubmit: (settings: GameSettings) => void;
