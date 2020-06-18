@@ -1,4 +1,4 @@
-import settings, { changeSettings } from "./settings";
+import { reducer, actions } from "./settings";
 
 describe("settings reducer", () => {
   const initialState: GameSettings = {
@@ -8,7 +8,7 @@ describe("settings reducer", () => {
   };
 
   it("should return initial state", () => {
-    expect(settings(undefined, { type: "SOMEINVALIDACTIONTYPE" })).toEqual({
+    expect(reducer(undefined, { type: "SOMEINVALIDACTIONTYPE" })).toEqual({
       xDimension: 10,
       yDimension: 10,
       fillingPercentage: 0,
@@ -22,9 +22,9 @@ describe("settings reducer", () => {
       fillingPercentage: 0,
     };
 
-    expect(settings(initialState, changeSettings(targetState))).toEqual(
-      targetState
-    );
+    expect(
+      reducer(initialState, actions.changeSettingsTo(targetState))
+    ).toEqual(targetState);
   });
 
   it("should transform fillingPercentage from percents to fraction", () => {
@@ -34,7 +34,9 @@ describe("settings reducer", () => {
       fillingPercentage: 60,
     };
 
-    expect(settings(initialState, changeSettings(targetState))).toEqual({
+    expect(
+      reducer(initialState, actions.changeSettingsTo(targetState))
+    ).toEqual({
       ...targetState,
       fillingPercentage: 0.6,
     });

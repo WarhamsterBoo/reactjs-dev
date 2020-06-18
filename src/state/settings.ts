@@ -1,8 +1,4 @@
-import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
-
-const CHANGE = "game/settings/CHANGE";
-
-export const changeSettings = createAction<GameSettings>(CHANGE);
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: GameSettings = {
   xDimension: 10,
@@ -10,11 +6,17 @@ const initialState: GameSettings = {
   fillingPercentage: 0,
 };
 
-export default createReducer<GameSettings>(initialState, {
-  [changeSettings.type]: (_, action: PayloadAction<GameSettings>) => {
-    return {
-      ...action.payload,
-      fillingPercentage: action.payload.fillingPercentage / 100,
-    };
+const settingsSlice = createSlice({
+  name: "settings",
+  initialState,
+  reducers: {
+    changeSettingsTo: (_, action: PayloadAction<GameSettings>) => {
+      return {
+        ...action.payload,
+        fillingPercentage: action.payload.fillingPercentage / 100,
+      };
+    },
   },
 });
+
+export const { reducer, actions } = settingsSlice;
