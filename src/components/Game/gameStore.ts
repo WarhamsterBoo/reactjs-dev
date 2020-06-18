@@ -1,3 +1,4 @@
+import { arrayGenerator } from "@/utils/arrayGenerator";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface GameState {
@@ -7,7 +8,7 @@ export interface GameState {
 
 const initialState: GameState = {
   settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
-  creatures: [[]],
+  creatures: arrayGenerator(10, 10, { isAlive: false }),
 };
 
 export const gameStore = createSlice({

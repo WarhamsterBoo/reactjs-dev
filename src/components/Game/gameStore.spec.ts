@@ -1,14 +1,15 @@
 import { gameStore, GameState } from "./gameStore";
+import { arrayGenerator } from "@/utils/arrayGenerator";
 
 describe("settings reducer", () => {
-  const initialState: GameState = {
-    settings: { xDimension: 11, yDimension: 11, fillingPercentage: 0 },
-    creatures: [[]],
-  };
-
   const defaultState: GameState = {
     settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
-    creatures: [[]],
+    creatures: arrayGenerator<WorldCreature>(10, 10, { isAlive: false }),
+  };
+
+  const initialState: GameState = {
+    settings: { xDimension: 11, yDimension: 11, fillingPercentage: 0 },
+    creatures: arrayGenerator<WorldCreature>(11, 11, { isAlive: false }),
   };
 
   it("should return initial state", () => {
@@ -29,10 +30,7 @@ describe("settings reducer", () => {
         initialState,
         gameStore.actions.changeSettingsTo(targetSettings)
       )
-    ).toEqual({
-      ...initialState,
-      creatures: [[]],
-    });
+    ).toEqual(initialState);
   });
 
   it("should transform fillingPercentage from percents to fraction", () => {
