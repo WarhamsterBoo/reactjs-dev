@@ -67,12 +67,14 @@ describe("game store", () => {
 
   describe("generateCreatures", () => {
     it.each`
-      xDimension | yDimension
-      ${-1}      | ${-3}
-      ${0}       | ${0}
+      xDimension | yDimension | expected
+      ${-1}      | ${-3}      | ${[]}
+      ${0}       | ${0}       | ${[]}
+      ${1}       | ${1}       | ${arrayGenerator(1, 1, { isAlive: false })}
+      ${2}       | ${2}       | ${arrayGenerator(2, 2, { isAlive: false })}
     `(
-      "should set empty creatures if setting's demensions are $xDimension x $yDimension",
-      ({ xDimension, yDimension }) => {
+      "should generate creatures array of corresponding size if setting's demensions are $xDimension x $yDimension",
+      ({ xDimension, yDimension, expected }) => {
         expect(
           gameStore.reducer(
             {
@@ -85,7 +87,7 @@ describe("game store", () => {
             },
             gameStore.actions.generateCreatures()
           ).creatures
-        ).toEqual([]);
+        ).toEqual(expected);
       }
     );
   });

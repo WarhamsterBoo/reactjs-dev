@@ -15,9 +15,13 @@ export const gameStore = createSlice({
   name: "game",
   initialState,
   reducers: {
-    generateCreatures: (state, action: AnyAction) => ({
+    generateCreatures: (state, _: AnyAction) => ({
       ...state,
-      creatures: [],
+      creatures: arrayGenerator(
+        state.settings.xDimension,
+        state.settings.yDimension,
+        { isAlive: false }
+      ),
     }),
     changeSettingsTo: (state, action: PayloadAction<GameSettings>) => ({
       ...state,
