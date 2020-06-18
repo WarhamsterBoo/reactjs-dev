@@ -12,6 +12,6 @@ const initialState: GameSettings = {
 
 export default createReducer<GameSettings>(initialState, {
   [changeSettings.type]: (_, action: PayloadAction<GameSettings>) => {
-    return _;
+    return action.payload;
   },
 });
