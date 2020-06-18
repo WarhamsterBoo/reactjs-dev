@@ -12,6 +12,9 @@ const initialState: GameSettings = {
 
 export default createReducer<GameSettings>(initialState, {
   [changeSettings.type]: (_, action: PayloadAction<GameSettings>) => {
-    return action.payload;
+    return {
+      ...action.payload,
+      fillingPercentage: action.payload.fillingPercentage / 100,
+    };
   },
 });
