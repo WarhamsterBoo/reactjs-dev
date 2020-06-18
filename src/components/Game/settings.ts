@@ -14,6 +14,6 @@ export const settingsSlice = createSlice({
       ...action.payload,
       fillingPercentage: action.payload.fillingPercentage / 100,
     }),
-    stop: () => initialState,
+    stop: () => ({ ...initialState }),
   },
 });

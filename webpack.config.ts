@@ -13,6 +13,7 @@ const config: webpack.Configuration = {
       api: path.resolve(__dirname, "src/api"),
       hoc: path.resolve(__dirname, "src/hoc"),
       screens: path.resolve(__dirname, "src/screens"),
+      "@": path.resolve(__dirname, "src"),
     },
   },
   output: {

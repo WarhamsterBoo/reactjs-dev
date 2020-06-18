@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import {
   ControlPanel,
   Engine,
@@ -7,14 +8,19 @@ import {
   World,
 } from "./components";
 import { GameWrapper } from "./Game.styled";
-import { useGameSettings } from "./useGameSettings";
+import { settingsSlice } from "./settings";
 
-export const Game: React.FC<{}> = () => {
-  const {
-    settings,
-    onSettingsSubmit,
-    onControlActionClick,
-  } = useGameSettings();
+interface GameProps {
+  settings: GameSettings;
+  onSettingsSubmit: (settings: GameSettings) => void;
+  onControlActionClick: (action: ControlAction) => void;
+}
+
+const GameComponent: React.FC<GameProps> = ({
+  settings,
+  onSettingsSubmit,
+  onControlActionClick,
+}) => {
   return (
     <GameWrapper>
       <SettingsForm
@@ -26,3 +32,16 @@ export const Game: React.FC<{}> = () => {
     </GameWrapper>
   );
 };
+
+const mapStateToProps = (state: GameSettings) => {
+  return {
+    settings: state,
+  };
+};
+
+const mapDispatchToProps = {
+  onSettingsSubmit: settingsSlice.actions.changeSettingsTo,
+  onControlActionClick: settingsSlice.actions.stop,
+};
+
+export const Game = connect(mapStateToProps, mapDispatchToProps)(GameComponent);

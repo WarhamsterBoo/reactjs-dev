@@ -7,12 +7,16 @@
       "components/*": ["src/components/*"],
       "api/*": ["src/api/*"],
       "hoc/*": ["src/hoc/*"],
-      "screens/*": ["src/screens/*"]
+      "screens/*": ["src/screens/*"],
+      "@/*": ["src/*"]
     },
     "module": "commonjs",
     "target": "es5",
     "esModuleInterop": true,
     "jsx": "react",
     "strict": true,
-  }
+  },
+  "include": [
+    "src/**/*",
+  ],
 }

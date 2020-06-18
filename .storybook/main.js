@@ -8,6 +8,7 @@ module.exports = {
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({
+      include: path.resolve(__dirname, '../src'),
       test: /\.(ts|tsx)$/,
       loader: require.resolve("babel-loader"),
     });
@@ -16,6 +17,7 @@ module.exports = {
       ...config.resolve.alias,
       shared: path.resolve(__dirname, "../src/components/Shared/index"),
       styles: path.resolve(__dirname, "../src/styles"),
+      "@": path.resolve(__dirname, "../src"),
     };
     return config;
   },
