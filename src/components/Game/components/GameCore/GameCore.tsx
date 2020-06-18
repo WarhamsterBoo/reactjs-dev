@@ -6,6 +6,7 @@ export interface GameCoreProps {
   engine: GameEngine;
 }
 
+// TODO probably should be deleted
 export const GameCore: React.FC<GameCoreProps> = ({
   settings,
   world: World,

@@ -1,5 +1,5 @@
 import { arrayGenerator } from "@/utils/arrayGenerator";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface GameState {
   settings: GameSettings;
@@ -12,9 +12,13 @@ const initialState: GameState = {
 };
 
 export const gameStore = createSlice({
-  name: "settings",
+  name: "game",
   initialState,
   reducers: {
+    generateCreatures: (state, action: AnyAction) => ({
+      ...state,
+      creatures: [],
+    }),
     changeSettingsTo: (state, action: PayloadAction<GameSettings>) => ({
       ...state,
       settings: {
