@@ -66,20 +66,27 @@ describe("game store", () => {
   });
 
   describe("generateCreatures", () => {
-    it("should set empty creatures if setting's demensions are negative", () => {
-      expect(
-        gameStore.reducer(
-          {
-            settings: {
-              xDimension: -1,
-              yDimension: -3,
-              fillingPercentage: 0,
+    it.each`
+      xDimension | yDimension
+      ${-1}      | ${-3}
+      ${0}       | ${0}
+    `(
+      "should set empty creatures if setting's demensions are $xDimension x $yDimension",
+      ({ xDimension, yDimension }) => {
+        expect(
+          gameStore.reducer(
+            {
+              settings: {
+                xDimension: xDimension,
+                yDimension: yDimension,
+                fillingPercentage: 0,
+              },
+              creatures: arrayGenerator(1, 2, { isAlive: false }),
             },
-            creatures: arrayGenerator(1, 2, { isAlive: false }),
-          },
-          gameStore.actions.generateCreatures()
-        ).creatures
-      ).toEqual([]);
-    });
+            gameStore.actions.generateCreatures()
+          ).creatures
+        ).toEqual([]);
+      }
+    );
   });
 });
