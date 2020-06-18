@@ -8,7 +8,7 @@ import {
   World,
 } from "./components";
 import { GameWrapper } from "./Game.styled";
-import { settingsSlice } from "./settings";
+import { gameStore, GameState } from "./gameStore";
 
 interface GameProps {
   settings: GameSettings;
@@ -33,15 +33,15 @@ const GameComponent: React.FC<GameProps> = ({
   );
 };
 
-const mapStateToProps = (state: GameSettings) => {
+const mapStateToProps = (state: GameState) => {
   return {
-    settings: state,
+    settings: state.settings,
   };
 };
 
 const mapDispatchToProps = {
-  onSettingsSubmit: settingsSlice.actions.changeSettingsTo,
-  onControlActionClick: settingsSlice.actions.stop,
+  onSettingsSubmit: gameStore.actions.changeSettingsTo,
+  onControlActionClick: gameStore.actions.stop,
 };
 
 export const Game = connect(mapStateToProps, mapDispatchToProps)(GameComponent);
