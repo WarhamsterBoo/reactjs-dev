@@ -33,27 +33,6 @@ describe("game store", () => {
         )
       ).toEqual(initialState);
     });
-
-    it("should transform fillingPercentage from percents to fraction", () => {
-      const targetSettings: GameSettings = {
-        xDimension: 11,
-        yDimension: 11,
-        fillingPercentage: 60,
-      };
-
-      expect(
-        gameStore.reducer(
-          initialState,
-          gameStore.actions.changeSettingsTo(targetSettings)
-        )
-      ).toEqual({
-        ...initialState,
-        settings: {
-          ...targetSettings,
-          fillingPercentage: 0.6,
-        },
-      });
-    });
   });
 
   describe("control actions", () => {
@@ -85,7 +64,7 @@ describe("game store", () => {
               },
               creatures: arrayGenerator(1, 2, { isAlive: false }),
             },
-            gameStore.actions.generateCreatures()
+            gameStore.actions.generateNewCreatures()
           ).creatures
         ).toEqual(expected);
       }

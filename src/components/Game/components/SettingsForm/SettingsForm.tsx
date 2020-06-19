@@ -25,7 +25,10 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
   const onHandleSubmit = useCallback(
     (ev: FormEvent) => {
       ev.preventDefault();
-      onSettingsSubmit({ ...settings });
+      onSettingsSubmit({
+        ...settings,
+        fillingPercentage: settings.fillingPercentage / 100,
+      });
     },
     [onSettingsSubmit, settings]
   );

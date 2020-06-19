@@ -15,7 +15,7 @@ export const gameStore = createSlice({
   name: "game",
   initialState,
   reducers: {
-    generateCreatures: (state, _: AnyAction) => ({
+    generateNewCreatures: (state, _: AnyAction) => ({
       ...state,
       creatures: arrayGenerator(
         state.settings.xDimension,
@@ -27,7 +27,6 @@ export const gameStore = createSlice({
       ...state,
       settings: {
         ...action.payload,
-        fillingPercentage: action.payload.fillingPercentage / 100,
       },
     }),
     stop: () => ({ ...initialState }),
