@@ -34,6 +34,21 @@ describe("game store", () => {
       ).toThrow("FillingPercentage cannot be greater than 1");
     });
 
+    it("should throw if fillingPercentage < 0", () => {
+      const targetSettings: GameSettings = {
+        xDimension: 11,
+        yDimension: 11,
+        fillingPercentage: -0.67,
+      };
+
+      expect(() =>
+        gameStore.reducer(
+          initialState,
+          gameStore.actions.changeSettingsTo(targetSettings)
+        )
+      ).toThrow("FillingPercentage cannot be less than 0");
+    });
+
     it("should change xDimension and yDimension settings when CHANGE action dispatched", () => {
       const targetSettings: GameSettings = {
         xDimension: 11,

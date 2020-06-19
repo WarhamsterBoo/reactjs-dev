@@ -27,6 +27,9 @@ export const gameStore = createSlice({
       if (action.payload.fillingPercentage > 1) {
         throw "FillingPercentage cannot be greater than 1";
       }
+      if (action.payload.fillingPercentage < 0) {
+        throw "FillingPercentage cannot be less than 0";
+      }
       return {
         ...state,
         settings: {
