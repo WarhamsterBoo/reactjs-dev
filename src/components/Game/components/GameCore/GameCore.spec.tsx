@@ -19,56 +19,6 @@ describe("GameCore", () => {
     generateCreatures: fakeGenerateCreatures,
   };
 
-  it("should pass an empty creatures list to World if demensions are negative", () => {
-    const sut = mount(
-      <GameCore
-        {...gameCoreDefaultProps}
-        creatures={arrayGenerator(-1, -3, { isAlive: false })}
-        generateCreatures={() => arrayGenerator(-1, -3, { isAlive: false })}
-        settings={{ ...defaultGameSettings, xDimension: -1, yDimension: -3 }}
-      />
-    );
-
-    expect(sut.find(fakeWorld).props().creatures).toEqual([]);
-  });
-
-  it("should pass an empty creatures list to World if demensions are zero", () => {
-    const sut = mount(
-      <GameCore
-        {...gameCoreDefaultProps}
-        creatures={arrayGenerator(0, 0, { isAlive: false })}
-        generateCreatures={() => arrayGenerator(0, 0, { isAlive: false })}
-        settings={{ ...defaultGameSettings, xDimension: 0, yDimension: 0 }}
-      />
-    );
-
-    expect(sut.find(fakeWorld).props().creatures).toEqual([]);
-  });
-
-  it("should render initialized World component with size 1 x 1", () => {
-    const sut = mount(
-      <GameCore
-        {...gameCoreDefaultProps}
-        creatures={arrayGenerator(1, 1, { isAlive: false })}
-        generateCreatures={() => arrayGenerator(1, 1, { isAlive: false })}
-        settings={{ ...defaultGameSettings, xDimension: 1, yDimension: 1 }}
-      />
-    );
-
-    expect(sut.find(fakeWorld).props().creatures).toEqual([
-      [{ isAlive: false }],
-    ]);
-  });
-
-  it("should render initialized World component with size 2 x 2", () => {
-    const sut = mount(<GameCore {...gameCoreDefaultProps} />);
-
-    expect(sut.find(fakeWorld).props().creatures).toEqual([
-      [{ isAlive: false }, { isAlive: false }],
-      [{ isAlive: false }, { isAlive: false }],
-    ]);
-  });
-
   it.skip("should change creatures state if filling percentage changes", () => {
     const generateCreaturesMock = jest.fn();
     generateCreaturesMock.mockReturnValue(

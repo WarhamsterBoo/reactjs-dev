@@ -49,11 +49,11 @@ describe("game store", () => {
       ).toThrow("FillingPercentage cannot be less than 0");
     });
 
-    it("should change xDimension and yDimension settings when CHANGE action dispatched", () => {
+    it("should change settings when CHANGE action dispatched", () => {
       const targetSettings: GameSettings = {
-        xDimension: 11,
-        yDimension: 11,
-        fillingPercentage: 0,
+        xDimension: 12,
+        yDimension: 12,
+        fillingPercentage: 0.1,
       };
 
       expect(
@@ -61,8 +61,21 @@ describe("game store", () => {
           initialState,
           gameStore.actions.changeSettingsTo(targetSettings)
         )
-      ).toEqual(initialState);
+      ).toEqual({ ...initialState, settings: targetSettings });
     });
+
+    // it("should regenerate creatures if filling percentage changes", () => {
+    //   const targetSettings: GameSettings = {
+    //     xDimension: 11,
+    //     yDimension: 11,
+    //     fillingPercentage: 50,
+    //   };
+
+    //   const creatures = gameStore.reducer(
+    //     initialState,
+    //     gameStore.actions.changeSettingsTo()
+    //   );
+    // });
   });
 
   describe("control actions", () => {
