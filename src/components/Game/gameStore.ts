@@ -6,6 +6,11 @@ export interface GameState {
   creatures: WorldCreature[][];
 }
 
+export interface CreatureCoordinates {
+  x: number;
+  y: number;
+}
+
 const initialState: GameState = {
   settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
   creatures: twoDimArrayGenerator(10, 10, { isAlive: false }),
@@ -82,6 +87,20 @@ export const gameStore = createSlice({
       }
 
       state.settings = action.payload;
+    },
+    toggleCreatureState: (
+      state,
+      action: PayloadAction<CreatureCoordinates>
+    ) => {
+      const { x, y } = action.payload;
+      state.creatures = state.creatures.map((row, rowIndex) => {
+        if (rowIndex == x) {
+          return row.map((value, inRowIndex) => ({
+            isAlive: inRowIndex == y ? !value.isAlive : value.isAlive,
+          }));
+        }
+        return row;
+      });
     },
     stop: () => ({ ...initialState }),
   },

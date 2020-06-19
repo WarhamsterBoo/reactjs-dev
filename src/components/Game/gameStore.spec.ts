@@ -55,7 +55,7 @@ describe("game store", () => {
       ).toThrow("FillingPercentage cannot be less than 0");
     });
 
-    it("should change settings when CHANGE action dispatched", () => {
+    it("should change settings when changeSettingsTo action dispatched", () => {
       const targetSettings: GameSettings = {
         xDimension: 12,
         yDimension: 12,
@@ -223,6 +223,36 @@ describe("game store", () => {
         expect(generatedCreatures.length).toBe(xDimension);
         expect(generatedCreatures[0].length).toBe(yDimension);
         expect(numberOfAliveCreatures).toBe(expectedAliveCount);
+      }
+    );
+  });
+
+  describe("toggleCreatureState", () => {
+    it.each`
+      initialState | expectedState
+      ${true}      | ${false}
+      ${false}     | ${true}
+    `(
+      "should change Creature isAlive from $initialState to $expectedState when toggleCreatureState action dispatched",
+      ({ initialState, expectedState }) => {
+        const originState: GameState = {
+          settings: {
+            xDimension: 2,
+            yDimension: 2,
+            fillingPercentage: 0,
+          },
+          creatures: [
+            [{ isAlive: true }, { isAlive: initialState }],
+            [{ isAlive: false }, { isAlive: true }],
+          ],
+        };
+
+        const creatures = gameStore.reducer(
+          originState,
+          gameStore.actions.toggleCreatureState({ x: 0, y: 1 })
+        ).creatures;
+
+        expect(creatures[0][1]).toEqual({ isAlive: expectedState });
       }
     );
   });
