@@ -7,8 +7,14 @@ describe("game store", () => {
     creatures: arrayGenerator<WorldCreature>(10, 10, { isAlive: false }),
   };
 
+  const initialSettings: GameSettings = {
+    xDimension: 11,
+    yDimension: 11,
+    fillingPercentage: 0,
+  };
+
   const initialState: GameState = {
-    settings: { xDimension: 11, yDimension: 11, fillingPercentage: 0 },
+    settings: initialSettings,
     creatures: arrayGenerator<WorldCreature>(11, 11, { isAlive: false }),
   };
 
@@ -60,22 +66,30 @@ describe("game store", () => {
         gameStore.reducer(
           initialState,
           gameStore.actions.changeSettingsTo(targetSettings)
-        )
-      ).toEqual({ ...initialState, settings: targetSettings });
+        ).settings
+      ).toEqual(targetSettings);
     });
 
-    // it("should regenerate creatures if filling percentage changes", () => {
-    //   const targetSettings: GameSettings = {
-    //     xDimension: 11,
-    //     yDimension: 11,
-    //     fillingPercentage: 50,
-    //   };
+    it("should regenerate creatures if filling percentage changes", () => {
+      const targetSettings: GameSettings = {
+        ...initialSettings,
+        fillingPercentage: 0.5,
+      };
 
-    //   const creatures = gameStore.reducer(
-    //     initialState,
-    //     gameStore.actions.changeSettingsTo()
-    //   );
-    // });
+      const creatures = gameStore.reducer(
+        initialState,
+        gameStore.actions.changeSettingsTo(targetSettings)
+      ).creatures;
+
+      expect(
+        creatures.reduce<number>(
+          (accumulator, creauresRow) =>
+            accumulator +
+            creauresRow.filter((creature) => creature.isAlive).length,
+          0
+        )
+      ).toBe(60);
+    });
   });
 
   describe("control actions", () => {

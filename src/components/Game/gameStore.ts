@@ -49,12 +49,14 @@ export const gameStore = createSlice({
       if (action.payload.fillingPercentage < 0) {
         throw "FillingPercentage cannot be less than 0";
       }
-      return {
-        ...state,
-        settings: {
-          ...action.payload,
-        },
-      };
+
+      if (
+        state.settings.fillingPercentage != action.payload.fillingPercentage
+      ) {
+        state.creatures = generateRandomCreatures(action.payload);
+      }
+
+      state.settings = action.payload;
     },
     stop: () => ({ ...initialState }),
   },
