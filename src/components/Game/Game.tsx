@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { connect } from "react-redux";
-import { ControlPanel, GameCore, SettingsForm, World } from "./components";
+import { ControlPanel, SettingsForm, World } from "./components";
 import { GameWrapper } from "./Game.styled";
-import { gameStore, GameState } from "./gameStore";
+import { GameState, gameStore, CreatureCoordinates } from "./gameStore";
 
 interface GameProps {
   settings: GameSettings;
   onSettingsSubmit: (settings: GameSettings) => void;
   onControlActionClick: (action: ControlAction) => void;
   creatures: WorldCreature[][];
-  generateCreatures: () => void;
+  toggleCreatureState: (coordinates: CreatureCoordinates) => void;
 }
 
 const GameComponent: React.FC<GameProps> = ({
@@ -17,20 +17,20 @@ const GameComponent: React.FC<GameProps> = ({
   onSettingsSubmit,
   onControlActionClick,
   creatures,
-  generateCreatures,
+  toggleCreatureState,
 }) => {
+  const onCreatureClick = useCallback(
+    (x: number, y: number) => toggleCreatureState({ x, y }),
+    [toggleCreatureState]
+  );
+
   return (
     <GameWrapper>
       <SettingsForm
         gameSettings={settings}
         onSettingsSubmit={onSettingsSubmit}
       />
-      <GameCore
-        settings={settings}
-        world={World}
-        creatures={creatures}
-        generateCreatures={generateCreatures}
-      />
+      <World creatures={creatures} onClick={onCreatureClick} />;
       <ControlPanel onControlButtonClick={onControlActionClick} />
     </GameWrapper>
   );
@@ -46,7 +46,7 @@ const mapStateToProps = (state: GameState) => {
 const mapDispatchToProps = {
   onSettingsSubmit: gameStore.actions.changeSettingsTo,
   onControlActionClick: gameStore.actions.stop,
-  generateCreatures: gameStore.actions.generateNewCreatures,
+  toggleCreatureState: gameStore.actions.toggleCreatureState,
 };
 
 export const Game = connect(mapStateToProps, mapDispatchToProps)(GameComponent);
