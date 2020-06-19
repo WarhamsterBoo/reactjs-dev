@@ -11,7 +11,10 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
   gameSettings,
   onSettingsSubmit,
 }) => {
-  const [settings, setSettings] = useState<GameSettings>(gameSettings);
+  const [settings, setSettings] = useState<GameSettings>({
+    ...gameSettings,
+    fillingPercentage: Math.round(gameSettings.fillingPercentage * 100),
+  });
 
   const onHandleInputChange = useCallback((ev: FormEvent<HTMLInputElement>) => {
     const { name, value } = ev.target as HTMLInputElement;

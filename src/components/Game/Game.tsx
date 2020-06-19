@@ -30,7 +30,7 @@ const GameComponent: React.FC<GameProps> = ({
         gameSettings={settings}
         onSettingsSubmit={onSettingsSubmit}
       />
-      <World creatures={creatures} onClick={onCreatureClick} />;
+      <World creatures={creatures} onClick={onCreatureClick} />
       <ControlPanel onControlButtonClick={onControlActionClick} />
     </GameWrapper>
   );

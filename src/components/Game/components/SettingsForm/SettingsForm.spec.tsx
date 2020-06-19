@@ -93,4 +93,16 @@ describe("SettingsForm", () => {
       fillingPercentage: 0.6,
     });
   });
+
+  it("should transform fillingPercentage from fraction to percents when displaying", () => {
+    const sut = mount(
+      <SettingsForm
+        gameSettings={{ ...defaultInitialSettings, fillingPercentage: 0.1 }}
+        onSettingsSubmit={jest.fn()}
+      />
+    );
+    const fillingPercentage = sut.find(`input[name="fillingPercentage"]`);
+
+    expect(fillingPercentage.prop("value")).toBe(10);
+  });
 });
