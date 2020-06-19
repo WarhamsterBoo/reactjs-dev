@@ -11,18 +11,37 @@ const initialState: GameState = {
   creatures: arrayGenerator(10, 10, { isAlive: false }),
 };
 
+const generateRandomCreatures = ({
+  xDimension,
+  yDimension,
+  fillingPercentage,
+}: GameSettings): WorldCreature[][] => {
+  const creatures = arrayGenerator<WorldCreature>(xDimension, yDimension, {
+    isAlive: false,
+  });
+
+  let NumberOfAliveCreatures = Math.trunc(
+    xDimension * yDimension * fillingPercentage
+  );
+  while (NumberOfAliveCreatures > 0) {
+    const x = Math.floor(Math.random() * Math.floor(xDimension));
+    const y = Math.floor(Math.random() * Math.floor(yDimension));
+    if (!creatures[x][y].isAlive) {
+      creatures[x][y].isAlive = true;
+      NumberOfAliveCreatures--;
+    }
+  }
+
+  return creatures;
+};
+
 export const gameStore = createSlice({
   name: "game",
   initialState,
   reducers: {
-    generateNewCreatures: (state, _: AnyAction) => ({
-      ...state,
-      creatures: arrayGenerator(
-        state.settings.xDimension,
-        state.settings.yDimension,
-        { isAlive: false }
-      ),
-    }),
+    generateNewCreatures: (state, _: AnyAction) => {
+      state.creatures = generateRandomCreatures(state.settings);
+    },
     changeSettingsTo: (state, action: PayloadAction<GameSettings>) => {
       if (action.payload.fillingPercentage > 1) {
         throw "FillingPercentage cannot be greater than 1";
