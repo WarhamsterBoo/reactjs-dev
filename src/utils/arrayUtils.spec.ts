@@ -13,5 +13,18 @@ describe("arrayUtils", () => {
         [3, 4],
       ]);
     });
+
+    it("should increase array size and fill new spaces with initial value", () => {
+      const initialArray = [
+        [1, 2],
+        [3, 4],
+      ];
+
+      expect(resizeArray(initialArray, 3, 3, 0)).toEqual([
+        [1, 2, 0],
+        [3, 4, 0],
+        [0, 0, 0],
+      ]);
+    });
   });
 });

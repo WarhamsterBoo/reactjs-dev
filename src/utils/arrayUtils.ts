@@ -1,10 +1,12 @@
-export const arrayGenerator = <T extends object>(
+export const arrayGenerator = <T>(
   x: number,
   y: number,
   initialValue: T
 ): T[][] =>
   Array.from({ length: x }).map(() =>
-    Array.from({ length: y }).map(() => ({ ...initialValue }))
+    Array.from({ length: y }).map(() =>
+      typeof initialValue === "object" ? { ...initialValue } : initialValue
+    )
   );
 
 export const resizeArray = <T>(
@@ -13,5 +15,11 @@ export const resizeArray = <T>(
   targetY: number,
   initialValue: T
 ): T[][] => {
-  return initialArray;
+  return arrayGenerator(targetX, targetY, initialValue).map((row, rowIndex) =>
+    row.map((item, itemIndex) => {
+      return initialArray[rowIndex] && initialArray[rowIndex][itemIndex]
+        ? initialArray[rowIndex][itemIndex]
+        : item;
+    })
+  );
 };
