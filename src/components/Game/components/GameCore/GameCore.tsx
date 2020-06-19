@@ -3,18 +3,18 @@ import React, { useEffect, useState } from "react";
 export interface GameCoreProps {
   settings: GameSettings;
   world: WorldPresenter;
-  engine: GameEngine;
+  creatures: WorldCreature[][];
+  generateCreatures: () => void;
 }
 
 // TODO probably should be deleted
 export const GameCore: React.FC<GameCoreProps> = ({
   settings,
   world: World,
-  engine,
+  creatures,
+  generateCreatures,
 }) => {
-  const [creatures, setCreatures] = useState(
-    engine.GenerateCreatures(settings)
-  );
+  const [innerCreatures, setCreatures] = useState(creatures);
 
   // TODO think about merging these two useEffect hooks into one
   useEffect(() => {
@@ -29,9 +29,17 @@ export const GameCore: React.FC<GameCoreProps> = ({
     );
   }, [settings.xDimension, settings.yDimension]);
 
-  useEffect(() => setCreatures(engine.GenerateCreatures(settings)), [
-    settings.fillingPercentage,
-  ]);
+  useEffect(() => {
+    generateCreatures();
+  }, [settings.fillingPercentage]);
+
+  useEffect(() => {
+    generateCreatures();
+  }, []);
+
+  useEffect(() => {
+    setCreatures(creatures);
+  }, [creatures]);
 
   const toggleCreatureState = (x: number, y: number) => {
     setCreatures((prevState) => {
@@ -46,5 +54,5 @@ export const GameCore: React.FC<GameCoreProps> = ({
     });
   };
 
-  return <World creatures={creatures} onClick={toggleCreatureState} />;
+  return <World creatures={innerCreatures} onClick={toggleCreatureState} />;
 };
