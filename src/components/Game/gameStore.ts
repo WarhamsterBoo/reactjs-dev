@@ -23,12 +23,17 @@ export const gameStore = createSlice({
         { isAlive: false }
       ),
     }),
-    changeSettingsTo: (state, action: PayloadAction<GameSettings>) => ({
-      ...state,
-      settings: {
-        ...action.payload,
-      },
-    }),
+    changeSettingsTo: (state, action: PayloadAction<GameSettings>) => {
+      if (action.payload.fillingPercentage > 1) {
+        throw "FillingPercentage cannot be greater than 1";
+      }
+      return {
+        ...state,
+        settings: {
+          ...action.payload,
+        },
+      };
+    },
     stop: () => ({ ...initialState }),
   },
 });
