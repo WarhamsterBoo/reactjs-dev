@@ -39,6 +39,16 @@ const generateRandomCreatures = ({
   return creatures;
 };
 
+const changeCreaturesSize = (
+  creatures: WorldCreature[][],
+  xDimension: number,
+  yDimension: number
+): WorldCreature[][] => {
+  return resizeTwoDimArray(creatures, xDimension, yDimension, {
+    isAlive: false,
+  });
+};
+
 export const gameStore = createSlice({
   name: "game",
   initialState,
@@ -64,13 +74,13 @@ export const gameStore = createSlice({
         state.settings.xDimension != action.payload.xDimension ||
         state.settings.yDimension != action.payload.yDimension
       ) {
-        state.creatures = resizeTwoDimArray(
+        state.creatures = changeCreaturesSize(
           state.creatures,
           action.payload.xDimension,
-          action.payload.yDimension,
-          { isAlive: false }
+          action.payload.yDimension
         );
       }
+
       state.settings = action.payload;
     },
     stop: () => ({ ...initialState }),
