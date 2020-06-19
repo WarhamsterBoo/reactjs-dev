@@ -1,10 +1,10 @@
 import { gameStore, GameState } from "./gameStore";
-import { arrayGenerator } from "@/utils/arrayGenerator";
+import { twoDimArrayGenerator } from "@/utils/arrayUtils";
 
 describe("game store", () => {
   const defaultState: GameState = {
     settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
-    creatures: arrayGenerator<WorldCreature>(10, 10, { isAlive: false }),
+    creatures: twoDimArrayGenerator<WorldCreature>(10, 10, { isAlive: false }),
   };
 
   const initialSettings: GameSettings = {
@@ -15,7 +15,7 @@ describe("game store", () => {
 
   const initialState: GameState = {
     settings: initialSettings,
-    creatures: arrayGenerator<WorldCreature>(11, 11, { isAlive: false }),
+    creatures: twoDimArrayGenerator<WorldCreature>(11, 11, { isAlive: false }),
   };
 
   it("should return initial state", () => {
@@ -77,7 +77,10 @@ describe("game store", () => {
       };
 
       const creatures = gameStore.reducer(
-        initialState,
+        {
+          ...initialState,
+          settings: { ...initialSettings, fillingPercentage: 0.1 },
+        },
         gameStore.actions.changeSettingsTo(targetSettings)
       ).creatures;
 
@@ -89,6 +92,36 @@ describe("game store", () => {
           0
         )
       ).toBe(60);
+    });
+
+    it("should be able to increase creatures size without creatures state reset", () => {
+      const originState: GameState = {
+        settings: {
+          xDimension: 2,
+          yDimension: 2,
+          fillingPercentage: 0,
+        },
+        creatures: [
+          [{ isAlive: true }, { isAlive: true }],
+          [{ isAlive: false }, { isAlive: true }],
+        ],
+      };
+      const targetSettings: GameSettings = {
+        xDimension: 3,
+        yDimension: 3,
+        fillingPercentage: 0,
+      };
+
+      const creatures = gameStore.reducer(
+        originState,
+        gameStore.actions.changeSettingsTo(targetSettings)
+      ).creatures;
+
+      expect(creatures).toEqual([
+        [{ isAlive: true }, { isAlive: true }, { isAlive: false }],
+        [{ isAlive: false }, { isAlive: true }, { isAlive: false }],
+        [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
+      ]);
     });
   });
 
@@ -105,8 +138,8 @@ describe("game store", () => {
       xDimension | yDimension | expected
       ${-1}      | ${-3}      | ${[]}
       ${0}       | ${0}       | ${[]}
-      ${1}       | ${1}       | ${arrayGenerator(1, 1, { isAlive: false })}
-      ${2}       | ${2}       | ${arrayGenerator(2, 2, { isAlive: false })}
+      ${1}       | ${1}       | ${twoDimArrayGenerator(1, 1, { isAlive: false })}
+      ${2}       | ${2}       | ${twoDimArrayGenerator(2, 2, { isAlive: false })}
     `(
       "should generate creatures array of corresponding size if setting's demensions are $xDimension x $yDimension",
       ({ xDimension, yDimension, expected }) => {
@@ -118,7 +151,7 @@ describe("game store", () => {
                 yDimension: yDimension,
                 fillingPercentage: 0,
               },
-              creatures: arrayGenerator(1, 2, { isAlive: false }),
+              creatures: twoDimArrayGenerator(1, 2, { isAlive: false }),
             },
             gameStore.actions.generateNewCreatures()
           ).creatures

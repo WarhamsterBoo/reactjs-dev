@@ -1,4 +1,4 @@
-export const arrayGenerator = <T>(
+export const twoDimArrayGenerator = <T>(
   x: number,
   y: number,
   initialValue: T
@@ -9,17 +9,18 @@ export const arrayGenerator = <T>(
     )
   );
 
-export const resizeArray = <T>(
+export const resizeTwoDimArray = <T>(
   initialArray: T[][],
   targetX: number,
   targetY: number,
   initialValue: T
 ): T[][] => {
-  return arrayGenerator(targetX, targetY, initialValue).map((row, rowIndex) =>
-    row.map((item, itemIndex) => {
-      return initialArray[rowIndex] && initialArray[rowIndex][itemIndex]
-        ? initialArray[rowIndex][itemIndex]
-        : item;
-    })
+  return twoDimArrayGenerator(targetX, targetY, initialValue).map(
+    (row, rowIndex) =>
+      row.map((item, itemIndex) => {
+        return initialArray[rowIndex] && initialArray[rowIndex][itemIndex]
+          ? initialArray[rowIndex][itemIndex]
+          : item;
+      })
   );
 };

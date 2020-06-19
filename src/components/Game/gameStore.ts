@@ -1,4 +1,4 @@
-import { arrayGenerator } from "@/utils/arrayGenerator";
+import { twoDimArrayGenerator, resizeTwoDimArray } from "@/utils/arrayUtils";
 import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface GameState {
@@ -8,7 +8,7 @@ export interface GameState {
 
 const initialState: GameState = {
   settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
-  creatures: arrayGenerator(10, 10, { isAlive: false }),
+  creatures: twoDimArrayGenerator(10, 10, { isAlive: false }),
 };
 
 const generateRandomCreatures = ({
@@ -16,9 +16,13 @@ const generateRandomCreatures = ({
   yDimension,
   fillingPercentage,
 }: GameSettings): WorldCreature[][] => {
-  const creatures = arrayGenerator<WorldCreature>(xDimension, yDimension, {
-    isAlive: false,
-  });
+  const creatures = twoDimArrayGenerator<WorldCreature>(
+    xDimension,
+    yDimension,
+    {
+      isAlive: false,
+    }
+  );
 
   let NumberOfAliveCreatures = Math.trunc(
     xDimension * yDimension * fillingPercentage
@@ -56,6 +60,17 @@ export const gameStore = createSlice({
         state.creatures = generateRandomCreatures(action.payload);
       }
 
+      if (
+        state.settings.xDimension != action.payload.xDimension ||
+        state.settings.yDimension != action.payload.yDimension
+      ) {
+        state.creatures = resizeTwoDimArray(
+          state.creatures,
+          action.payload.xDimension,
+          action.payload.yDimension,
+          { isAlive: false }
+        );
+      }
       state.settings = action.payload;
     },
     stop: () => ({ ...initialState }),
