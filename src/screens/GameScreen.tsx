@@ -1,6 +1,6 @@
 import { Game } from "components/Game";
 import { Header } from "components/Header";
-import { withAuthentication } from "hoc/withAuthentication";
+import { withAuthentication } from "@/Areas/Authentication/withAuthentication";
 import React from "react";
 import { GameScreenContainer } from "./GameScreen.styled";
 

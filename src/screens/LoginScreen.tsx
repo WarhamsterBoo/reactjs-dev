@@ -1,5 +1,5 @@
+import { NameForm } from "@/Areas/Authentication/NameForm";
 import { auth } from "api/auth";
-import { NameForm } from "components/NameForm";
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 
