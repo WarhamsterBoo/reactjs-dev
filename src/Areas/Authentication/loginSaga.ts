@@ -1,0 +1,3 @@
+export function* loginSaga() {
+  yield;
+}
