@@ -22,7 +22,9 @@ export function* loginSaga() {
     return;
   }
   yield put(authStore.actions.login_success());
+  yield call(userSessionStorage.newSession, userName);
 
   yield take(authStore.actions.logout.type);
   yield put(authStore.actions.logout());
+  yield call(userSessionStorage.endSession);
 }

@@ -21,9 +21,10 @@ describe("login flow", () => {
           loginError: undefined,
         })
         .dispatch(authStore.actions.login("John Doe"))
+        .dispatch(authStore.actions.logout())
         .put(authStore.actions.login_success())
         .call(auth.login, "John Doe")
-        .dispatch(authStore.actions.logout())
+        .call(userSessionStorage.newSession, "John Doe")
         .run();
     });
 
@@ -66,6 +67,7 @@ describe("login flow", () => {
           status: AuthStatus.not_authenticated,
           loginError: undefined,
         })
+        .call(userSessionStorage.endSession)
         .run();
     });
 
