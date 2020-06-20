@@ -1,7 +1,7 @@
 import { auth } from "api/auth";
 import { shallow } from "enzyme";
 import React from "react";
-import { LoginScreen } from "./LoginScreen";
+import { Login } from "./Login";
 
 const mockHistory = { push: jest.fn() };
 jest.mock("react-router-dom", () => ({
@@ -10,9 +10,9 @@ jest.mock("react-router-dom", () => ({
 
 jest.mock("api/auth");
 
-describe("LoginScreen", () => {
+describe("Login", () => {
   it("should redirect to game screen after auth", async () => {
-    const sut = shallow(<LoginScreen />);
+    const sut = shallow(<Login />);
 
     await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
 
@@ -20,7 +20,7 @@ describe("LoginScreen", () => {
   });
 
   it("should call auth api with userName", async () => {
-    const sut = shallow(<LoginScreen />);
+    const sut = shallow(<Login />);
 
     await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
 
