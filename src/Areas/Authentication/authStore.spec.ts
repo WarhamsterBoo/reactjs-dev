@@ -24,6 +24,19 @@ describe("auth store", () => {
     });
   });
 
+  it("should clear prevoius error at login action", () => {
+    const initialState: AuthState = {
+      userName: undefined,
+      status: AuthStatus.failed,
+      loginError: "something went very wrong",
+    };
+    expect(authStore.reducer(initialState, authStore.actions.login())).toEqual({
+      userName: undefined,
+      status: AuthStatus.in_progress,
+      loginError: undefined,
+    });
+  });
+
   it("should set authenticated status and userName at login_success action", () => {
     const initialState: AuthState = {
       userName: undefined,
