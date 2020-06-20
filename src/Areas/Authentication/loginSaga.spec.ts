@@ -62,11 +62,6 @@ describe("login flow", () => {
         })
         .dispatch(authStore.actions.login("John Doe"))
         .dispatch(authStore.actions.logout())
-        .hasFinalState({
-          userName: undefined,
-          status: AuthStatus.not_authenticated,
-          loginError: undefined,
-        })
         .call(userSessionStorage.endSession)
         .run();
     });

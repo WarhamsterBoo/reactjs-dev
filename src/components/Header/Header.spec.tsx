@@ -1,6 +1,26 @@
-import { shallow } from "enzyme";
+import { AppState } from "@/AppStore";
+import { AuthStatus, authStore } from "@/Areas/Authentication/authStore";
+import { shallow, mount } from "enzyme";
 import React from "react";
+import configureMockStore from "redux-mock-store";
 import { Header } from "./Header";
+import { Provider } from "react-redux";
+
+const store = configureMockStore<AppState>([])({
+  auth: {
+    loginError: undefined,
+    status: AuthStatus.not_authenticated,
+    userName: undefined,
+  },
+  game: {
+    creatures: [],
+    settings: {
+      fillingPercentage: 0,
+      xDimension: 0,
+      yDimension: 0,
+    },
+  },
+});
 
 const mockHistory = { push: jest.fn() };
 jest.mock("react-router-dom", () => ({
@@ -10,37 +30,28 @@ jest.mock("react-router-dom", () => ({
 jest.mock("api/auth");
 
 describe("Header", () => {
-  it("should render", () => {
-    const sut = shallow(<Header userName={"username"} logOutUser={() => {}} />);
-
-    expect(sut).toMatchInlineSnapshot(`
-      <Styled(div)>
-        <Styled(div)>
-          Hello, 
-          username
-        </Styled(div)>
-        <Styled(button)
-          onClick={[Function]}
-        >
-          Logout
-        </Styled(button)>
-      </Styled(div)>
-    `);
+  beforeEach(() => {
+    store.clearActions();
   });
 
   it("should call logOutUser function prop when Logout button clicked", () => {
-    const logOutUser = jest.fn();
-    const sut = shallow(
-      <Header userName={"username"} logOutUser={logOutUser} />
+    const sut = mount(
+      <Provider store={store}>
+        <Header />
+      </Provider>
     );
 
     sut.find("Styled(button)").simulate("click");
 
-    expect(logOutUser).toHaveBeenCalledTimes(1);
+    expect(store.getActions()).toEqual([authStore.actions.logout()]);
   });
 
   it("should redirect to /login when Logout button clicked", () => {
-    const sut = shallow(<Header userName={"username"} logOutUser={() => {}} />);
+    const sut = mount(
+      <Provider store={store}>
+        <Header />
+      </Provider>
+    );
 
     sut.find("Styled(button)").simulate("click");
 

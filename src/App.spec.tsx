@@ -37,7 +37,7 @@ describe("App", () => {
                 exact={true}
                 path="/"
               >
-                <Component />
+                <Connect(GameScreenComponent) />
               </Route>
             </Switch>
           </BrowserRouter>

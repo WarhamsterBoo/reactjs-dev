@@ -1,9 +1,9 @@
+import { AppState } from "@/AppStore";
 import React, { useCallback } from "react";
 import { connect } from "react-redux";
 import { ControlPanel, SettingsForm, World } from "./components";
 import { GameWrapper } from "./Game.styled";
-import { GameState, gameStore, CreatureCoordinates } from "./gameStore";
-import { AppState } from "@/AppStore";
+import { CreatureCoordinates, gameStore } from "./gameStore";
 
 interface GameProps {
   settings: GameSettings;

@@ -5,8 +5,12 @@ export const userSessionStorage = {
   endSession: (): void => {
     localStorage.removeItem("username");
   },
-  getCurrentSession: (): string => {
-    return String(localStorage["username"]);
+  getCurrentSession: (): string | undefined => {
+    const userName = localStorage["username"];
+    if (userName) {
+      return String(userName);
+    }
+    return undefined;
   },
   hasActiveSession: (): boolean => {
     return Boolean(localStorage["username"]);

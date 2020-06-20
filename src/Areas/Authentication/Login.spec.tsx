@@ -1,7 +1,26 @@
-import { auth } from "api/auth";
-import { shallow } from "enzyme";
+import { AppState } from "@/AppStore";
+import { mount } from "enzyme";
 import React from "react";
+import { Provider } from "react-redux";
+import configureMockStore from "redux-mock-store";
+import { AuthStatus, authStore } from "./authStore";
 import { Login } from "./Login";
+
+const store = configureMockStore<AppState>([])({
+  auth: {
+    loginError: undefined,
+    status: AuthStatus.not_authenticated,
+    userName: undefined,
+  },
+  game: {
+    creatures: [],
+    settings: {
+      fillingPercentage: 0,
+      xDimension: 0,
+      yDimension: 0,
+    },
+  },
+});
 
 const mockHistory = { push: jest.fn() };
 jest.mock("react-router-dom", () => ({
@@ -11,8 +30,16 @@ jest.mock("react-router-dom", () => ({
 jest.mock("api/auth");
 
 describe("Login", () => {
+  beforeEach(() => {
+    store.clearActions();
+  });
+
   it("should redirect to game screen after auth", async () => {
-    const sut = shallow(<Login />);
+    const sut = mount(
+      <Provider store={store}>
+        <Login />
+      </Provider>
+    );
 
     await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
 
@@ -20,10 +47,14 @@ describe("Login", () => {
   });
 
   it("should call auth api with userName", async () => {
-    const sut = shallow(<Login />);
+    const sut = mount(
+      <Provider store={store}>
+        <Login />
+      </Provider>
+    );
 
     await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
 
-    expect(auth.login).toHaveBeenCalledWith("John Doe");
+    expect(store.getActions()).toEqual([authStore.actions.login("John Doe")]);
   });
 });

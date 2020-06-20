@@ -2,19 +2,22 @@ import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "@/components/Shared";
 import { Greeting, HeaderContainer } from "./Header.styled";
+import { connect } from "react-redux";
+import { AppState } from "@/AppStore";
+import { authStore } from "@/Areas/Authentication/authStore";
 
 export interface HeaderProps {
-  userName?: string;
-  logOutUser?: () => void;
+  userName: string | undefined;
+  logOutUser: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({
+const HeaderComponent: React.FC<HeaderProps> = ({
   userName = "anonymous",
   logOutUser,
 }) => {
   const history = useHistory();
   const onLogoutClick = useCallback(() => {
-    logOutUser && logOutUser();
+    logOutUser();
     history.push("/login");
   }, [logOutUser]);
 
@@ -25,3 +28,16 @@ export const Header: React.FC<HeaderProps> = ({
     </HeaderContainer>
   );
 };
+
+const mapStateToProps = (state: AppState) => ({
+  userName: state.auth.userName,
+});
+
+const mapDispatchToProps = {
+  logOutUser: authStore.actions.logout,
+};
+
+export const Header = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HeaderComponent);
