@@ -17,7 +17,9 @@ describe("auth store", () => {
       status: AuthStatus.not_authenticated,
       loginError: undefined,
     };
-    expect(authStore.reducer(initialState, authStore.actions.login("John Doe"))).toEqual({
+    expect(
+      authStore.reducer(initialState, authStore.actions.login("John Doe"))
+    ).toEqual({
       userName: "John Doe",
       status: AuthStatus.in_progress,
       loginError: undefined,
@@ -30,7 +32,9 @@ describe("auth store", () => {
       status: AuthStatus.failed,
       loginError: "something went very wrong",
     };
-    expect(authStore.reducer(initialState, authStore.actions.login("John Doe"))).toEqual({
+    expect(
+      authStore.reducer(initialState, authStore.actions.login("John Doe"))
+    ).toEqual({
       userName: "John Doe",
       status: AuthStatus.in_progress,
       loginError: undefined,
@@ -44,10 +48,7 @@ describe("auth store", () => {
       loginError: undefined,
     };
     expect(
-      authStore.reducer(
-        initialState,
-        authStore.actions.login_success()
-      )
+      authStore.reducer(initialState, authStore.actions.login_success())
     ).toEqual({
       userName: "John Doe",
       status: AuthStatus.authenticated,

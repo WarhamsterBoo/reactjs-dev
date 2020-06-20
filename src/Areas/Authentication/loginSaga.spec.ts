@@ -12,7 +12,7 @@ describe("login flow", () => {
       return expectSaga(loginSaga)
         .provide([
           [call(userSessionStorage.getCurrentSession), undefined],
-          [call(auth.login, "John Doe"), {}]
+          [call(auth.login, "John Doe"), {}],
         ])
         .withReducer(authStore.reducer)
         .withState({
@@ -52,7 +52,7 @@ describe("login flow", () => {
       return expectSaga(loginSaga)
         .provide([
           [call(userSessionStorage.getCurrentSession), undefined],
-          [call(auth.login, "John Doe"), {}]
+          [call(auth.login, "John Doe"), {}],
         ])
         .withReducer(authStore.reducer)
         .withState({
@@ -75,7 +75,10 @@ describe("login flow", () => {
       return expectSaga(loginSaga)
         .provide([
           [call(userSessionStorage.getCurrentSession), undefined],
-          [call(auth.login, "John Doe"), throwError(new Error("something went wrong"))]
+          [
+            call(auth.login, "John Doe"),
+            throwError(new Error("something went wrong")),
+          ],
         ])
         .withReducer(authStore.reducer)
         .withState({

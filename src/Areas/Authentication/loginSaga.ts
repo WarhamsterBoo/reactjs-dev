@@ -1,12 +1,14 @@
-import { auth } from "api/auth";
-import { userSessionStorage } from "api/userSessionStorage";
+import { auth } from "@/api/auth";
+import { userSessionStorage } from "@/api/userSessionStorage";
 import { call, fork, put, take } from "redux-saga/effects";
 import { authStore } from "./authStore";
 
 export function* restoreCurrentSession() {
-  const currentUsername: string = yield call(userSessionStorage.getCurrentSession);
+  const currentUsername: string = yield call(
+    userSessionStorage.getCurrentSession
+  );
   if (currentUsername && currentUsername.length > 0) {
-    yield put(authStore.actions.login(currentUsername))
+    yield put(authStore.actions.login(currentUsername));
   }
 }
 
