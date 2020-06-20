@@ -1,7 +1,7 @@
+import { auth } from "api/auth";
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import { auth } from "api/auth";
-import { NameForm } from "@/Areas/Authentication/NameForm";
+import { NameForm } from "./components";
 
 export const Login: React.FC<{}> = () => {
   const history = useHistory();
