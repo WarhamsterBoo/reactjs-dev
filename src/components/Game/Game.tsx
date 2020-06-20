@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { ControlPanel, SettingsForm, World } from "./components";
 import { GameWrapper } from "./Game.styled";
 import { GameState, gameStore, CreatureCoordinates } from "./gameStore";
+import { AppState } from "@/AppStore";
 
 interface GameProps {
   settings: GameSettings;
@@ -36,10 +37,10 @@ const GameComponent: React.FC<GameProps> = ({
   );
 };
 
-const mapStateToProps = (state: GameState) => {
+const mapStateToProps = (state: AppState) => {
   return {
-    settings: state.settings,
-    creatures: state.creatures,
+    settings: state.game.settings,
+    creatures: state.game.creatures,
   };
 };
 

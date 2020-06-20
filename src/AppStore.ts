@@ -1,14 +1,20 @@
-import { applyMiddleware, createStore } from "@reduxjs/toolkit";
+import { applyMiddleware, createStore, combineReducers } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import { gameStore } from "./components/Game";
 import { rootSaga } from "./sagas";
+import { authStore } from "./Areas/Authentication/authStore";
 
 const sagaMiddleware = createSagaMiddleware();
 
+const reducer = combineReducers({
+  game: gameStore.reducer,
+  auth: authStore.reducer
+});
+
 export const store = createStore(
-  gameStore.reducer /* preloadedState, */,
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
+  reducer,
   applyMiddleware(sagaMiddleware)
 );
 sagaMiddleware.run(rootSaga);
+  
+export type AppState = ReturnType<typeof reducer>
