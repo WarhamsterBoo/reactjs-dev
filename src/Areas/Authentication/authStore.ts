@@ -34,6 +34,6 @@ export const authStore = createSlice({
       state.status = AuthStatus.failed;
       state.loginError = action.payload;
     },
-    logout: () => {},
+    logout: () => initialState,
   },
 });

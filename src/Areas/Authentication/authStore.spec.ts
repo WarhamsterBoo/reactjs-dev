@@ -59,4 +59,19 @@ describe("auth store", () => {
       loginError: "something went wrong",
     });
   });
+
+  it("should set not_authenticated status and clear userName at logout action", () => {
+    const initialState: AuthState = {
+      userName: "John Doe",
+      status: AuthStatus.authenticated,
+      loginError: undefined,
+    };
+    expect(authStore.reducer(initialState, authStore.actions.logout())).toEqual(
+      {
+        userName: undefined,
+        status: AuthStatus.not_authenticated,
+        loginError: undefined,
+      }
+    );
+  });
 });
