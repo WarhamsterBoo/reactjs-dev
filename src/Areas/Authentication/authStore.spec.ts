@@ -1,4 +1,4 @@
-import { authStore, AuthStatus } from "./authStore";
+import { authStore, AuthStatus, AuthState } from "./authStore";
 
 describe("auth store", () => {
   it("should return initial state", () => {
@@ -7,16 +7,56 @@ describe("auth store", () => {
     ).toEqual({
       userName: undefined,
       status: AuthStatus.not_authenticated,
+      loginError: undefined,
     });
   });
 
   it("should set in_progress authentication status at login action", () => {
-    expect(authStore.reducer({
+    const initialState: AuthState = {
       userName: undefined,
-      status: AuthStatus.not_authenticated
-    }, authStore.actions.login)).toEqual({
+      status: AuthStatus.not_authenticated,
+      loginError: undefined,
+    };
+    expect(authStore.reducer(initialState, authStore.actions.login())).toEqual({
       userName: undefined,
-      status: AuthStatus.in_progress
+      status: AuthStatus.in_progress,
+      loginError: undefined,
     });
-  })
+  });
+
+  it("should set authenticated status and userName at login_success action", () => {
+    const initialState: AuthState = {
+      userName: undefined,
+      status: AuthStatus.in_progress,
+      loginError: undefined,
+    };
+    expect(
+      authStore.reducer(
+        initialState,
+        authStore.actions.login_success("John Doe")
+      )
+    ).toEqual({
+      userName: "John Doe",
+      status: AuthStatus.authenticated,
+      loginError: undefined,
+    });
+  });
+
+  it("should set failed status and loginError at login_failed action", () => {
+    const initialState: AuthState = {
+      userName: undefined,
+      status: AuthStatus.in_progress,
+      loginError: undefined,
+    };
+    expect(
+      authStore.reducer(
+        initialState,
+        authStore.actions.login_failed("something went wrong")
+      )
+    ).toEqual({
+      userName: undefined,
+      status: AuthStatus.failed,
+      loginError: "something went wrong",
+    });
+  });
 });
