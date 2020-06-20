@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "shared";
+import { Button } from "@/components/Shared";
 import { Greeting, HeaderContainer } from "./Header.styled";
 
 export interface HeaderProps {

@@ -1,4 +1,8 @@
-import { applyMiddleware, createStore, combineReducers } from "@reduxjs/toolkit";
+import {
+  applyMiddleware,
+  createStore,
+  combineReducers,
+} from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import { gameStore } from "./components/Game";
 import { rootSaga } from "./sagas";
@@ -8,13 +12,10 @@ const sagaMiddleware = createSagaMiddleware();
 
 const reducer = combineReducers({
   game: gameStore.reducer,
-  auth: authStore.reducer
+  auth: authStore.reducer,
 });
 
-export const store = createStore(
-  reducer,
-  applyMiddleware(sagaMiddleware)
-);
+export const store = createStore(reducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);
-  
-export type AppState = ReturnType<typeof reducer>
+
+export type AppState = ReturnType<typeof reducer>;
