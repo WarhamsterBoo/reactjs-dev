@@ -1,6 +1,5 @@
 export const auth = {
-  logIn: jest.fn(),
-  logOut: jest.fn(),
-  isAuthenticated: jest.fn(),
+  login: jest.fn(),
+  logout: jest.fn(),
   currentUsername: jest.fn(),
 };

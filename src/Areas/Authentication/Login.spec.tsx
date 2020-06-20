@@ -24,6 +24,6 @@ describe("Login", () => {
 
     await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
 
-    expect(auth.logIn).toHaveBeenCalledWith("John Doe");
+    expect(auth.login).toHaveBeenCalledWith("John Doe");
   });
 });

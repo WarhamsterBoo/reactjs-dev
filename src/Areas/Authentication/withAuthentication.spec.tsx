@@ -1,4 +1,5 @@
 import { auth } from "api/auth";
+import { userSessionStorage } from "api/userSessionStorage";
 import { mount } from "enzyme";
 import React from "react";
 import { ForbiddenScreen } from "screens/ForbiddenScreen";
@@ -6,6 +7,7 @@ import { withAuthentication } from "./withAuthentication";
 
 jest.mock("screens/ForbiddenScreen");
 jest.mock("api/auth");
+jest.mock("api/userSessionStorage");
 
 describe("withAuthentication", () => {
   const Component: React.FC<{ greeting: string }> = ({ greeting }) => {
@@ -14,7 +16,9 @@ describe("withAuthentication", () => {
   const WrappedComponent = withAuthentication(Component);
 
   it("should render Component if user is authenticated", () => {
-    (auth.isAuthenticated as jest.Mock).mockReturnValueOnce(true);
+    (userSessionStorage.hasActiveSession as jest.Mock).mockReturnValueOnce(
+      true
+    );
 
     const sut = mount(<WrappedComponent greeting={"Hello"} />);
 
@@ -22,7 +26,9 @@ describe("withAuthentication", () => {
   });
 
   it("should render Forbidden if user is not authenticated", () => {
-    (auth.isAuthenticated as jest.Mock).mockReturnValueOnce(false);
+    (userSessionStorage.hasActiveSession as jest.Mock).mockReturnValueOnce(
+      false
+    );
 
     const sut = mount(<WrappedComponent greeting={"Hello"} />);
 
@@ -30,8 +36,12 @@ describe("withAuthentication", () => {
   });
 
   it("should pass current username to wrapped component if authenticated", () => {
-    (auth.isAuthenticated as jest.Mock).mockReturnValueOnce(true);
-    (auth.currentUsername as jest.Mock).mockReturnValueOnce("foobar");
+    (userSessionStorage.hasActiveSession as jest.Mock).mockReturnValueOnce(
+      true
+    );
+    (userSessionStorage.getCurrentSession as jest.Mock).mockReturnValueOnce(
+      "foobar"
+    );
 
     const sut = mount(<WrappedComponent greeting={"Hello"} />);
 
@@ -40,11 +50,13 @@ describe("withAuthentication", () => {
   });
 
   it("should provide function that logs out user it its authenticated", () => {
-    (auth.isAuthenticated as jest.Mock).mockReturnValueOnce(true);
+    (userSessionStorage.hasActiveSession as jest.Mock).mockReturnValueOnce(
+      true
+    );
     const sut = mount(<WrappedComponent greeting={"Hello"} />);
 
     (sut.find(Component).prop("logOutUser") as Function)();
 
-    expect(auth.logOut as jest.Mock).toBeCalledTimes(1);
+    expect(auth.logout as jest.Mock).toBeCalledTimes(1);
   });
 });
