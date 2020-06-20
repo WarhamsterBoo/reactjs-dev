@@ -11,14 +11,14 @@ describe("auth store", () => {
     });
   });
 
-  it("should set in_progress authentication status at login action", () => {
+  it("should set in_progress status and userName at login action", () => {
     const initialState: AuthState = {
       userName: undefined,
       status: AuthStatus.not_authenticated,
       loginError: undefined,
     };
-    expect(authStore.reducer(initialState, authStore.actions.login())).toEqual({
-      userName: undefined,
+    expect(authStore.reducer(initialState, authStore.actions.login("John Doe"))).toEqual({
+      userName: "John Doe",
       status: AuthStatus.in_progress,
       loginError: undefined,
     });
@@ -26,27 +26,27 @@ describe("auth store", () => {
 
   it("should clear prevoius error at login action", () => {
     const initialState: AuthState = {
-      userName: undefined,
+      userName: "John Doe",
       status: AuthStatus.failed,
       loginError: "something went very wrong",
     };
-    expect(authStore.reducer(initialState, authStore.actions.login())).toEqual({
-      userName: undefined,
+    expect(authStore.reducer(initialState, authStore.actions.login("John Doe"))).toEqual({
+      userName: "John Doe",
       status: AuthStatus.in_progress,
       loginError: undefined,
     });
   });
 
-  it("should set authenticated status and userName at login_success action", () => {
+  it("should set authenticated status at login_success action", () => {
     const initialState: AuthState = {
-      userName: undefined,
+      userName: "John Doe",
       status: AuthStatus.in_progress,
       loginError: undefined,
     };
     expect(
       authStore.reducer(
         initialState,
-        authStore.actions.login_success("John Doe")
+        authStore.actions.login_success()
       )
     ).toEqual({
       userName: "John Doe",
@@ -57,7 +57,7 @@ describe("auth store", () => {
 
   it("should set failed status and loginError at login_failed action", () => {
     const initialState: AuthState = {
-      userName: undefined,
+      userName: "John Doe",
       status: AuthStatus.in_progress,
       loginError: undefined,
     };
@@ -67,7 +67,7 @@ describe("auth store", () => {
         authStore.actions.login_failed("something went wrong")
       )
     ).toEqual({
-      userName: undefined,
+      userName: "John Doe",
       status: AuthStatus.failed,
       loginError: "something went wrong",
     });
