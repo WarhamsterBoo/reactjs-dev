@@ -21,9 +21,11 @@ export const authStore = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state, _) => state,
+    login: (state, _) => {
+      state.status = AuthStatus.in_progress
+    },
     login_success: (state, action: PayloadAction<string>) => state,
     login_failed: (state, action: PayloadAction<string>) => state,
-    logout: () => {},
+    logout: () => { },
   },
 });
