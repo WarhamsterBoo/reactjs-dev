@@ -1,7 +1,7 @@
 import { auth } from "api/auth";
-import { call, put, take, fork } from "redux-saga/effects";
-import { authStore } from "./authStore";
 import { userSessionStorage } from "api/userSessionStorage";
+import { call, fork, put, take } from "redux-saga/effects";
+import { authStore } from "./authStore";
 
 export function* restoreCurrentSession() {
   const currentUsername: string = yield call(userSessionStorage.getCurrentSession);
@@ -14,8 +14,10 @@ export function* loginSaga() {
   yield fork(restoreCurrentSession);
 
   const userName = (yield take(authStore.actions.login)).payload;
+
   yield call(auth.login, userName);
   yield put(authStore.actions.login_success);
 
-  
+  yield take(authStore.actions.logout);
+  yield put(authStore.actions.logout);
 }
