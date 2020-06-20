@@ -13,11 +13,16 @@ export function* restoreCurrentSession() {
 export function* loginSaga() {
   yield fork(restoreCurrentSession);
 
-  const userName = (yield take(authStore.actions.login)).payload;
+  const userName = (yield take(authStore.actions.login.type)).payload;
 
-  yield call(auth.login, userName);
-  yield put(authStore.actions.login_success);
+  try {
+    yield call(auth.login, userName);
+  } catch (e) {
+    yield put(authStore.actions.login_failed(e.message));
+    return;
+  }
+  yield put(authStore.actions.login_success());
 
-  yield take(authStore.actions.logout);
-  yield put(authStore.actions.logout);
+  yield take(authStore.actions.logout.type);
+  yield put(authStore.actions.logout());
 }
