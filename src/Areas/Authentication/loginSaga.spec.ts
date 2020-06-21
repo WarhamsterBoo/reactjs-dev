@@ -9,7 +9,7 @@ import { throwError } from "redux-saga-test-plan/providers";
 describe("login flow", () => {
   describe("loginSaga", () => {
     it("should login new user successfully", () => {
-      return expectSaga(loginSaga)
+      const sut = expectSaga(loginSaga)
         .provide([
           [call(userSessionStorage.getCurrentSession), undefined],
           [call(auth.login, "John Doe"), {}],
@@ -20,16 +20,16 @@ describe("login flow", () => {
           status: AuthStatus.not_authenticated,
           loginError: undefined,
         })
-        .dispatch(authStore.actions.login("John Doe"))
-        .dispatch(authStore.actions.logout())
-        .put(authStore.actions.login_success())
+        .dispatch(authStore.actions.login("John Doe"));
+
+      return sut.put(authStore.actions.login_success())
         .call(auth.login, "John Doe")
         .call(userSessionStorage.newSession, "John Doe")
         .run();
     });
 
     it("should restore user successfully", () => {
-      return expectSaga(loginSaga)
+      const sut = expectSaga(loginSaga)
         .provide([
           [call(userSessionStorage.getCurrentSession), "John Doe"],
           [call(auth.login, "John Doe"), {}],
@@ -39,20 +39,22 @@ describe("login flow", () => {
           userName: undefined,
           status: AuthStatus.not_authenticated,
           loginError: undefined,
-        })
-        .fork(restoreCurrentSession)
+        });
+
+      return sut.fork(restoreCurrentSession)
         .put(authStore.actions.login("John Doe"))
-        .put(authStore.actions.login_success())
         .call(auth.login, "John Doe")
-        .dispatch(authStore.actions.logout())
+        .call(userSessionStorage.newSession, "John Doe")
+        .put(authStore.actions.login_success())
         .run();
     });
 
     it("should logout user", () => {
-      return expectSaga(loginSaga)
+      const sut = expectSaga(loginSaga)
         .provide([
           [call(userSessionStorage.getCurrentSession), undefined],
           [call(auth.login, "John Doe"), {}],
+          [call(auth.logout), {}],
         ])
         .withReducer(authStore.reducer)
         .withState({
@@ -61,13 +63,15 @@ describe("login flow", () => {
           loginError: undefined,
         })
         .dispatch(authStore.actions.login("John Doe"))
-        .dispatch(authStore.actions.logout())
+        .dispatch(authStore.actions.logout());
+
+      return sut.call(auth.logout)
         .call(userSessionStorage.endSession)
         .run();
     });
 
     it("should not login user if call to auth was not successful", () => {
-      return expectSaga(loginSaga)
+      const sut = expectSaga(loginSaga)
         .provide([
           [call(userSessionStorage.getCurrentSession), undefined],
           [
@@ -81,7 +85,9 @@ describe("login flow", () => {
           status: AuthStatus.not_authenticated,
           loginError: undefined,
         })
-        .dispatch(authStore.actions.login("John Doe"))
+        .dispatch(authStore.actions.login("John Doe"));
+
+      return sut
         .put(authStore.actions.login_failed("something went wrong"))
         .run();
     });
