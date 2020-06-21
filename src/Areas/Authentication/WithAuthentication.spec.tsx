@@ -1,11 +1,12 @@
-import configureMockStore from "redux-mock-store";
 import { AppState } from "@/AppStore";
-import { AuthStatus } from "./authStore";
-import { Provider } from "react-redux";
 import { mount } from "enzyme";
-import { WithAuthentication } from "./WithAuthentication";
 import React from "react";
+import { Provider } from "react-redux";
+import configureMockStore from "redux-mock-store";
+import { AuthInProgressScreen } from "screens/AuthInProgressScreen";
 import { ForbiddenScreen } from "screens/ForbiddenScreen";
+import { AuthStatus } from "./authStore";
+import { WithAuthentication } from "./WithAuthentication";
 
 jest.mock("screens/ForbiddenScreen");
 
@@ -38,5 +39,25 @@ describe("WithAuthentication", () => {
     );
 
     expect(sut.find(ForbiddenScreen)).toHaveLength(1);
+  });
+
+  it("should render Auth In Progress Screen if user is authenticating", () => {
+    const store = mockStore({
+      ...storeDefaultState,
+      auth: {
+        ...storeDefaultState.auth,
+        status: AuthStatus.in_progress,
+        userName: "anonymous",
+      },
+    });
+    const sut = mount(
+      <Provider store={store}>
+        <WithAuthentication>
+          <div>Hello there!</div>
+        </WithAuthentication>
+      </Provider>
+    );
+
+    expect(sut.find(AuthInProgressScreen)).toHaveLength(1);
   });
 });
