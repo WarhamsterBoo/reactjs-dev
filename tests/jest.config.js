@@ -9,7 +9,6 @@ module.exports = {
   rootDir: "../",
   snapshotSerializers: ["jest-emotion", "enzyme-to-json/serializer"],
   moduleNameMapper: {
-    "styles/(.*)": "<rootDir>/src/styles/$1",
     "@/(.*)": "<rootDir>/src/$1",
   },
   modulePaths: ["src/", "node_modules"],

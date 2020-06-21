@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors } from "styles/colors";
+import { colors } from "@/styles/colors";
 
 export const ButtonsContainer = styled.div`
   padding: 10px 10px 10px 10px;
