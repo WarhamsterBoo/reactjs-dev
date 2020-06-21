@@ -1,10 +1,9 @@
-import React from "react";
-import { AuthStatus } from "./authStore";
-import { connect } from "react-redux";
 import { AppState } from "@/AppStore";
-import { ForbiddenScreen } from "screens/ForbiddenScreen";
-import { stat } from "fs";
+import React from "react";
+import { connect } from "react-redux";
 import { AuthInProgressScreen } from "screens/AuthInProgressScreen";
+import { ForbiddenScreen } from "screens/ForbiddenScreen";
+import { AuthStatus } from "./authStore";
 
 interface WithAuthenticationComponentProps {
   status: AuthStatus;
@@ -12,6 +11,7 @@ interface WithAuthenticationComponentProps {
 
 const WithAuthenticationComponent: React.FC<WithAuthenticationComponentProps> = ({
   status,
+  children,
 }) => {
   if (status === AuthStatus.not_authenticated || status === AuthStatus.failed) {
     return <ForbiddenScreen />;
@@ -21,7 +21,7 @@ const WithAuthenticationComponent: React.FC<WithAuthenticationComponentProps> = 
     return <AuthInProgressScreen />;
   }
 
-  return <>children</>;
+  return <>{children}</>;
 };
 
 const mapStateToProps = (state: AppState) => ({

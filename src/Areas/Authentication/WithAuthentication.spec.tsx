@@ -80,4 +80,25 @@ describe("WithAuthentication", () => {
 
     expect(sut.find(ForbiddenScreen)).toHaveLength(1);
   });
+
+  it("should render children if user authenticated", () => {
+    const store = mockStore({
+      ...storeDefaultState,
+      auth: {
+        ...storeDefaultState.auth,
+        status: AuthStatus.authenticated,
+        userName: "anonymous",
+      },
+    });
+    const sut = mount(
+      <Provider store={store}>
+        <WithAuthentication>
+          <div>Hello there!</div>
+        </WithAuthentication>
+      </Provider>
+    );
+
+    expect(sut.find("div")).toHaveLength(1);
+    expect(sut.find("div").text()).toBe("Hello there!");
+  });
 });
