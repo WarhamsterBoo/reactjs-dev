@@ -7,6 +7,16 @@ import { auth } from "api/auth";
 import { throwError } from "redux-saga-test-plan/providers";
 
 describe("login flow", () => {
+  describe("restoreCurrentSessionSaga", () => {
+    it("should dispatch login action with correct username if user session exists in storage", () => {
+      const sut = expectSaga(restoreCurrentSession).provide([
+        [call(userSessionStorage.getCurrentSession), "Jane Doe"],
+      ]);
+
+      return sut.put(authStore.actions.login("Jane Doe")).silentRun();
+    });
+  });
+
   describe("loginSaga", () => {
     it("should login new user successfully", () => {
       const sut = expectSaga(loginSaga)
@@ -22,10 +32,11 @@ describe("login flow", () => {
         })
         .dispatch(authStore.actions.login("John Doe"));
 
-      return sut.put(authStore.actions.login_success())
+      return sut
+        .put(authStore.actions.login_success())
         .call(auth.login, "John Doe")
         .call(userSessionStorage.newSession, "John Doe")
-        .run();
+        .silentRun();
     });
 
     it("should restore user successfully", () => {
@@ -41,12 +52,13 @@ describe("login flow", () => {
           loginError: undefined,
         });
 
-      return sut.fork(restoreCurrentSession)
+      return sut
+        .fork(restoreCurrentSession)
         .put(authStore.actions.login("John Doe"))
         .call(auth.login, "John Doe")
         .call(userSessionStorage.newSession, "John Doe")
         .put(authStore.actions.login_success())
-        .run();
+        .silentRun();
     });
 
     it("should logout user", () => {
@@ -65,9 +77,10 @@ describe("login flow", () => {
         .dispatch(authStore.actions.login("John Doe"))
         .dispatch(authStore.actions.logout());
 
-      return sut.call(auth.logout)
+      return sut
+        .call(auth.logout)
         .call(userSessionStorage.endSession)
-        .run();
+        .silentRun();
     });
 
     it("should not login user if call to auth was not successful", () => {
@@ -89,7 +102,7 @@ describe("login flow", () => {
 
       return sut
         .put(authStore.actions.login_failed("something went wrong"))
-        .run();
+        .silentRun();
     });
   });
 });
