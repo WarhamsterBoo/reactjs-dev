@@ -13,7 +13,7 @@ interface WithAuthenticationComponentProps {
 const WithAuthenticationComponent: React.FC<WithAuthenticationComponentProps> = ({
   status,
 }) => {
-  if (status === AuthStatus.not_authenticated) {
+  if (status === AuthStatus.not_authenticated || status === AuthStatus.failed) {
     return <ForbiddenScreen />;
   }
 

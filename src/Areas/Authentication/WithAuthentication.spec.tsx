@@ -60,4 +60,24 @@ describe("WithAuthentication", () => {
 
     expect(sut.find(AuthInProgressScreen)).toHaveLength(1);
   });
+
+  it("should render Forbidden Screen if user authentication failed", () => {
+    const store = mockStore({
+      ...storeDefaultState,
+      auth: {
+        ...storeDefaultState.auth,
+        status: AuthStatus.failed,
+        userName: "anonymous",
+      },
+    });
+    const sut = mount(
+      <Provider store={store}>
+        <WithAuthentication>
+          <div>Hello there!</div>
+        </WithAuthentication>
+      </Provider>
+    );
+
+    expect(sut.find(ForbiddenScreen)).toHaveLength(1);
+  });
 });
