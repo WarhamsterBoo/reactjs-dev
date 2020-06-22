@@ -1,4 +1,4 @@
-import { Button, InputNumber, Label } from "@/components/Shared";
+import { Button, InputNumber, Label } from "@/components";
 import React, { FormEvent, useCallback, useState } from "react";
 import { FieldSet, Form, Legend } from "./SettingsForm.styled";
 

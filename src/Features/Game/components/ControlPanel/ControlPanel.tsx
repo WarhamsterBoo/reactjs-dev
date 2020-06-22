@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Button } from "@/components/Shared";
+import { Button } from "@/components";
 import { ButtonsContainer } from "./ControlPanel.styled";
 
 export type ControlAction =
