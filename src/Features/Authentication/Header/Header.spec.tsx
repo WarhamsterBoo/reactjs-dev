@@ -1,5 +1,5 @@
 import { AppState } from "@/AppStore";
-import { AuthStatus, authStore } from "@/Features/Authentication/authStore";
+import { AuthStatus, authStore } from "@/Features/Authentication";
 import { mount } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
