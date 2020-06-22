@@ -1,10 +1,10 @@
 import { AppState } from "@/AppStore";
-import { AuthStatus, authStore } from "@/Areas/Authentication/authStore";
-import { shallow, mount } from "enzyme";
+import { AuthStatus, authStore } from "@/Features/Authentication/authStore";
+import { mount } from "enzyme";
 import React from "react";
+import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import { Header } from "./Header";
-import { Provider } from "react-redux";
 
 const store = configureMockStore<AppState>([])({
   auth: {

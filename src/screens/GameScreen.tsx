@@ -1,5 +1,5 @@
-import { WithAuthentication } from "@/Areas/Authentication/WithAuthentication";
-import { Game } from "components/Game";
+import { WithAuthentication } from "@/Features/Authentication/WithAuthentication";
+import { Game } from "@/Features/Game";
 import { Header } from "components/Header";
 import React from "react";
 import { GameScreenContainer } from "./GameScreen.styled";

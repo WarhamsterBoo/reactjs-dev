@@ -1,13 +1,13 @@
 import {
   applyMiddleware,
-  createStore,
   combineReducers,
   compose,
+  createStore,
 } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import { gameStore } from "./components/Game";
+import { authStore } from "./Features/Authentication/authStore";
+import { gameStore } from "./Features/Game";
 import { rootSaga } from "./sagas";
-import { authStore } from "./Areas/Authentication/authStore";
 
 const sagaMiddleware = createSagaMiddleware();
 
