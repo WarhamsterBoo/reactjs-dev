@@ -3,7 +3,7 @@ import React from "react";
 import { SettingsForm } from "./SettingsForm";
 
 describe("SettingsForm", () => {
-  const defaultInitialSettings: GameSettings = {
+  const defaultInitialSettings = {
     xDimension: 10,
     yDimension: 10,
     fillingPercentage: 0,

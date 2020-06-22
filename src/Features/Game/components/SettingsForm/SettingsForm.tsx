@@ -1,17 +1,23 @@
-import React, { FormEvent, useCallback, useState } from "react";
 import { Button, InputNumber, Label } from "@/components/Shared";
+import React, { FormEvent, useCallback, useState } from "react";
 import { FieldSet, Form, Legend } from "./SettingsForm.styled";
 
+interface Settings {
+  xDimension: number;
+  yDimension: number;
+  fillingPercentage: number;
+}
+
 export interface SettingsFormProps {
-  gameSettings: GameSettings;
-  onSettingsSubmit: (settings: GameSettings) => void;
+  gameSettings: Settings;
+  onSettingsSubmit: (settings: Settings) => void;
 }
 
 export const SettingsForm: React.FC<SettingsFormProps> = ({
   gameSettings,
   onSettingsSubmit,
 }) => {
-  const [settings, setSettings] = useState<GameSettings>({
+  const [settings, setSettings] = useState<Settings>({
     ...gameSettings,
     fillingPercentage: Math.round(gameSettings.fillingPercentage * 100),
   });

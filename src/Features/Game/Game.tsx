@@ -3,7 +3,12 @@ import React, { useCallback } from "react";
 import { connect } from "react-redux";
 import { ControlAction, ControlPanel, SettingsForm, World } from "./components";
 import { GameWrapper } from "./Game.styled";
-import { CreatureCoordinates, gameStore } from "./gameStore";
+import {
+  CreatureCoordinates,
+  GameSettings,
+  gameStore,
+  WorldCreature,
+} from "./gameStore";
 
 interface GameProps {
   settings: GameSettings;
