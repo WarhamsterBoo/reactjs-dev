@@ -1,10 +1,10 @@
+import { auth } from "@/api/auth";
+import { userSessionStorage } from "@/api/userSessionStorage";
 import { expectSaga } from "redux-saga-test-plan";
-import { loginSaga, restoreCurrentSession } from "./loginSaga";
-import { authStore, AuthStatus } from "./authStore";
-import { userSessionStorage } from "api/userSessionStorage";
 import { call } from "redux-saga-test-plan/matchers";
-import { auth } from "api/auth";
 import { throwError } from "redux-saga-test-plan/providers";
+import { AuthStatus, authStore } from "./authStore";
+import { loginSaga, restoreCurrentSession } from "./loginSaga";
 
 describe("login flow", () => {
   describe("restoreCurrentSessionSaga", () => {

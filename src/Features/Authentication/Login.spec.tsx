@@ -27,8 +27,6 @@ jest.mock("react-router-dom", () => ({
   useHistory: () => mockHistory,
 }));
 
-jest.mock("api/auth");
-
 describe("Login", () => {
   beforeEach(() => {
     store.clearActions();
