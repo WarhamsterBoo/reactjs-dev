@@ -2,6 +2,14 @@ import React, { useCallback } from "react";
 import { Button } from "@/components/Shared";
 import { ButtonsContainer } from "./ControlPanel.styled";
 
+export type ControlAction =
+  | "stop"
+  | "run"
+  | "pause"
+  | "slower"
+  | "normal"
+  | "faster";
+
 export interface ControlPanelProps {
   onControlButtonClick: (action: ControlAction) => void;
 }
