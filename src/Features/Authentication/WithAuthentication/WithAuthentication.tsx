@@ -1,9 +1,9 @@
 import { AppState } from "@/AppStore";
+import { AuthStatus } from "@/Features/Authentication";
 import { AuthInProgressScreen } from "@/screens/AuthInProgressScreen";
 import { ForbiddenScreen } from "@/screens/ForbiddenScreen";
 import React from "react";
 import { connect } from "react-redux";
-import { AuthStatus } from "./authStore";
 
 interface WithAuthenticationComponentProps {
   status: AuthStatus;

@@ -5,7 +5,7 @@ import { mount } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import { AuthStatus } from "./authStore";
+import { AuthStatus } from "../authStore";
 import { WithAuthentication } from "./WithAuthentication";
 
 jest.mock("@/screens/ForbiddenScreen");
