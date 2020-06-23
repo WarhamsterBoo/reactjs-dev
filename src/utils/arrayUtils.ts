@@ -19,7 +19,9 @@ export const resizeTwoDimArray = <T>(
     (row, rowIndex) =>
       row.map((item, itemIndex) => {
         return initialArray[rowIndex] && initialArray[rowIndex][itemIndex]
-          ? initialArray[rowIndex][itemIndex]
+          ? typeof initialArray[rowIndex][itemIndex] === "object"
+            ? { ...initialArray[rowIndex][itemIndex] }
+            : initialArray[rowIndex][itemIndex]
           : item;
       })
   );
