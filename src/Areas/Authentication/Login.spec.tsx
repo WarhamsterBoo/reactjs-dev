@@ -1,10 +1,10 @@
 import { AppState } from "@/AppStore";
-import { AuthStatus, authStore } from "@/Areas/Authentication/authStore";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
 import React from "react";
-import configureMockStore from "redux-mock-store";
-import { Header } from "./Header";
 import { Provider } from "react-redux";
+import configureMockStore from "redux-mock-store";
+import { AuthStatus, authStore } from "./authStore";
+import { Login } from "./Login";
 
 const store = configureMockStore<AppState>([])({
   auth: {
@@ -29,32 +29,32 @@ jest.mock("react-router-dom", () => ({
 
 jest.mock("api/auth");
 
-describe("Header", () => {
+describe("Login", () => {
   beforeEach(() => {
     store.clearActions();
   });
 
-  it("should call logOutUser function prop when Logout button clicked", () => {
+  it("should redirect to game screen after auth", async () => {
     const sut = mount(
       <Provider store={store}>
-        <Header />
+        <Login />
       </Provider>
     );
 
-    sut.find("Styled(button)").simulate("click");
+    await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
 
-    expect(store.getActions()).toEqual([authStore.actions.logout()]);
+    expect(mockHistory.push).toHaveBeenCalledWith("/");
   });
 
-  it("should redirect to /login when Logout button clicked", () => {
+  it("should call auth api with userName", async () => {
     const sut = mount(
       <Provider store={store}>
-        <Header />
+        <Login />
       </Provider>
     );
 
-    sut.find("Styled(button)").simulate("click");
+    await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
 
-    expect(mockHistory.push).toHaveBeenCalledWith("/login");
+    expect(store.getActions()).toEqual([authStore.actions.login("John Doe")]);
   });
 });

@@ -60,7 +60,7 @@ describe("SettingsForm", () => {
       target: { value: "20", name: "yDimension" },
     });
     sut.find(`input[name="fillingPercentage"]`).simulate("change", {
-      target: { value: "30", name: "fillingPercentage" },
+      target: { value: "0", name: "fillingPercentage" },
     });
 
     sut.find("button").simulate("submit");
@@ -69,7 +69,40 @@ describe("SettingsForm", () => {
     expect(fakeOnSubmit).toHaveBeenCalledWith({
       xDimension: 10,
       yDimension: 20,
-      fillingPercentage: 30,
+      fillingPercentage: 0,
     });
+  });
+
+  it("should transform fillingPercentage from percents to fraction", () => {
+    const fakeOnSubmit = jest.fn();
+    const sut = mount(
+      <SettingsForm
+        gameSettings={defaultInitialSettings}
+        onSettingsSubmit={fakeOnSubmit}
+      />
+    );
+    sut.find(`input[name="fillingPercentage"]`).simulate("change", {
+      target: { value: "60", name: "fillingPercentage" },
+    });
+
+    sut.find("button").simulate("submit");
+
+    expect(fakeOnSubmit).toHaveBeenCalledTimes(1);
+    expect(fakeOnSubmit).toHaveBeenCalledWith({
+      ...defaultInitialSettings,
+      fillingPercentage: 0.6,
+    });
+  });
+
+  it("should transform fillingPercentage from fraction to percents when displaying", () => {
+    const sut = mount(
+      <SettingsForm
+        gameSettings={{ ...defaultInitialSettings, fillingPercentage: 0.1 }}
+        onSettingsSubmit={jest.fn()}
+      />
+    );
+    const fillingPercentage = sut.find(`input[name="fillingPercentage"]`);
+
+    expect(fillingPercentage.prop("value")).toBe(10);
   });
 });

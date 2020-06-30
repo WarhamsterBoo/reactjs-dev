@@ -7,7 +7,7 @@ export default { title: "Settings Form Component" };
 export const SettingsFormStory: React.FC<{}> = () => {
   return (
     <SettingsForm
-      gameSettings={{ xDimension: 10, yDimension: 10, fillingPercentage: 10 }}
+      gameSettings={{ xDimension: 10, yDimension: 10, fillingPercentage: 0.1 }}
       onSettingsSubmit={action("onSubmit")}
     />
   );

@@ -1,14 +1,16 @@
+import { WithAuthentication } from "@/Areas/Authentication/WithAuthentication";
 import { Game } from "components/Game";
 import { Header } from "components/Header";
-import { withAuthentication } from "hoc/withAuthentication";
 import React from "react";
 import { GameScreenContainer } from "./GameScreen.styled";
 
-export const GameScreen = withAuthentication(({ userName, logOutUser }) => {
+export const GameScreen: React.FC<{}> = () => {
   return (
-    <GameScreenContainer>
-      <Header userName={userName} logOutUser={logOutUser} />
-      <Game />
-    </GameScreenContainer>
+    <WithAuthentication>
+      <GameScreenContainer>
+        <Header />
+        <Game />
+      </GameScreenContainer>
+    </WithAuthentication>
   );
-});
+};

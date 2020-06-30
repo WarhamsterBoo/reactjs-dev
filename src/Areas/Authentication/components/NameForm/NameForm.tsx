@@ -1,7 +1,6 @@
+import { InputText, Label, Button } from "@/components/Shared";
 import React, { FormEvent, useCallback, useState } from "react";
-import { Button, InputText, Label } from "shared";
 import { Form } from "./NameForm.styled";
-
 export interface NameFormProps {
   onNameSubmit: (userName: string) => Promise<void>;
 }
