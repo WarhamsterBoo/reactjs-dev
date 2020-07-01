@@ -14,12 +14,12 @@ export function* changeSettings(action: PayloadAction<GameSettings>) {
     yield put(gameStore.actions.saveSettings(newSettings));
 
     if (oldSettings.fillingPercentage != newSettings.fillingPercentage) {
-      yield put(gameStore.actions.generateNewCreatures);
+      yield put(gameStore.actions.generateNewCreatures());
     } else if (
       oldSettings.xDimension != newSettings.xDimension ||
       oldSettings.yDimension != newSettings.yDimension
     ) {
-      yield put(gameStore.actions.resizeCreatures);
+      yield put(gameStore.actions.resizeCreatures());
     }
   }
 }

@@ -53,7 +53,7 @@ describe("game saga", () => {
           })
         )
         .next()
-        .put(gameStore.actions.resizeCreatures)
+        .put(gameStore.actions.resizeCreatures())
         .next()
         .isDone();
     });
@@ -80,7 +80,7 @@ describe("game saga", () => {
           })
         )
         .next()
-        .put(gameStore.actions.generateNewCreatures)
+        .put(gameStore.actions.generateNewCreatures())
         .next()
         .isDone();
     });
@@ -107,7 +107,7 @@ describe("game saga", () => {
           })
         )
         .next()
-        .put(gameStore.actions.generateNewCreatures)
+        .put(gameStore.actions.generateNewCreatures())
         .next()
         .isDone();
     });

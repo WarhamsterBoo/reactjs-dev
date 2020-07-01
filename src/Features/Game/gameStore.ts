@@ -81,33 +81,7 @@ export const gameStore = createSlice({
     generateNewCreatures: (state, _: AnyAction) => {
       state.creatures = generateRandomCreatures(state.settings);
     },
-    changeSettingsTo: (state, action: PayloadAction<GameSettings>) => {
-      if (action.payload.fillingPercentage > 1) {
-        throw "FillingPercentage cannot be greater than 1";
-      }
-      if (action.payload.fillingPercentage < 0) {
-        throw "FillingPercentage cannot be less than 0";
-      }
-
-      if (
-        state.settings.fillingPercentage != action.payload.fillingPercentage
-      ) {
-        state.creatures = generateRandomCreatures(action.payload);
-      }
-
-      if (
-        state.settings.xDimension != action.payload.xDimension ||
-        state.settings.yDimension != action.payload.yDimension
-      ) {
-        state.creatures = changeCreaturesSize(
-          state.creatures,
-          action.payload.xDimension,
-          action.payload.yDimension
-        );
-      }
-
-      state.settings = action.payload;
-    },
+    changeSettingsTo: (state, _: PayloadAction<GameSettings>) => state,
     toggleCreatureState: (
       state,
       action: PayloadAction<CreatureCoordinates>

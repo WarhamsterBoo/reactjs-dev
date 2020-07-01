@@ -160,133 +160,19 @@ describe("game store", () => {
   });
 
   describe("changeSettingsTo", () => {
-    it("should throw if fillingPercentage > 1", () => {
+    it("should do nothing", () => {
       const targetSettings: GameSettings = {
         xDimension: 11,
         yDimension: 11,
         fillingPercentage: 2,
       };
 
-      expect(() =>
-        gameStore.reducer(
-          initialState,
-          gameStore.actions.changeSettingsTo(targetSettings)
-        )
-      ).toThrow("FillingPercentage cannot be greater than 1");
-    });
-
-    it("should throw if fillingPercentage < 0", () => {
-      const targetSettings: GameSettings = {
-        xDimension: 11,
-        yDimension: 11,
-        fillingPercentage: -0.67,
-      };
-
-      expect(() =>
-        gameStore.reducer(
-          initialState,
-          gameStore.actions.changeSettingsTo(targetSettings)
-        )
-      ).toThrow("FillingPercentage cannot be less than 0");
-    });
-
-    it("should change settings when changeSettingsTo action dispatched", () => {
-      const targetSettings: GameSettings = {
-        xDimension: 12,
-        yDimension: 12,
-        fillingPercentage: 0.1,
-      };
-
       expect(
         gameStore.reducer(
           initialState,
           gameStore.actions.changeSettingsTo(targetSettings)
-        ).settings
-      ).toEqual(targetSettings);
-    });
-
-    it("should regenerate creatures if filling percentage changes", () => {
-      const targetSettings: GameSettings = {
-        ...initialSettings,
-        fillingPercentage: 0.5,
-      };
-
-      const creatures = gameStore.reducer(
-        {
-          ...initialState,
-          settings: { ...initialSettings, fillingPercentage: 0.1 },
-        },
-        gameStore.actions.changeSettingsTo(targetSettings)
-      ).creatures;
-
-      expect(
-        creatures.reduce<number>(
-          (accumulator, creauresRow) =>
-            accumulator +
-            creauresRow.filter((creature) => creature.isAlive).length,
-          0
         )
-      ).toBe(60);
-    });
-
-    it("should be able to increase creatures size without creatures state reset", () => {
-      const originState: GameState = {
-        settings: {
-          xDimension: 2,
-          yDimension: 2,
-          fillingPercentage: 0,
-        },
-        creatures: [
-          [{ isAlive: true }, { isAlive: true }],
-          [{ isAlive: false }, { isAlive: true }],
-        ],
-      };
-      const targetSettings: GameSettings = {
-        xDimension: 3,
-        yDimension: 3,
-        fillingPercentage: 0,
-      };
-
-      const creatures = gameStore.reducer(
-        originState,
-        gameStore.actions.changeSettingsTo(targetSettings)
-      ).creatures;
-
-      expect(creatures).toEqual([
-        [{ isAlive: true }, { isAlive: true }, { isAlive: false }],
-        [{ isAlive: false }, { isAlive: true }, { isAlive: false }],
-        [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
-      ]);
-    });
-
-    it("should be able to decrease creatures size without creatures state reset", () => {
-      const originState: GameState = {
-        settings: {
-          xDimension: 3,
-          yDimension: 3,
-          fillingPercentage: 0,
-        },
-        creatures: [
-          [{ isAlive: true }, { isAlive: true }, { isAlive: false }],
-          [{ isAlive: false }, { isAlive: true }, { isAlive: false }],
-          [{ isAlive: false }, { isAlive: false }, { isAlive: true }],
-        ],
-      };
-      const targetSettings: GameSettings = {
-        xDimension: 2,
-        yDimension: 2,
-        fillingPercentage: 0,
-      };
-
-      const creatures = gameStore.reducer(
-        originState,
-        gameStore.actions.changeSettingsTo(targetSettings)
-      ).creatures;
-
-      expect(creatures).toEqual([
-        [{ isAlive: true }, { isAlive: true }],
-        [{ isAlive: false }, { isAlive: true }],
-      ]);
+      ).toEqual(initialState);
     });
   });
 
