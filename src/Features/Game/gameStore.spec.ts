@@ -24,6 +24,23 @@ describe("game store", () => {
     ).toEqual(defaultState);
   });
 
+  describe("saveSettings", () => {
+    it("should replace settings in state", () => {
+      const targetSettings: GameSettings = {
+        xDimension: 11,
+        yDimension: 11,
+        fillingPercentage: 2,
+      };
+
+      expect(
+        gameStore.reducer(
+          initialState,
+          gameStore.actions.saveSettings(targetSettings)
+        ).settings
+      ).toEqual(targetSettings);
+    });
+  });
+
   describe("changeSettingsTo", () => {
     it("should throw if fillingPercentage > 1", () => {
       const targetSettings: GameSettings = {

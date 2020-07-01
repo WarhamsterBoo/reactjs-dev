@@ -68,6 +68,9 @@ export const gameStore = createSlice({
   name: "game",
   initialState,
   reducers: {
+    saveSettings: (state, action: PayloadAction<GameSettings>) => {
+      state.settings = action.payload;
+    },
     generateNewCreatures: (state, _: AnyAction) => {
       state.creatures = generateRandomCreatures(state.settings);
     },
