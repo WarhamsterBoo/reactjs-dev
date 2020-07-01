@@ -57,5 +57,59 @@ describe("game saga", () => {
         .next()
         .isDone();
     });
+
+    it("should save valid settings and generate new creatures if filling percentage and dimensions change", () => {
+      const sut = testSaga(
+        changeSettings,
+        gameStore.actions.changeSettingsTo({
+          fillingPercentage: 0.6,
+          xDimension: 1,
+          yDimension: 2,
+        })
+      );
+
+      sut
+        .next()
+        .select(settingsSelector)
+        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
+        .put(
+          gameStore.actions.saveSettings({
+            fillingPercentage: 0.6,
+            xDimension: 1,
+            yDimension: 2,
+          })
+        )
+        .next()
+        .put(gameStore.actions.generateNewCreatures)
+        .next()
+        .isDone();
+    });
+
+    it("should save valid settings and generate new creatures if only filling percentage changes", () => {
+      const sut = testSaga(
+        changeSettings,
+        gameStore.actions.changeSettingsTo({
+          fillingPercentage: 0.6,
+          xDimension: 1,
+          yDimension: 1,
+        })
+      );
+
+      sut
+        .next()
+        .select(settingsSelector)
+        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
+        .put(
+          gameStore.actions.saveSettings({
+            fillingPercentage: 0.6,
+            xDimension: 1,
+            yDimension: 1,
+          })
+        )
+        .next()
+        .put(gameStore.actions.generateNewCreatures)
+        .next()
+        .isDone();
+    });
   });
 });

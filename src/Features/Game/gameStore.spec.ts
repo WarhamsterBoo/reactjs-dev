@@ -95,6 +95,70 @@ describe("game store", () => {
     });
   });
 
+  describe("generateCreatures", () => {
+    it.each`
+      xDimension | yDimension | expected
+      ${-1}      | ${-3}      | ${[]}
+      ${0}       | ${0}       | ${[]}
+      ${1}       | ${1}       | ${twoDimArrayGenerator(1, 1, { isAlive: false })}
+      ${2}       | ${2}       | ${twoDimArrayGenerator(2, 2, { isAlive: false })}
+    `(
+      "should generate creatures array of corresponding size if setting's demensions are $xDimension x $yDimension",
+      ({ xDimension, yDimension, expected }) => {
+        expect(
+          gameStore.reducer(
+            {
+              settings: {
+                xDimension: xDimension,
+                yDimension: yDimension,
+                fillingPercentage: 0,
+              },
+              creatures: twoDimArrayGenerator(1, 2, { isAlive: false }),
+            },
+            gameStore.actions.generateNewCreatures()
+          ).creatures
+        ).toEqual(expected);
+      }
+    );
+
+    it.each`
+      xDimension | yDimension | fillingPercentage | expectedAliveCount
+      ${1}       | ${1}       | ${0}              | ${0}
+      ${1}       | ${1}       | ${1}              | ${1}
+      ${2}       | ${2}       | ${0.5}            | ${2}
+      ${2}       | ${2}       | ${0.25}           | ${1}
+      ${5}       | ${2}       | ${0.75}           | ${7}
+      ${5}       | ${5}       | ${1}              | ${25}
+      ${5}       | ${5}       | ${0}              | ${0}
+      ${5}       | ${5}       | ${0.6}            | ${15}
+    `(
+      "should return array with $expectedAliveCount alive creatures with settings: {x: $xDimension, y: $yDimension, %: $fillingPercentage} ",
+      ({ xDimension, yDimension, fillingPercentage, expectedAliveCount }) => {
+        const generatedCreatures = gameStore.reducer(
+          {
+            settings: {
+              xDimension: xDimension,
+              yDimension: yDimension,
+              fillingPercentage: fillingPercentage,
+            },
+            creatures: [],
+          },
+          gameStore.actions.generateNewCreatures()
+        ).creatures;
+
+        const numberOfAliveCreatures = generatedCreatures.reduce<number>(
+          (accumulator, creauresRow) =>
+            accumulator +
+            creauresRow.filter((creature) => creature.isAlive).length,
+          0
+        );
+        expect(generatedCreatures.length).toBe(xDimension);
+        expect(generatedCreatures[0].length).toBe(yDimension);
+        expect(numberOfAliveCreatures).toBe(expectedAliveCount);
+      }
+    );
+  });
+
   describe("changeSettingsTo", () => {
     it("should throw if fillingPercentage > 1", () => {
       const targetSettings: GameSettings = {
@@ -232,70 +296,6 @@ describe("game store", () => {
         defaultState
       );
     });
-  });
-
-  describe("generateCreatures", () => {
-    it.each`
-      xDimension | yDimension | expected
-      ${-1}      | ${-3}      | ${[]}
-      ${0}       | ${0}       | ${[]}
-      ${1}       | ${1}       | ${twoDimArrayGenerator(1, 1, { isAlive: false })}
-      ${2}       | ${2}       | ${twoDimArrayGenerator(2, 2, { isAlive: false })}
-    `(
-      "should generate creatures array of corresponding size if setting's demensions are $xDimension x $yDimension",
-      ({ xDimension, yDimension, expected }) => {
-        expect(
-          gameStore.reducer(
-            {
-              settings: {
-                xDimension: xDimension,
-                yDimension: yDimension,
-                fillingPercentage: 0,
-              },
-              creatures: twoDimArrayGenerator(1, 2, { isAlive: false }),
-            },
-            gameStore.actions.generateNewCreatures()
-          ).creatures
-        ).toEqual(expected);
-      }
-    );
-
-    it.each`
-      xDimension | yDimension | fillingPercentage | expectedAliveCount
-      ${1}       | ${1}       | ${0}              | ${0}
-      ${1}       | ${1}       | ${1}              | ${1}
-      ${2}       | ${2}       | ${0.5}            | ${2}
-      ${2}       | ${2}       | ${0.25}           | ${1}
-      ${5}       | ${2}       | ${0.75}           | ${7}
-      ${5}       | ${5}       | ${1}              | ${25}
-      ${5}       | ${5}       | ${0}              | ${0}
-      ${5}       | ${5}       | ${0.6}            | ${15}
-    `(
-      "should return array with $expectedAliveCount alive creatures with settings: {x: $xDimension, y: $yDimension, %: $fillingPercentage} ",
-      ({ xDimension, yDimension, fillingPercentage, expectedAliveCount }) => {
-        const generatedCreatures = gameStore.reducer(
-          {
-            settings: {
-              xDimension: xDimension,
-              yDimension: yDimension,
-              fillingPercentage: fillingPercentage,
-            },
-            creatures: [],
-          },
-          gameStore.actions.generateNewCreatures()
-        ).creatures;
-
-        const numberOfAliveCreatures = generatedCreatures.reduce<number>(
-          (accumulator, creauresRow) =>
-            accumulator +
-            creauresRow.filter((creature) => creature.isAlive).length,
-          0
-        );
-        expect(generatedCreatures.length).toBe(xDimension);
-        expect(generatedCreatures[0].length).toBe(yDimension);
-        expect(numberOfAliveCreatures).toBe(expectedAliveCount);
-      }
-    );
   });
 
   describe("toggleCreatureState", () => {

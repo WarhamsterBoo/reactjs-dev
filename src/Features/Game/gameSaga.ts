@@ -4,11 +4,23 @@ import { GameSettings, gameStore } from "./gameStore";
 import { settingsSelector } from "./gameStoreSelectors";
 
 export function* changeSettings(action: PayloadAction<GameSettings>) {
-  const settings = action.payload;
-  if (settings.fillingPercentage >= 0 && settings.fillingPercentage <= 1) {
-    const currentSettings = yield select(settingsSelector);
-    yield put(gameStore.actions.saveSettings(action.payload));
-    yield put(gameStore.actions.resizeCreatures);
+  const newSettings = action.payload;
+  if (
+    newSettings.fillingPercentage >= 0 &&
+    newSettings.fillingPercentage <= 1
+  ) {
+    const oldSettings: GameSettings = yield select(settingsSelector);
+
+    yield put(gameStore.actions.saveSettings(newSettings));
+
+    if (oldSettings.fillingPercentage != newSettings.fillingPercentage) {
+      yield put(gameStore.actions.generateNewCreatures);
+    } else if (
+      oldSettings.xDimension != newSettings.xDimension ||
+      oldSettings.yDimension != newSettings.yDimension
+    ) {
+      yield put(gameStore.actions.resizeCreatures);
+    }
   }
 }
 
