@@ -1,6 +1,7 @@
 import { testSaga } from "redux-saga-test-plan";
 import { changeSettings } from "./gameSaga";
 import { gameStore } from "./gameStore";
+import { settingsSelector } from "./gameStoreSelectors";
 
 describe("game saga", () => {
   describe("change settings", () => {
@@ -30,7 +31,7 @@ describe("game saga", () => {
       sut.next().isDone();
     });
 
-    it("should save valid settings", () => {
+    it("should save valid settings and resize creatures if filling percentage does not change", () => {
       const sut = testSaga(
         changeSettings,
         gameStore.actions.changeSettingsTo({
@@ -42,6 +43,8 @@ describe("game saga", () => {
 
       sut
         .next()
+        .select(settingsSelector)
+        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
         .put(
           gameStore.actions.saveSettings({
             fillingPercentage: 0.5,
@@ -49,6 +52,8 @@ describe("game saga", () => {
             yDimension: 2,
           })
         )
+        .next()
+        .put(gameStore.actions.resizeCreatures)
         .next()
         .isDone();
     });
