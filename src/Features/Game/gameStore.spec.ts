@@ -67,6 +67,32 @@ describe("game store", () => {
         ).creatures
       ).toEqual(expectedCreatures);
     });
+
+    it("should be able to reduce creatures size according to settings without creatures state reset", () => {
+      const originalCreatures: WorldCreature[][] = [
+        [{ isAlive: true }, { isAlive: true }, { isAlive: false }],
+        [{ isAlive: false }, { isAlive: true }, { isAlive: false }],
+        [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
+      ];
+      const expectedCreatures: WorldCreature[][] = [
+        [{ isAlive: true }, { isAlive: true }],
+        [{ isAlive: false }, { isAlive: true }],
+      ];
+
+      expect(
+        gameStore.reducer(
+          {
+            settings: {
+              xDimension: 2,
+              yDimension: 2,
+              fillingPercentage: 0,
+            },
+            creatures: originalCreatures,
+          },
+          gameStore.actions.resizeCreatures()
+        ).creatures
+      ).toEqual(expectedCreatures);
+    });
   });
 
   describe("changeSettingsTo", () => {
