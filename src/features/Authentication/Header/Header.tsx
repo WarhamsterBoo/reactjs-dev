@@ -4,7 +4,7 @@ import { Button } from "@/components";
 import { Greeting, HeaderContainer } from "./Header.styled";
 import { connect } from "react-redux";
 import { AppState } from "@/AppStore";
-import { authStore } from "@/Features/Authentication/authStore";
+import { authStore } from "@/features/Authentication";
 
 export interface HeaderProps {
   userName: string | undefined;

@@ -1,5 +1,5 @@
 import { AppState } from "@/AppStore";
-import { AuthStatus } from "@/Features/Authentication";
+import { AuthStatus } from "@/features/Authentication";
 import { GameSettings } from "./gameStore";
 import { settingsSelector } from "./gameStoreSelectors";
 

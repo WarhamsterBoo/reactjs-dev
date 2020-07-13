@@ -1,4 +1,4 @@
-import { authStore } from "@/Features/Authentication";
+import { authStore } from "@/features/Authentication";
 import React, { useCallback } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";

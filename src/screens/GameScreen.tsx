@@ -1,6 +1,6 @@
-import { Header } from "@/Features/Authentication/Header";
-import { WithAuthentication } from "@/Features/Authentication/WithAuthentication";
-import { Game } from "@/Features/Game";
+import { Header } from "@/features/Authentication/Header";
+import { WithAuthentication } from "@/features/Authentication/WithAuthentication";
+import { Game } from "@/features/Game";
 import React from "react";
 import { GameScreenContainer } from "./GameScreen.styled";
 

@@ -1,6 +1,6 @@
-import { loginSaga } from "@/Features/Authentication/loginSaga";
+import { loginSaga } from "@/features/Authentication/loginSaga";
 import { all } from "redux-saga/effects";
-import { gameSaga } from "./Features/Game/gameSaga";
+import { gameSaga } from "@/features/Game/gameSaga";
 
 export function* rootSaga() {
   yield all([loginSaga(), gameSaga()]);
