@@ -1,5 +1,5 @@
 import { AppState } from "@/AppStore";
-import { AuthStatus } from "@/Features/Authentication";
+import { AuthStatus } from "@/features/Authentication";
 import { AuthInProgressScreen } from "@/screens/AuthInProgressScreen";
 import { ForbiddenScreen } from "@/screens/ForbiddenScreen";
 import React from "react";
