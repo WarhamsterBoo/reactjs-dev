@@ -1,11 +1,11 @@
+import { ForbiddenScreen } from "@/screens/ForbiddenScreen";
+import { GameScreen } from "@/screens/GameScreen";
+import { LoginScreen } from "@/screens/LoginScreen";
 import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { AppContainer } from "./App.styled";
 import { store } from "./AppStore";
-import { ForbiddenScreen } from "./screens/ForbiddenScreen";
-import { GameScreen } from "./screens/GameScreen";
-import { LoginScreen } from "./screens/LoginScreen";
 
 export const App: React.FC<{}> = () => {
   return (

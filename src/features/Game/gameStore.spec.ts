@@ -1,4 +1,4 @@
-import { gameStore, GameState } from "./gameStore";
+import { gameStore, GameState, GameSettings, WorldCreature } from "./gameStore";
 import { twoDimArrayGenerator } from "@/utils/arrayUtils";
 
 describe("game store", () => {

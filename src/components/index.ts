@@ -1,3 +1,3 @@
-export * from "./Game";
-export * from "./Shared";
-export * from "./Header";
+export * from "./Button";
+export * from "./Input";
+export * from "./Label";

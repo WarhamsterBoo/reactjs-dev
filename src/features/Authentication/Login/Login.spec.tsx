@@ -3,8 +3,8 @@ import { mount } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import { AuthStatus, authStore } from "./authStore";
-import { Login } from "./Login";
+import { AuthStatus, authStore } from "../authStore";
+import { Login } from ".";
 
 const store = configureMockStore<AppState>([])({
   auth: {
@@ -26,8 +26,6 @@ const mockHistory = { push: jest.fn() };
 jest.mock("react-router-dom", () => ({
   useHistory: () => mockHistory,
 }));
-
-jest.mock("api/auth");
 
 describe("Login", () => {
   beforeEach(() => {

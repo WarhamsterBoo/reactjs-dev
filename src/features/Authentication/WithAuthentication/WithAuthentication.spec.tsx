@@ -1,14 +1,14 @@
 import { AppState } from "@/AppStore";
+import { AuthStatus } from "@/features/Authentication";
+import { AuthInProgressScreen } from "@/screens/AuthInProgressScreen";
+import { ForbiddenScreen } from "@/screens/ForbiddenScreen";
 import { mount } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import { AuthInProgressScreen } from "screens/AuthInProgressScreen";
-import { ForbiddenScreen } from "screens/ForbiddenScreen";
-import { AuthStatus } from "./authStore";
 import { WithAuthentication } from "./WithAuthentication";
 
-jest.mock("screens/ForbiddenScreen");
+jest.mock("@/screens/ForbiddenScreen");
 
 const storeDefaultState: AppState = {
   auth: {

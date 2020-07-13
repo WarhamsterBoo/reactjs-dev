@@ -1,6 +1,16 @@
 import { twoDimArrayGenerator, resizeTwoDimArray } from "@/utils/arrayUtils";
 import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface WorldCreature {
+  isAlive: boolean;
+}
+
+export interface GameSettings {
+  xDimension: number;
+  yDimension: number;
+  fillingPercentage: number;
+}
+
 export interface GameState {
   settings: GameSettings;
   creatures: WorldCreature[][];

@@ -1,4 +1,4 @@
-import { loginSaga } from "@/Areas/Authentication/loginSaga";
+import { loginSaga } from "@/features/Authentication/loginSaga";
 import { all } from "redux-saga/effects";
 
 export function* rootSaga() {

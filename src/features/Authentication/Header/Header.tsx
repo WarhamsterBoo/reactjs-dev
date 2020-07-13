@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "@/components/Shared";
+import { Button } from "@/components";
 import { Greeting, HeaderContainer } from "./Header.styled";
 import { connect } from "react-redux";
 import { AppState } from "@/AppStore";
-import { authStore } from "@/Areas/Authentication/authStore";
+import { authStore } from "@/features/Authentication";
 
 export interface HeaderProps {
   userName: string | undefined;
