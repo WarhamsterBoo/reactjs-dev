@@ -25,14 +25,12 @@ export function* changeSettings(action: PayloadAction<GameSettings>) {
 }
 
 export function* watchSettingChange() {
-  while(true) {
+  while (true) {
     const oldSettings: GameSettings = yield select(settingsSelector);
     yield take(gameStore.actions.applySettings.type);
     const newSettings: GameSettings = yield select(settingsSelector);
-    if (
-      newSettings.fillingPercentage < 0 ||
-      newSettings.fillingPercentage > 1
-    ) continue;
+    if (newSettings.fillingPercentage < 0 || newSettings.fillingPercentage > 1)
+      continue;
 
     if (oldSettings.fillingPercentage != newSettings.fillingPercentage) {
       yield put(gameStore.actions.generateNewCreatures());

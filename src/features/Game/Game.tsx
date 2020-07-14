@@ -16,6 +16,8 @@ interface GameProps {
   onControlActionClick: (action: ControlAction) => void;
   creatures: WorldCreature[][];
   toggleCreatureState: (coordinates: CreatureCoordinates) => void;
+  applySettings: () => void;
+  onSettingsChange: (settings: GameSettings) => void;
 }
 
 const GameComponent: React.FC<GameProps> = ({
@@ -24,6 +26,8 @@ const GameComponent: React.FC<GameProps> = ({
   onControlActionClick,
   creatures,
   toggleCreatureState,
+  applySettings,
+  onSettingsChange,
 }) => {
   const onCreatureClick = useCallback(
     (x: number, y: number) => toggleCreatureState({ x, y }),
@@ -34,7 +38,8 @@ const GameComponent: React.FC<GameProps> = ({
     <GameWrapper>
       <SettingsForm
         gameSettings={settings}
-        onSettingsSubmit={onSettingsSubmit}
+        onSettingsChange={onSettingsChange}
+        applySettings={applySettings}
       />
       <World creatures={creatures} onClick={onCreatureClick} />
       <ControlPanel onControlButtonClick={onControlActionClick} />
@@ -53,6 +58,8 @@ const mapDispatchToProps = {
   onSettingsSubmit: gameStore.actions.changeSettingsTo,
   onControlActionClick: gameStore.actions.stop,
   toggleCreatureState: gameStore.actions.toggleCreatureState,
+  applySettings: gameStore.actions.applySettings,
+  onSettingsChange: gameStore.actions.changeSettings,
 };
 
 export const Game = connect(mapStateToProps, mapDispatchToProps)(GameComponent);

@@ -185,11 +185,25 @@ describe("game store", () => {
       };
 
       expect(
+        gameStore.reducer(initialState, gameStore.actions.applySettings())
+      ).toEqual(initialState);
+    });
+  });
+
+  describe("changeSettings", () => {
+    it("should save settings", () => {
+      const targetSettings: GameSettings = {
+        xDimension: 15,
+        yDimension: 15,
+        fillingPercentage: 0.2,
+      };
+
+      expect(
         gameStore.reducer(
           initialState,
-          gameStore.actions.applySettings()
-        )
-      ).toEqual(initialState);
+          gameStore.actions.changeSettings(targetSettings)
+        ).settings
+      ).toEqual(targetSettings);
     });
   });
 
