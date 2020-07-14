@@ -73,6 +73,21 @@ describe("SettingsForm", () => {
     });
   });
 
+  it("should call applySettings when submit button clicked", () => {
+    const fakeApplySettings = jest.fn();
+    const sut = mount(
+      <SettingsForm
+        gameSettings={defaultInitialSettings}
+        onSettingsSubmit={jest.fn()}
+        applySettings={fakeApplySettings}
+      />
+    );
+
+    sut.find("button").simulate("submit");
+
+    expect(fakeApplySettings).toHaveBeenCalledTimes(1);
+  });
+
   it("should transform fillingPercentage from percents to fraction", () => {
     const fakeOnSubmit = jest.fn();
     const sut = mount(

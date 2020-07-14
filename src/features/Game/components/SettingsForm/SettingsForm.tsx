@@ -11,11 +11,13 @@ interface Settings {
 export interface SettingsFormProps {
   gameSettings: Settings;
   onSettingsSubmit: (settings: Settings) => void;
+  applySettings?: () => void;
 }
 
 export const SettingsForm: React.FC<SettingsFormProps> = ({
   gameSettings,
   onSettingsSubmit,
+  applySettings
 }) => {
   const [settings, setSettings] = useState<Settings>({
     ...gameSettings,
@@ -38,6 +40,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
         ...settings,
         fillingPercentage: settings.fillingPercentage / 100,
       });
+      if (applySettings) applySettings();
     },
     [onSettingsSubmit, settings]
   );
