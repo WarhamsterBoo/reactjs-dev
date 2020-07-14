@@ -10,6 +10,8 @@ exports[`Creature should render alive 1`] = `
   line-height: 25px;
   text-align: center;
   vertical-align: bottom;
+  -webkit-transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease;
   background: #41ff00;
   border-radius: 5px;
 }
@@ -30,6 +32,8 @@ exports[`Creature should render dead 1`] = `
   line-height: 25px;
   text-align: center;
   vertical-align: bottom;
+  -webkit-transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease;
   background: #454a43;
 }
 

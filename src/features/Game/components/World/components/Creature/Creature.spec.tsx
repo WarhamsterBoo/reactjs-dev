@@ -28,18 +28,6 @@ describe("Creature", () => {
     expect(renderer.create(sut).toJSON()).toMatchSnapshot();
   });
 
-  it("should start to brighten after birth", () => {
-    jest.useFakeTimers();
-    const sut = mount(<Creature {...defaultProps} />);
-    sut.setProps({ isAlive: true });
-    sut.update();
-
-    jest.advanceTimersByTime(100);
-
-    sut.update();
-    expect(sut).toHaveStyleRule("background", "#208000");
-  });
-
   it("should become alive after birth", () => {
     jest.useFakeTimers();
     const sut = mount(<Creature {...defaultProps} />);
@@ -52,18 +40,6 @@ describe("Creature", () => {
 
     sut.update();
     expect(sut).toHaveStyleRule("background", "#41ff00");
-  });
-
-  it("should start to fade after death", () => {
-    jest.useFakeTimers();
-    const sut = mount(<Creature {...defaultProps} isAlive={true} />);
-    sut.setProps({ isAlive: false });
-    sut.update();
-
-    jest.advanceTimersByTime(100);
-
-    sut.update();
-    expect(sut).toHaveStyleRule("background", "#9fff80");
   });
 
   it("should become dead", () => {

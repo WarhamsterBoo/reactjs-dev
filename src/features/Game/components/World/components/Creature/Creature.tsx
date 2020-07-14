@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyledCreature, StyledCreaturePhase } from "./StyledCreature";
+import { StyledCreature } from "./StyledCreature";
 
 export interface CreatureProps {
   x: number;
@@ -16,37 +16,11 @@ export const Creature: React.FC<CreatureProps> = ({
   onClick,
   transitionMs = 500,
 }) => {
-  const [creaturePhase, setCreaturePhase] = useState<StyledCreaturePhase>(
-    StyledCreaturePhase.Dead
+  return (
+    <StyledCreature
+      isAlive={isAlive}
+      transitionMs={transitionMs}
+      onClick={() => onClick(x, y)}
+    />
   );
-  const [firstUpdate, setFirstUpdate] = useState(true);
-
-  useEffect(() => {
-    setCreaturePhase(
-      isAlive ? StyledCreaturePhase.Alive : StyledCreaturePhase.Dead
-    );
-  }, []);
-
-  useEffect(() => {
-    if (firstUpdate) {
-      setFirstUpdate(false);
-      return;
-    }
-
-    setCreaturePhase(
-      isAlive ? StyledCreaturePhase.Born : StyledCreaturePhase.Dying
-    );
-
-    const timer = setTimeout(() => {
-      setCreaturePhase(
-        isAlive ? StyledCreaturePhase.Alive : StyledCreaturePhase.Dead
-      );
-    }, transitionMs);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [isAlive]);
-
-  return <StyledCreature phase={creaturePhase} onClick={() => onClick(x, y)} />;
 };
