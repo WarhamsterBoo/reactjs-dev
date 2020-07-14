@@ -1,10 +1,10 @@
 import { gameStore, GameState, GameSettings, WorldCreature } from "./gameStore";
-import { twoDimArrayGenerator } from "@/utils/arrayUtils";
+import { matrixGenerator } from "@/utils/arrayUtils";
 
 describe("game store", () => {
   const defaultState: GameState = {
     settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
-    creatures: twoDimArrayGenerator<WorldCreature>(10, 10, { isAlive: false }),
+    creatures: matrixGenerator<WorldCreature>(10, 10, { isAlive: false }),
   };
 
   const initialSettings: GameSettings = {
@@ -15,7 +15,7 @@ describe("game store", () => {
 
   const initialState: GameState = {
     settings: initialSettings,
-    creatures: twoDimArrayGenerator<WorldCreature>(11, 11, { isAlive: false }),
+    creatures: matrixGenerator<WorldCreature>(11, 11, { isAlive: false }),
   };
 
   it("should return initial state", () => {
@@ -100,8 +100,8 @@ describe("game store", () => {
       xDimension | yDimension | expected
       ${-1}      | ${-3}      | ${[]}
       ${0}       | ${0}       | ${[]}
-      ${1}       | ${1}       | ${twoDimArrayGenerator(1, 1, { isAlive: false })}
-      ${2}       | ${2}       | ${twoDimArrayGenerator(2, 2, { isAlive: false })}
+      ${1}       | ${1}       | ${matrixGenerator(1, 1, { isAlive: false })}
+      ${2}       | ${2}       | ${matrixGenerator(2, 2, { isAlive: false })}
     `(
       "should generate creatures array of corresponding size if setting's demensions are $xDimension x $yDimension",
       ({ xDimension, yDimension, expected }) => {
@@ -113,7 +113,7 @@ describe("game store", () => {
                 yDimension: yDimension,
                 fillingPercentage: 0,
               },
-              creatures: twoDimArrayGenerator(1, 2, { isAlive: false }),
+              creatures: matrixGenerator(1, 2, { isAlive: false }),
             },
             gameStore.actions.generateNewCreatures()
           ).creatures

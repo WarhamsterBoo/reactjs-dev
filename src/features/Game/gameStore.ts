@@ -1,4 +1,4 @@
-import { twoDimArrayGenerator, resizeTwoDimArray } from "@/utils/arrayUtils";
+import { matrixGenerator, resizeMatrix } from "@/utils/arrayUtils";
 import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface WorldCreature {
@@ -23,7 +23,7 @@ export interface CreatureCoordinates {
 
 const initialState: GameState = {
   settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
-  creatures: twoDimArrayGenerator(10, 10, { isAlive: false }),
+  creatures: matrixGenerator(10, 10, { isAlive: false }),
 };
 
 const generateRandomCreatures = ({
@@ -31,13 +31,9 @@ const generateRandomCreatures = ({
   yDimension,
   fillingPercentage,
 }: GameSettings): WorldCreature[][] => {
-  const creatures = twoDimArrayGenerator<WorldCreature>(
-    xDimension,
-    yDimension,
-    {
-      isAlive: false,
-    }
-  );
+  const creatures = matrixGenerator<WorldCreature>(xDimension, yDimension, {
+    isAlive: false,
+  });
 
   let NumberOfAliveCreatures = Math.trunc(
     xDimension * yDimension * fillingPercentage
@@ -59,7 +55,7 @@ const changeCreaturesSize = (
   xDimension: number,
   yDimension: number
 ): WorldCreature[][] => {
-  return resizeTwoDimArray(creatures, xDimension, yDimension, {
+  return resizeMatrix(creatures, xDimension, yDimension, {
     isAlive: false,
   });
 };

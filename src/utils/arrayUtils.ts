@@ -1,4 +1,4 @@
-export const twoDimArrayGenerator = <T>(
+export const matrixGenerator = <T>(
   x: number,
   y: number,
   initialValue: T
@@ -9,20 +9,19 @@ export const twoDimArrayGenerator = <T>(
     )
   );
 
-export const resizeTwoDimArray = <T>(
-  initialArray: T[][],
+export const resizeMatrix = <T>(
+  initialMatrix: T[][],
   targetX: number,
   targetY: number,
   initialValue: T
 ): T[][] => {
-  return twoDimArrayGenerator(targetX, targetY, initialValue).map(
-    (row, rowIndex) =>
-      row.map((item, itemIndex) => {
-        return initialArray[rowIndex] && initialArray[rowIndex][itemIndex]
-          ? typeof initialArray[rowIndex][itemIndex] === "object"
-            ? { ...initialArray[rowIndex][itemIndex] }
-            : initialArray[rowIndex][itemIndex]
-          : item;
-      })
+  return matrixGenerator(targetX, targetY, initialValue).map((row, rowIndex) =>
+    row.map((item, itemIndex) => {
+      return initialMatrix[rowIndex] && initialMatrix[rowIndex][itemIndex]
+        ? typeof initialMatrix[rowIndex][itemIndex] === "object"
+          ? { ...initialMatrix[rowIndex][itemIndex] }
+          : initialMatrix[rowIndex][itemIndex]
+        : item;
+    })
   );
 };
