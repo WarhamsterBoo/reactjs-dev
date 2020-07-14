@@ -64,6 +64,7 @@ export const gameStore = createSlice({
   name: "game",
   initialState,
   reducers: {
+    applySettings: (state, _: AnyAction) => state,
     saveSettings: (state, action: PayloadAction<GameSettings>) => {
       state.settings = action.payload;
     },

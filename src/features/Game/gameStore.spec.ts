@@ -176,6 +176,23 @@ describe("game store", () => {
     });
   });
 
+  describe("applySettings", () => {
+    it("should do nothing", () => {
+      const targetSettings: GameSettings = {
+        xDimension: 11,
+        yDimension: 11,
+        fillingPercentage: 2,
+      };
+
+      expect(
+        gameStore.reducer(
+          initialState,
+          gameStore.actions.applySettings()
+        )
+      ).toEqual(initialState);
+    });
+  });
+
   describe("control actions", () => {
     it("should reset settings to default when stop action dispatched", () => {
       expect(gameStore.reducer(initialState, gameStore.actions.stop())).toEqual(
