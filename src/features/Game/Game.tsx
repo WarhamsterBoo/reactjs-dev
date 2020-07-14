@@ -12,7 +12,6 @@ import {
 
 interface GameProps {
   settings: GameSettings;
-  onSettingsSubmit: (settings: GameSettings) => void;
   onControlActionClick: (action: ControlAction) => void;
   creatures: WorldCreature[][];
   toggleCreatureState: (coordinates: CreatureCoordinates) => void;
@@ -22,7 +21,6 @@ interface GameProps {
 
 const GameComponent: React.FC<GameProps> = ({
   settings,
-  onSettingsSubmit,
   onControlActionClick,
   creatures,
   toggleCreatureState,
@@ -55,7 +53,6 @@ const mapStateToProps = (state: AppState) => {
 };
 
 const mapDispatchToProps = {
-  onSettingsSubmit: gameStore.actions.changeSettingsTo,
   onControlActionClick: gameStore.actions.stop,
   toggleCreatureState: gameStore.actions.toggleCreatureState,
   applySettings: gameStore.actions.applySettings,

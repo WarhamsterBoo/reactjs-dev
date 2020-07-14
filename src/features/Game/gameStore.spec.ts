@@ -24,23 +24,6 @@ describe("game store", () => {
     ).toEqual(defaultState);
   });
 
-  describe("saveSettings", () => {
-    it("should replace settings in state", () => {
-      const targetSettings: GameSettings = {
-        xDimension: 11,
-        yDimension: 11,
-        fillingPercentage: 2,
-      };
-
-      expect(
-        gameStore.reducer(
-          initialState,
-          gameStore.actions.saveSettings(targetSettings)
-        ).settings
-      ).toEqual(targetSettings);
-    });
-  });
-
   describe("resizeCreatures", () => {
     it("should be able to increase creatures size according to settings without creatures state reset", () => {
       const originalCreatures: WorldCreature[][] = [
@@ -157,23 +140,6 @@ describe("game store", () => {
         expect(numberOfAliveCreatures).toBe(expectedAliveCount);
       }
     );
-  });
-
-  describe("changeSettingsTo", () => {
-    it("should do nothing", () => {
-      const targetSettings: GameSettings = {
-        xDimension: 11,
-        yDimension: 11,
-        fillingPercentage: 2,
-      };
-
-      expect(
-        gameStore.reducer(
-          initialState,
-          gameStore.actions.changeSettingsTo(targetSettings)
-        )
-      ).toEqual(initialState);
-    });
   });
 
   describe("applySettings", () => {

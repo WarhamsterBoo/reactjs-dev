@@ -1,12 +1,12 @@
 import { testSaga } from "redux-saga-test-plan";
-import { changeSettings, watchSettingChange } from "./gameSaga";
+import { watchSettingsChange } from "./gameSaga";
 import { gameStore } from "./gameStore";
 import { settingsSelector } from "./gameStoreSelectors";
 
 describe("game saga", () => {
   describe("watchSettingChange", () => {
     it("should not apply settings if fillingPercentage > 1", () => {
-      const sut = testSaga(watchSettingChange);
+      const sut = testSaga(watchSettingsChange);
 
       sut
         .next()
@@ -20,7 +20,7 @@ describe("game saga", () => {
     });
 
     it("should not apply settings if fillingPercentage < 0", () => {
-      const sut = testSaga(watchSettingChange);
+      const sut = testSaga(watchSettingsChange);
 
       sut
         .next()
@@ -34,7 +34,7 @@ describe("game saga", () => {
     });
 
     it("should resize creatures with same state if filling percentage does not change", () => {
-      const sut = testSaga(watchSettingChange);
+      const sut = testSaga(watchSettingsChange);
 
       sut
         .next()
@@ -50,7 +50,7 @@ describe("game saga", () => {
     });
 
     it("should generate new creatures if filling percentage and dimensions change", () => {
-      const sut = testSaga(watchSettingChange);
+      const sut = testSaga(watchSettingsChange);
 
       sut
         .next()
@@ -66,7 +66,7 @@ describe("game saga", () => {
     });
 
     it("should generate new creatures if only filling percentage changes", () => {
-      const sut = testSaga(watchSettingChange);
+      const sut = testSaga(watchSettingsChange);
 
       sut
         .next()
