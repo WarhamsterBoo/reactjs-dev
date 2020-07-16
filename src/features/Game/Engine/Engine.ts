@@ -29,7 +29,8 @@ export const Engine = {
   nextGeneration(creatures: Population): Population {
     return creatures?.map((row, x) =>
       row.map((value, y) => {
-        if (value.isAlive && numberOfAliveNeighbours(creatures, x, y) == 2) {
+        const aliveCreatures = numberOfAliveNeighbours(creatures, x, y);
+        if (value.isAlive && (aliveCreatures == 2 || aliveCreatures == 3)) {
           return ALIVE;
         }
         return DEAD;

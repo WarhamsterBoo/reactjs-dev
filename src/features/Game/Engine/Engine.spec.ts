@@ -56,5 +56,19 @@ describe("Engine", () => {
         [DEAD, DEAD, DEAD],
       ]);
     });
+
+    it("any live cell with 3 live neighbour should live", () => {
+      const creatures = [
+        [DEAD, ALIVE, DEAD],
+        [ALIVE, ALIVE, ALIVE],
+        [DEAD, DEAD, DEAD],
+      ];
+
+      expect(Engine.nextGeneration(creatures)).toEqual([
+        [DEAD, ALIVE, DEAD],
+        [ALIVE, ALIVE, ALIVE],
+        [DEAD, DEAD, DEAD],
+      ]);
+    });
   });
 });
