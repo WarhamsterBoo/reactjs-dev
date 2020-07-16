@@ -98,5 +98,57 @@ describe("Engine", () => {
         [DEAD, ALIVE, DEAD],
       ]);
     });
+
+    it("should implement still life: block", () => {
+      let creatures = [
+        [DEAD, ALIVE, ALIVE],
+        [DEAD, ALIVE, ALIVE],
+        [DEAD, DEAD, DEAD],
+      ];
+      creatures = Engine.nextGeneration(creatures);
+      creatures = Engine.nextGeneration(creatures);
+
+      expect(Engine.nextGeneration(creatures)).toEqual([
+        [DEAD, ALIVE, ALIVE],
+        [DEAD, ALIVE, ALIVE],
+        [DEAD, DEAD, DEAD],
+      ]);
+    });
+
+    it("should implement still life: tub", () => {
+      let creatures = [
+        [DEAD, ALIVE, DEAD],
+        [ALIVE, DEAD, ALIVE],
+        [DEAD, ALIVE, DEAD],
+      ];
+      creatures = Engine.nextGeneration(creatures);
+      creatures = Engine.nextGeneration(creatures);
+
+      expect(Engine.nextGeneration(creatures)).toEqual([
+        [DEAD, ALIVE, DEAD],
+        [ALIVE, DEAD, ALIVE],
+        [DEAD, ALIVE, DEAD],
+      ]);
+    });
+
+    it("should implement oscillators: blinker", () => {
+      let creatures = [
+        [DEAD, ALIVE, DEAD],
+        [DEAD, ALIVE, DEAD],
+        [DEAD, ALIVE, DEAD],
+      ];
+      creatures = Engine.nextGeneration(creatures);
+      expect(creatures).toEqual([
+        [DEAD, DEAD, DEAD],
+        [ALIVE, ALIVE, ALIVE],
+        [DEAD, DEAD, DEAD],
+      ]);
+
+      expect(Engine.nextGeneration(creatures)).toEqual([
+        [DEAD, ALIVE, DEAD],
+        [DEAD, ALIVE, DEAD],
+        [DEAD, ALIVE, DEAD],
+      ]);
+    });
   });
 });
