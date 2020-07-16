@@ -9,6 +9,10 @@ export const Engine = {
   nextGeneration(
     creatures: { isAlive: boolean }[][]
   ): { isAlive: boolean }[][] {
-    return creatures;
+    return creatures?.map((value) =>
+      value.map(() => ({
+        isAlive: false,
+      }))
+    );
   },
 };
