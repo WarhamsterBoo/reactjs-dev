@@ -1,4 +1,5 @@
 import { Engine } from "./Engine";
+import { DEAD, ALIVE } from "@/features/Game";
 
 describe("Engine", () => {
   describe("nextGeneration", () => {
@@ -16,25 +17,25 @@ describe("Engine", () => {
 
     it("any live cell with zero live neighbours should die", () => {
       const creatures = [
-        [{ isAlive: true }, { isAlive: false }],
-        [{ isAlive: false }, { isAlive: false }],
+        [ALIVE, DEAD],
+        [DEAD, DEAD],
       ];
 
       expect(Engine.nextGeneration(creatures)).toEqual([
-        [{ isAlive: false }, { isAlive: false }],
-        [{ isAlive: false }, { isAlive: false }],
+        [DEAD, DEAD],
+        [DEAD, DEAD],
       ]);
     });
 
     // it("any live cell with 1 live neighbour should die", () => {
     //   const creatures = [
-    //     [{ isAlive: true }, { isAlive: true }],
-    //     [{ isAlive: false }, { isAlive: false }],
+    //     [ALIVE, ALIVE],
+    //     [DEAD, DEAD],
     //   ];
 
     //   expect(Engine.nextGeneration(creatures)).toEqual([
-    //     [{ isAlive: false }, { isAlive: false }],
-    //     [{ isAlive: false }, { isAlive: false }],
+    //     [DEAD, DEAD],
+    //     [DEAD, DEAD],
     //   ]);
     // });
   });

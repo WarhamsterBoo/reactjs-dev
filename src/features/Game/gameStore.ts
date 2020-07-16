@@ -1,9 +1,19 @@
 import { matrixGenerator, resizeMatrix } from "@/utils/arrayUtils";
 import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface WorldCreature {
+export interface Creature {
   isAlive: boolean;
 }
+
+export const ALIVE: Creature = {
+  isAlive: true,
+};
+
+export const DEAD: Creature = {
+  isAlive: false,
+};
+
+export type Population = Creature[][];
 
 export interface GameSettings {
   xDimension: number;
@@ -13,7 +23,7 @@ export interface GameSettings {
 
 export interface GameState {
   settings: GameSettings;
-  creatures: WorldCreature[][];
+  creatures: Population;
 }
 
 export interface CreatureCoordinates {
@@ -23,17 +33,15 @@ export interface CreatureCoordinates {
 
 const initialState: GameState = {
   settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
-  creatures: matrixGenerator(10, 10, { isAlive: false }),
+  creatures: matrixGenerator(10, 10, DEAD),
 };
 
 const generateRandomCreatures = ({
   xDimension,
   yDimension,
   fillingPercentage,
-}: GameSettings): WorldCreature[][] => {
-  const creatures = matrixGenerator<WorldCreature>(xDimension, yDimension, {
-    isAlive: false,
-  });
+}: GameSettings): Population => {
+  const creatures = matrixGenerator<Creature>(xDimension, yDimension, DEAD);
 
   let NumberOfAliveCreatures = Math.trunc(
     xDimension * yDimension * fillingPercentage
@@ -51,13 +59,11 @@ const generateRandomCreatures = ({
 };
 
 const changeCreaturesSize = (
-  creatures: WorldCreature[][],
+  creatures: Population,
   xDimension: number,
   yDimension: number
-): WorldCreature[][] => {
-  return resizeMatrix(creatures, xDimension, yDimension, {
-    isAlive: false,
-  });
+): Creature[][] => {
+  return resizeMatrix(creatures, xDimension, yDimension, DEAD);
 };
 
 export const gameStore = createSlice({

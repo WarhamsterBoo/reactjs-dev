@@ -1,18 +1,14 @@
+import { Population, DEAD } from "@/features/Game/gameStore";
+
 export const Engine = {
   firstGeneration: (
     x: number,
     y: number,
     fillngPercentage: number
-  ): { isAlive: boolean }[][] => {
+  ): Population => {
     return [];
   },
-  nextGeneration(
-    creatures: { isAlive: boolean }[][]
-  ): { isAlive: boolean }[][] {
-    return creatures?.map((value) =>
-      value.map(() => ({
-        isAlive: false,
-      }))
-    );
+  nextGeneration(creatures: Population): Population {
+    return creatures?.map((row) => row.map(() => DEAD));
   },
 };

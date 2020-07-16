@@ -1,10 +1,18 @@
-import { gameStore, GameState, GameSettings, WorldCreature } from "./gameStore";
+import {
+  gameStore,
+  GameState,
+  GameSettings,
+  Creature,
+  DEAD,
+  Population,
+  ALIVE,
+} from "./gameStore";
 import { matrixGenerator } from "@/utils/arrayUtils";
 
 describe("game store", () => {
   const defaultState: GameState = {
     settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
-    creatures: matrixGenerator<WorldCreature>(10, 10, { isAlive: false }),
+    creatures: matrixGenerator<Creature>(10, 10, DEAD),
   };
 
   const initialSettings: GameSettings = {
@@ -15,7 +23,7 @@ describe("game store", () => {
 
   const initialState: GameState = {
     settings: initialSettings,
-    creatures: matrixGenerator<WorldCreature>(11, 11, { isAlive: false }),
+    creatures: matrixGenerator<Creature>(11, 11, DEAD),
   };
 
   it("should return initial state", () => {
@@ -26,14 +34,14 @@ describe("game store", () => {
 
   describe("resizeCreatures", () => {
     it("should be able to increase creatures size according to settings without creatures state reset", () => {
-      const originalCreatures: WorldCreature[][] = [
-        [{ isAlive: true }, { isAlive: true }],
-        [{ isAlive: false }, { isAlive: true }],
+      const originalCreatures: Population = [
+        [ALIVE, ALIVE],
+        [DEAD, ALIVE],
       ];
-      const expectedCreatures: WorldCreature[][] = [
-        [{ isAlive: true }, { isAlive: true }, { isAlive: false }],
-        [{ isAlive: false }, { isAlive: true }, { isAlive: false }],
-        [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
+      const expectedCreatures: Population = [
+        [ALIVE, ALIVE, DEAD],
+        [DEAD, ALIVE, DEAD],
+        [DEAD, DEAD, DEAD],
       ];
 
       expect(
@@ -52,14 +60,14 @@ describe("game store", () => {
     });
 
     it("should be able to reduce creatures size according to settings without creatures state reset", () => {
-      const originalCreatures: WorldCreature[][] = [
-        [{ isAlive: true }, { isAlive: true }, { isAlive: false }],
-        [{ isAlive: false }, { isAlive: true }, { isAlive: false }],
-        [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
+      const originalCreatures: Population = [
+        [ALIVE, ALIVE, DEAD],
+        [DEAD, ALIVE, DEAD],
+        [DEAD, DEAD, DEAD],
       ];
-      const expectedCreatures: WorldCreature[][] = [
-        [{ isAlive: true }, { isAlive: true }],
-        [{ isAlive: false }, { isAlive: true }],
+      const expectedCreatures: Population = [
+        [ALIVE, ALIVE],
+        [DEAD, ALIVE],
       ];
 
       expect(
@@ -83,8 +91,8 @@ describe("game store", () => {
       xDimension | yDimension | expected
       ${-1}      | ${-3}      | ${[]}
       ${0}       | ${0}       | ${[]}
-      ${1}       | ${1}       | ${matrixGenerator(1, 1, { isAlive: false })}
-      ${2}       | ${2}       | ${matrixGenerator(2, 2, { isAlive: false })}
+      ${1}       | ${1}       | ${matrixGenerator(1, 1, DEAD)}
+      ${2}       | ${2}       | ${matrixGenerator(2, 2, DEAD)}
     `(
       "should generate creatures array of corresponding size if setting's demensions are $xDimension x $yDimension",
       ({ xDimension, yDimension, expected }) => {
@@ -96,7 +104,7 @@ describe("game store", () => {
                 yDimension: yDimension,
                 fillingPercentage: 0,
               },
-              creatures: matrixGenerator(1, 2, { isAlive: false }),
+              creatures: matrixGenerator(1, 2, DEAD),
             },
             gameStore.actions.generateNewCreatures()
           ).creatures
@@ -196,8 +204,8 @@ describe("game store", () => {
             fillingPercentage: 0,
           },
           creatures: [
-            [{ isAlive: true }, { isAlive: initialState }],
-            [{ isAlive: false }, { isAlive: true }],
+            [ALIVE, { isAlive: initialState }],
+            [DEAD, ALIVE],
           ],
         };
 
