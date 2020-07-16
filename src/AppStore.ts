@@ -11,7 +11,7 @@ import { rootSaga } from "@/sagas";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const reducer = combineReducers({
+export const appReducer = combineReducers({
   game: gameStore.reducer,
   auth: authStore.reducer,
 });
@@ -22,9 +22,9 @@ const composeEnhancers =
   compose;
 
 export const store = createStore(
-  reducer,
+  appReducer,
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 sagaMiddleware.run(rootSaga);
 
-export type AppState = ReturnType<typeof reducer>;
+export type AppState = ReturnType<typeof appReducer>;

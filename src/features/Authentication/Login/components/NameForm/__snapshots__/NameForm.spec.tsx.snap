@@ -11,7 +11,7 @@ exports[`Name Form should render 1`] = `
     onChange={[Function]}
     placeholder="Enter your name"
     required={true}
-    value=""
+    value="Bob"
   />
   <Styled(button)
     type="submit"

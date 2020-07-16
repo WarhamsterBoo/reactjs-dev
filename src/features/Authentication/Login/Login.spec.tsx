@@ -43,16 +43,4 @@ describe("Login", () => {
 
     expect(mockHistory.push).toHaveBeenCalledWith("/");
   });
-
-  it("should call auth api with userName", async () => {
-    const sut = mount(
-      <Provider store={store}>
-        <Login />
-      </Provider>
-    );
-
-    await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
-
-    expect(store.getActions()).toEqual([authStore.actions.login("John Doe")]);
-  });
 });

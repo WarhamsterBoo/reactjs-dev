@@ -23,8 +23,12 @@ export const authStore = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<string>) => {
-      state.userName = action.payload;
+    username_changes: (state, action: PayloadAction<string>) => {
+      if (state.status == AuthStatus.not_authenticated) {
+        state.userName = action.payload;
+      }
+    },
+    login: (state, _: AnyAction) => {
       state.status = AuthStatus.in_progress;
       state.loginError = undefined;
     },

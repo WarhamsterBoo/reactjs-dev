@@ -4,13 +4,26 @@ import { NameForm } from "./NameForm";
 
 describe("Name Form", () => {
   it("should render", () => {
-    const sut = shallow(<NameForm onNameSubmit={jest.fn()} />);
+    const sut = shallow(
+      <NameForm
+        userName={"Bob"}
+        onUserNameChange={jest.fn()}
+        onNameSubmit={jest.fn()}
+      />
+    );
 
     expect(sut).toMatchSnapshot();
   });
 
-  it("should change value in name input", () => {
-    const sut = mount(<NameForm onNameSubmit={jest.fn()} />);
+  it("should call onLoginNameChange when loginName changes in input", () => {
+    const onLoginNameChanges = jest.fn();
+    const sut = mount(
+      <NameForm
+        userName={"Bob"}
+        onUserNameChange={onLoginNameChanges}
+        onNameSubmit={jest.fn()}
+      />
+    );
 
     sut
       .find(`input[type="text"]`)
@@ -19,12 +32,19 @@ describe("Name Form", () => {
         target: { value: "John Doe", name: "name" },
       });
 
-    expect(sut.find(`input[type="text"]`).at(0).prop("value")).toBe("John Doe");
+    expect(onLoginNameChanges).toHaveBeenCalledTimes(1);
+    expect(onLoginNameChanges).toHaveBeenCalledWith("John Doe");
   });
 
-  it("should call onSubmit with values from inputs", () => {
+  it("should call onNameSubmit when submit button clicked", () => {
     const fakeOnSubmit = jest.fn();
-    const sut = mount(<NameForm onNameSubmit={fakeOnSubmit} />);
+    const sut = mount(
+      <NameForm
+        userName={"Bob"}
+        onUserNameChange={jest.fn()}
+        onNameSubmit={fakeOnSubmit}
+      />
+    );
     sut.find(`input[type="text"]`).simulate("change", {
       target: { value: "Jane Doe" },
     });
@@ -32,6 +52,5 @@ describe("Name Form", () => {
     sut.find("button").simulate("submit");
 
     expect(fakeOnSubmit).toHaveBeenCalledTimes(1);
-    expect(fakeOnSubmit).toHaveBeenCalledWith("Jane Doe");
   });
 });
