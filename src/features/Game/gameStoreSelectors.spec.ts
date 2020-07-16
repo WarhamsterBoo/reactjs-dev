@@ -1,6 +1,6 @@
 import { AppState } from "@/AppStore";
 import { AuthStatus } from "@/features/Authentication";
-import { GameSettings } from "./gameStore";
+import { GameSettings, GameStatus } from "./gameStore";
 import { settingsSelector } from "./gameStoreSelectors";
 
 describe("gameStoreSelectors", () => {
@@ -8,6 +8,8 @@ describe("gameStoreSelectors", () => {
     xDimension: 2,
     yDimension: 3,
     fillingPercentage: 0.5,
+    status: GameStatus.Stopped,
+    speed: 1,
   };
   const appState: AppState = {
     auth: {

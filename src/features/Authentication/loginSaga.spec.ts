@@ -1,6 +1,7 @@
 import { auth } from "@/api/auth";
 import { userSessionStorage } from "@/api/userSessionStorage";
 import { appReducer, AppState } from "@/AppStore";
+import { GameStatus } from "@/features/Game";
 import { expectSaga } from "redux-saga-test-plan";
 import { call } from "redux-saga-test-plan/matchers";
 import { throwError } from "redux-saga-test-plan/providers";
@@ -31,7 +32,13 @@ describe("login flow", () => {
         .withReducer(appReducer)
         .withState<AppState>({
           game: {
-            settings: { xDimension: 1, yDimension: 1, fillingPercentage: 0 },
+            settings: {
+              xDimension: 1,
+              yDimension: 1,
+              fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 1,
+            },
             creatures: [],
           },
           auth: {
@@ -59,7 +66,13 @@ describe("login flow", () => {
         .withReducer(appReducer)
         .withState<AppState>({
           game: {
-            settings: { xDimension: 1, yDimension: 1, fillingPercentage: 0 },
+            settings: {
+              xDimension: 1,
+              yDimension: 1,
+              fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 1,
+            },
             creatures: [],
           },
           auth: {
@@ -89,7 +102,13 @@ describe("login flow", () => {
         .withReducer(appReducer)
         .withState<AppState>({
           game: {
-            settings: { xDimension: 1, yDimension: 1, fillingPercentage: 0 },
+            settings: {
+              xDimension: 1,
+              yDimension: 1,
+              fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 1,
+            },
             creatures: [],
           },
           auth: {
@@ -120,7 +139,13 @@ describe("login flow", () => {
         .withReducer(appReducer)
         .withState<AppState>({
           game: {
-            settings: { xDimension: 1, yDimension: 1, fillingPercentage: 0 },
+            settings: {
+              xDimension: 1,
+              yDimension: 1,
+              fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 1,
+            },
             creatures: [],
           },
           auth: {

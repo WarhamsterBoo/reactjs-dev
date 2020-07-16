@@ -6,13 +6,20 @@ import {
   DEAD,
   Population,
   ALIVE,
+  GameStatus,
 } from "./gameStore";
 import { matrixGenerator } from "@/utils/arrayUtils";
 import { Engine } from "./Engine";
 
 describe("game store", () => {
   const defaultState: GameState = {
-    settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
+    settings: {
+      xDimension: 10,
+      yDimension: 10,
+      fillingPercentage: 0,
+      status: GameStatus.Stopped,
+      speed: 1,
+    },
     creatures: matrixGenerator<Creature>(10, 10, DEAD),
   };
 
@@ -20,6 +27,8 @@ describe("game store", () => {
     xDimension: 11,
     yDimension: 11,
     fillingPercentage: 0,
+    status: GameStatus.Stopped,
+    speed: 1,
   };
 
   const initialState: GameState = {
@@ -52,6 +61,8 @@ describe("game store", () => {
               xDimension: 3,
               yDimension: 3,
               fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 1,
             },
             creatures: originalCreatures,
           },
@@ -78,6 +89,8 @@ describe("game store", () => {
               xDimension: 2,
               yDimension: 2,
               fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 1,
             },
             creatures: originalCreatures,
           },
@@ -99,6 +112,8 @@ describe("game store", () => {
             xDimension: 2,
             yDimension: 2,
             fillingPercentage: 0.5,
+            status: GameStatus.Stopped,
+            speed: 1,
           },
           creatures: [],
         },
@@ -117,6 +132,8 @@ describe("game store", () => {
         xDimension: 11,
         yDimension: 11,
         fillingPercentage: 2,
+        status: GameStatus.Stopped,
+        speed: 1,
       };
 
       expect(
@@ -131,6 +148,8 @@ describe("game store", () => {
         xDimension: 15,
         yDimension: 15,
         fillingPercentage: 0.2,
+        status: GameStatus.Stopped,
+        speed: 1,
       };
 
       expect(
@@ -163,6 +182,8 @@ describe("game store", () => {
             xDimension: 2,
             yDimension: 2,
             fillingPercentage: 0,
+            status: GameStatus.Stopped,
+            speed: 1,
           },
           creatures: [
             [ALIVE, { isAlive: initialState }],

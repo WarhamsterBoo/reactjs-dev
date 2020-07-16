@@ -1,5 +1,6 @@
 import { AppState } from "@/AppStore";
 import { AuthStatus } from "@/features/Authentication";
+import { GameStatus } from "@/features/Game";
 import { AuthInProgressScreen } from "@/screens/AuthInProgressScreen";
 import { ForbiddenScreen } from "@/screens/ForbiddenScreen";
 import { mount } from "enzyme";
@@ -22,6 +23,8 @@ const storeDefaultState: AppState = {
       fillingPercentage: 0,
       xDimension: 0,
       yDimension: 0,
+      status: GameStatus.Stopped,
+      speed: 1,
     },
   },
 };

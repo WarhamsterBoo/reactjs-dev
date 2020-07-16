@@ -16,10 +16,18 @@ export const DEAD: Creature = {
 
 export type Population = Creature[][];
 
+export enum GameStatus {
+  Pause,
+  Running,
+  Stopped,
+}
+
 export interface GameSettings {
   xDimension: number;
   yDimension: number;
   fillingPercentage: number;
+  status: GameStatus;
+  speed: number;
 }
 
 export interface GameState {
@@ -33,7 +41,13 @@ export interface CreatureCoordinates {
 }
 
 const initialState: GameState = {
-  settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
+  settings: {
+    xDimension: 10,
+    yDimension: 10,
+    fillingPercentage: 0,
+    status: GameStatus.Stopped,
+    speed: 1,
+  },
   creatures: matrixGenerator(10, 10, DEAD),
 };
 
