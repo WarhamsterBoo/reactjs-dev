@@ -1,4 +1,22 @@
-import { Population, DEAD } from "@/features/Game/gameStore";
+import { ALIVE, DEAD, Population } from "@/features/Game/gameStore";
+
+const numberOfAliveNeighbours = (
+  creatures: Population,
+  x: number,
+  y: number
+): number => {
+  let alive = 0;
+
+  for (let i = x - 1; i <= x + 1; i++) {
+    for (let j = y - 1; j <= y + 1; j++) {
+      if (creatures[i] && creatures[i][j]?.isAlive) {
+        alive++;
+      }
+    }
+  }
+
+  return creatures[x] && creatures[x][y]?.isAlive ? alive - 1 : alive;
+};
 
 export const Engine = {
   firstGeneration: (
@@ -9,6 +27,13 @@ export const Engine = {
     return [];
   },
   nextGeneration(creatures: Population): Population {
-    return creatures?.map((row) => row.map(() => DEAD));
+    return creatures?.map((row, x) =>
+      row.map((value, y) => {
+        if (value.isAlive && numberOfAliveNeighbours(creatures, x, y) == 2) {
+          return ALIVE;
+        }
+        return DEAD;
+      })
+    );
   },
 };

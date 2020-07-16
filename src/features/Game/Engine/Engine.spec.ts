@@ -17,26 +17,44 @@ describe("Engine", () => {
 
     it("any live cell with zero live neighbours should die", () => {
       const creatures = [
-        [ALIVE, DEAD],
-        [DEAD, DEAD],
+        [DEAD, DEAD, DEAD],
+        [DEAD, ALIVE, DEAD],
+        [DEAD, DEAD, DEAD],
       ];
 
       expect(Engine.nextGeneration(creatures)).toEqual([
-        [DEAD, DEAD],
-        [DEAD, DEAD],
+        [DEAD, DEAD, DEAD],
+        [DEAD, DEAD, DEAD],
+        [DEAD, DEAD, DEAD],
       ]);
     });
 
-    // it("any live cell with 1 live neighbour should die", () => {
-    //   const creatures = [
-    //     [ALIVE, ALIVE],
-    //     [DEAD, DEAD],
-    //   ];
+    it("any live cell with 1 live neighbour should die", () => {
+      const creatures = [
+        [DEAD, DEAD, DEAD],
+        [DEAD, ALIVE, ALIVE],
+        [DEAD, DEAD, DEAD],
+      ];
 
-    //   expect(Engine.nextGeneration(creatures)).toEqual([
-    //     [DEAD, DEAD],
-    //     [DEAD, DEAD],
-    //   ]);
-    // });
+      expect(Engine.nextGeneration(creatures)).toEqual([
+        [DEAD, DEAD, DEAD],
+        [DEAD, DEAD, DEAD],
+        [DEAD, DEAD, DEAD],
+      ]);
+    });
+
+    it("any live cell with 2 live neighbour should live", () => {
+      const creatures = [
+        [DEAD, ALIVE, DEAD],
+        [DEAD, ALIVE, ALIVE],
+        [DEAD, DEAD, DEAD],
+      ];
+
+      expect(Engine.nextGeneration(creatures)).toEqual([
+        [DEAD, ALIVE, DEAD],
+        [DEAD, ALIVE, ALIVE],
+        [DEAD, DEAD, DEAD],
+      ]);
+    });
   });
 });
