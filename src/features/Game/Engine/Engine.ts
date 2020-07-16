@@ -1,4 +1,5 @@
-import { ALIVE, DEAD, Population } from "@/features/Game/gameStore";
+import { ALIVE, Creature, DEAD, Population } from "@/features/Game/gameStore";
+import { matrixGenerator } from "@/utils/arrayUtils";
 
 const numberOfAliveNeighbours = (
   creatures: Population,
@@ -20,11 +21,25 @@ const numberOfAliveNeighbours = (
 
 export const Engine = {
   firstGeneration: (
-    x: number,
-    y: number,
-    fillngPercentage: number
+    xDimension: number,
+    yDimension: number,
+    fillingPercentage: number
   ): Population => {
-    return [];
+    const creatures = matrixGenerator<Creature>(xDimension, yDimension, DEAD);
+
+    let NumberOfAliveCreatures = Math.trunc(
+      xDimension * yDimension * fillingPercentage
+    );
+    while (NumberOfAliveCreatures > 0) {
+      const x = Math.floor(Math.random() * Math.floor(xDimension));
+      const y = Math.floor(Math.random() * Math.floor(yDimension));
+      if (!creatures[x][y].isAlive) {
+        creatures[x][y].isAlive = true;
+        NumberOfAliveCreatures--;
+      }
+    }
+
+    return creatures;
   },
   nextGeneration(creatures: Population): Population {
     return creatures?.map((row, x) =>

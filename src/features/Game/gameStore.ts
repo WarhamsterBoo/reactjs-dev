@@ -1,5 +1,6 @@
 import { matrixGenerator, resizeMatrix } from "@/utils/arrayUtils";
 import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Engine } from "./Engine";
 
 export interface Creature {
   isAlive: boolean;
@@ -36,28 +37,6 @@ const initialState: GameState = {
   creatures: matrixGenerator(10, 10, DEAD),
 };
 
-const generateRandomCreatures = ({
-  xDimension,
-  yDimension,
-  fillingPercentage,
-}: GameSettings): Population => {
-  const creatures = matrixGenerator<Creature>(xDimension, yDimension, DEAD);
-
-  let NumberOfAliveCreatures = Math.trunc(
-    xDimension * yDimension * fillingPercentage
-  );
-  while (NumberOfAliveCreatures > 0) {
-    const x = Math.floor(Math.random() * Math.floor(xDimension));
-    const y = Math.floor(Math.random() * Math.floor(yDimension));
-    if (!creatures[x][y].isAlive) {
-      creatures[x][y].isAlive = true;
-      NumberOfAliveCreatures--;
-    }
-  }
-
-  return creatures;
-};
-
 const changeCreaturesSize = (
   creatures: Population,
   xDimension: number,
@@ -82,7 +61,14 @@ export const gameStore = createSlice({
       );
     },
     generateNewCreatures: (state, _: AnyAction) => {
-      state.creatures = generateRandomCreatures(state.settings);
+      const { xDimension, yDimension, fillingPercentage } = {
+        ...state.settings,
+      };
+      state.creatures = Engine.firstGeneration(
+        xDimension,
+        yDimension,
+        fillingPercentage
+      );
     },
     toggleCreatureState: (
       state,

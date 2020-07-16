@@ -1,7 +1,56 @@
+import { ALIVE, DEAD } from "@/features/Game";
+import { matrixGenerator } from "@/utils/arrayUtils";
 import { Engine } from "./Engine";
-import { DEAD, ALIVE } from "@/features/Game";
 
 describe("Engine", () => {
+  describe("firstGeneration", () => {
+    it.each`
+      xDimension | yDimension | expected
+      ${-1}      | ${-3}      | ${[]}
+      ${0}       | ${0}       | ${[]}
+      ${1}       | ${1}       | ${matrixGenerator(1, 1, DEAD)}
+      ${2}       | ${2}       | ${matrixGenerator(2, 2, DEAD)}
+    `(
+      "should generate creatures array of corresponding size if setting's demensions are $xDimension x $yDimension",
+      ({ xDimension, yDimension, expected }) => {
+        expect(Engine.firstGeneration(xDimension, yDimension, 0)).toEqual(
+          expected
+        );
+      }
+    );
+
+    it.each`
+      xDimension | yDimension | fillingPercentage | expectedAliveCount
+      ${1}       | ${1}       | ${0}              | ${0}
+      ${1}       | ${1}       | ${1}              | ${1}
+      ${2}       | ${2}       | ${0.5}            | ${2}
+      ${2}       | ${2}       | ${0.25}           | ${1}
+      ${5}       | ${2}       | ${0.75}           | ${7}
+      ${5}       | ${5}       | ${1}              | ${25}
+      ${5}       | ${5}       | ${0}              | ${0}
+      ${5}       | ${5}       | ${0.6}            | ${15}
+    `(
+      "should return population with $expectedAliveCount alive creatures with settings: {x: $xDimension, y: $yDimension, %: $fillingPercentage} ",
+      ({ xDimension, yDimension, fillingPercentage, expectedAliveCount }) => {
+        const generatedCreatures = Engine.firstGeneration(
+          xDimension,
+          yDimension,
+          fillingPercentage
+        );
+
+        const numberOfAliveCreatures = generatedCreatures.reduce<number>(
+          (accumulator, creauresRow) =>
+            accumulator +
+            creauresRow.filter((creature) => creature.isAlive).length,
+          0
+        );
+        expect(generatedCreatures.length).toBe(xDimension);
+        expect(generatedCreatures[0].length).toBe(yDimension);
+        expect(numberOfAliveCreatures).toBe(expectedAliveCount);
+      }
+    );
+  });
+
   describe("nextGeneration", () => {
     it.each`
       creatures    | expected
