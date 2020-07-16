@@ -33,6 +33,9 @@ export const Engine = {
         if (value.isAlive && (aliveCreatures == 2 || aliveCreatures == 3)) {
           return ALIVE;
         }
+        if (!value.isAlive && aliveCreatures == 3) {
+          return ALIVE;
+        }
         return DEAD;
       })
     );
