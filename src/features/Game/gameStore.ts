@@ -108,11 +108,24 @@ export const gameStore = createSlice({
           state.settings.status = GameStatus.Running;
           break;
         case "stop":
-            state.settings.status = GameStatus.Stopped;
-            break;
+          state.settings.status = GameStatus.Stopped;
+          break;
         case "pause":
-            state.settings.status = GameStatus.Paused;
-            break;
+          state.settings.status = GameStatus.Paused;
+          break;
+        case "normal":
+          state.settings.speed = 1;
+          break;
+        case "faster":
+          if (state.settings.speed < 2) {
+            state.settings.speed += 0.1;
+          }
+          break;
+        case "slower":
+          if (state.settings.speed > 0) {
+            state.settings.speed -= 0.1;
+          }
+          break;
         default:
           break;
       }

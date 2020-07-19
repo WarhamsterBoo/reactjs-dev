@@ -243,5 +243,30 @@ describe("game store", () => {
         ).toBe(expectedGameStatus);
       }
     );
+
+    it.each`
+      controlAction | initialGameSpeed | expectedGameSpeed
+      ${"normal"}   | ${1}             | ${1}
+      ${"normal"}   | ${1.5}           | ${1}
+      ${"slower"}   | ${1}             | ${0.9}
+      ${"slower"}   | ${0.1}           | ${0}
+      ${"slower"}   | ${0}             | ${0}
+      ${"faster"}   | ${1}             | ${1.1}
+      ${"faster"}   | ${1.9}           | ${2}
+      ${"faster"}   | ${2}             | ${2}
+    `(
+      "should change game speed from $initialGameSpeed to to $expectedGameSpeed when executing $controlAction",
+      ({ controlAction, initialGameSpeed, expectedGameSpeed }) => {
+        expect(
+          gameStore.reducer(
+            {
+              ...initialState,
+              settings: { ...initialState.settings, speed: initialGameSpeed },
+            },
+            gameStore.actions.executeControlAction(controlAction)
+          ).settings.speed
+        ).toBe(expectedGameSpeed);
+      }
+    );
   });
 });
