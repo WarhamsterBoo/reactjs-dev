@@ -84,6 +84,9 @@ export const gameStore = createSlice({
         fillingPercentage
       );
     },
+    newGeneration: (state, _: AnyAction) => {
+      state.creatures = Engine.nextGeneration(state.creatures);
+    },
     toggleCreatureState: (
       state,
       action: PayloadAction<CreatureCoordinates>

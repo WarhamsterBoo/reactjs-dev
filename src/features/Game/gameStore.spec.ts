@@ -106,6 +106,7 @@ describe("game store", () => {
         [DEAD, DEAD],
         [ALIVE, ALIVE],
       ];
+
       const generatedCreatures = gameStore.reducer(
         {
           settings: {
@@ -119,6 +120,7 @@ describe("game store", () => {
         },
         gameStore.actions.generateNewCreatures()
       ).creatures;
+
       expect(generatedCreatures).toEqual([
         [DEAD, DEAD],
         [ALIVE, ALIVE],
@@ -126,78 +128,109 @@ describe("game store", () => {
     });
   });
 
-  describe("applySettings", () => {
-    it("should do nothing", () => {
-      const targetSettings: GameSettings = {
-        xDimension: 11,
-        yDimension: 11,
-        fillingPercentage: 2,
-        status: GameStatus.Stopped,
-        speed: 1,
-      };
+  describe("newGeneration", () => {
+    it("should generate next generation of the population", () => {
+      Engine.nextGeneration = () => [
+        [DEAD, DEAD],
+        [DEAD, DEAD],
+      ];
 
-      expect(
-        gameStore.reducer(initialState, gameStore.actions.applySettings())
-      ).toEqual(initialState);
-    });
-  });
-
-  describe("changeSettings", () => {
-    it("should save settings", () => {
-      const targetSettings: GameSettings = {
-        xDimension: 15,
-        yDimension: 15,
-        fillingPercentage: 0.2,
-        status: GameStatus.Stopped,
-        speed: 1,
-      };
-
-      expect(
-        gameStore.reducer(
-          initialState,
-          gameStore.actions.changeSettings(targetSettings)
-        ).settings
-      ).toEqual(targetSettings);
-    });
-  });
-
-  describe("control actions", () => {
-    it("should reset settings to default when stop action dispatched", () => {
-      expect(gameStore.reducer(initialState, gameStore.actions.stop())).toEqual(
-        defaultState
-      );
-    });
-  });
-
-  describe("toggleCreatureState", () => {
-    it.each`
-      initialState | expectedState
-      ${true}      | ${false}
-      ${false}     | ${true}
-    `(
-      "should change Creature isAlive from $initialState to $expectedState when toggleCreatureState action dispatched",
-      ({ initialState, expectedState }) => {
-        const originState: GameState = {
+      const nextGeneration = gameStore.reducer(
+        {
           settings: {
             xDimension: 2,
             yDimension: 2,
-            fillingPercentage: 0,
+            fillingPercentage: 0.5,
             status: GameStatus.Stopped,
             speed: 1,
           },
           creatures: [
-            [ALIVE, { isAlive: initialState }],
-            [DEAD, ALIVE],
+            [DEAD, DEAD],
+            [ALIVE, ALIVE],
           ],
+        },
+        gameStore.actions.newGeneration()
+      ).creatures;
+
+      expect(nextGeneration).toEqual([
+        [DEAD, DEAD],
+        [DEAD, DEAD],
+      ]);
+    });
+
+    describe("applySettings", () => {
+      it("should do nothing", () => {
+        const targetSettings: GameSettings = {
+          xDimension: 11,
+          yDimension: 11,
+          fillingPercentage: 2,
+          status: GameStatus.Stopped,
+          speed: 1,
         };
 
-        const creatures = gameStore.reducer(
-          originState,
-          gameStore.actions.toggleCreatureState({ x: 0, y: 1 })
-        ).creatures;
+        expect(
+          gameStore.reducer(initialState, gameStore.actions.applySettings())
+        ).toEqual(initialState);
+      });
+    });
 
-        expect(creatures[0][1]).toEqual({ isAlive: expectedState });
-      }
-    );
+    describe("changeSettings", () => {
+      it("should save settings", () => {
+        const targetSettings: GameSettings = {
+          xDimension: 15,
+          yDimension: 15,
+          fillingPercentage: 0.2,
+          status: GameStatus.Stopped,
+          speed: 1,
+        };
+
+        expect(
+          gameStore.reducer(
+            initialState,
+            gameStore.actions.changeSettings(targetSettings)
+          ).settings
+        ).toEqual(targetSettings);
+      });
+    });
+
+    describe("control actions", () => {
+      it("should reset settings to default when stop action dispatched", () => {
+        expect(
+          gameStore.reducer(initialState, gameStore.actions.stop())
+        ).toEqual(defaultState);
+      });
+    });
+
+    describe("toggleCreatureState", () => {
+      it.each`
+        initialState | expectedState
+        ${true}      | ${false}
+        ${false}     | ${true}
+      `(
+        "should change Creature isAlive from $initialState to $expectedState when toggleCreatureState action dispatched",
+        ({ initialState, expectedState }) => {
+          const originState: GameState = {
+            settings: {
+              xDimension: 2,
+              yDimension: 2,
+              fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 1,
+            },
+            creatures: [
+              [ALIVE, { isAlive: initialState }],
+              [DEAD, ALIVE],
+            ],
+          };
+
+          const creatures = gameStore.reducer(
+            originState,
+            gameStore.actions.toggleCreatureState({ x: 0, y: 1 })
+          ).creatures;
+
+          expect(creatures[0][1]).toEqual({ isAlive: expectedState });
+        }
+      );
+    });
   });
 });
