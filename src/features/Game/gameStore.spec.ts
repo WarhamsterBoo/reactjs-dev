@@ -270,4 +270,24 @@ describe("game store", () => {
       }
     );
   });
+
+  describe("reset", () => {
+    it("should reset state to initial", () => {
+      expect(
+        gameStore.reducer(
+          {
+            settings: {
+              xDimension: 11,
+              yDimension: 11,
+              fillingPercentage: 90,
+              speed: 15,
+              status: GameStatus.Running,
+            },
+            creatures: matrixGenerator(11, 11, DEAD),
+          },
+          gameStore.actions.reset()
+        )
+      ).toEqual(defaultState);
+    });
+  });
 });

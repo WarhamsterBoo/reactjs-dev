@@ -1,7 +1,7 @@
 import { testSaga } from "redux-saga-test-plan";
-import { watchSettingsChange } from "./gameSaga";
-import { gameStore } from "./gameStore";
-import { settingsSelector } from "./gameStoreSelectors";
+import { watchSettingsChange, watchingControlActions } from "./gameSaga";
+import { gameStore, GameStatus } from "./gameStore";
+import { settingsSelector, gameStatusSelector } from "./gameStoreSelectors";
 
 describe("game saga", () => {
   describe("watchSettingChange", () => {
@@ -79,6 +79,22 @@ describe("game saga", () => {
         .put(gameStore.actions.generateNewCreatures())
         .next()
         .select(settingsSelector);
+    });
+  });
+
+  describe("watchingControlActions", () => {
+    it("should reset state if stop control action executed", () => {
+      const sut = testSaga(watchingControlActions);
+
+      sut
+        .next()
+        .take(gameStore.actions.executeControlAction("stop").type)
+        .next()
+        .select(gameStatusSelector)
+        .next(GameStatus.Stopped)
+        .put(gameStore.actions.reset())
+        .next()
+        .take(gameStore.actions.executeControlAction("stop").type);
     });
   });
 });

@@ -49,7 +49,7 @@ const initialState: GameState = {
     status: GameStatus.Stopped,
     speed: 10,
   },
-  creatures: matrixGenerator(10, 10, DEAD),
+  creatures: matrixGenerator<Creature>(10, 10, DEAD),
 };
 
 const changeCreaturesSize = (
@@ -155,5 +155,6 @@ export const gameStore = createSlice({
         );
       }
     },
+    reset: (state, _: AnyAction) => initialState,
   },
 });

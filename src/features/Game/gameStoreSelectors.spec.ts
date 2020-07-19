@@ -1,7 +1,7 @@
 import { AppState } from "@/AppStore";
 import { AuthStatus } from "@/features/Authentication";
 import { GameSettings, GameStatus } from "./gameStore";
-import { settingsSelector } from "./gameStoreSelectors";
+import { settingsSelector, gameStatusSelector } from "./gameStoreSelectors";
 
 describe("gameStoreSelectors", () => {
   const settings: GameSettings = {
@@ -24,5 +24,22 @@ describe("gameStoreSelectors", () => {
   };
   it("should select settings", () => {
     expect(settingsSelector(appState)).toEqual(settings);
+  });
+
+  it.each`
+    gameStatus
+    ${GameStatus.Running}
+    ${GameStatus.Stopped}
+    ${GameStatus.Paused}
+  `("should correctly select $gameStatus game status", ({ gameStatus }) => {
+    expect(
+      gameStatusSelector({
+        ...appState,
+        game: {
+          ...appState.game,
+          settings: { ...appState.game.settings, status: gameStatus },
+        },
+      })
+    ).toEqual(gameStatus);
   });
 });

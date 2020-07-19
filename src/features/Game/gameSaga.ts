@@ -1,6 +1,6 @@
 import { fork, put, select, take } from "redux-saga/effects";
-import { GameSettings, gameStore } from "./gameStore";
-import { settingsSelector } from "./gameStoreSelectors";
+import { GameSettings, gameStore, GameStatus } from "./gameStore";
+import { settingsSelector, gameStatusSelector } from "./gameStoreSelectors";
 
 export function* watchSettingsChange() {
   while (true) {
@@ -21,6 +21,19 @@ export function* watchSettingsChange() {
   }
 }
 
+export function* watchingControlActions() {
+  while (true) {
+    yield take(gameStore.actions.executeControlAction.type);
+    const gameStatus = yield select(gameStatusSelector);
+    if (gameStatus == GameStatus.Stopped) {
+      yield put(gameStore.actions.reset());
+    } else {
+      yield put(gameStore.actions.newGeneration());
+    }
+  }
+}
+
 export function* gameSaga() {
   yield fork(watchSettingsChange);
+  yield fork(watchingControlActions);
 }
