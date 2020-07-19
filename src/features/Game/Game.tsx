@@ -53,7 +53,7 @@ const mapStateToProps = (state: AppState) => {
 };
 
 const mapDispatchToProps = {
-  onControlActionClick: gameStore.actions.stop,
+  onControlActionClick: gameStore.actions.newGeneration,
   toggleCreatureState: gameStore.actions.toggleCreatureState,
   applySettings: gameStore.actions.applySettings,
   onSettingsChange: gameStore.actions.changeSettings,

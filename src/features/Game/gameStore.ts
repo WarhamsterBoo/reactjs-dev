@@ -1,6 +1,7 @@
 import { matrixGenerator, resizeMatrix } from "@/utils/arrayUtils";
 import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Engine } from "./Engine";
+import { ControlAction } from "./components";
 
 export interface Creature {
   isAlive: boolean;
@@ -17,7 +18,7 @@ export const DEAD: Creature = {
 export type Population = Creature[][];
 
 export enum GameStatus {
-  Pause,
+  Paused,
   Running,
   Stopped,
 }
@@ -101,6 +102,20 @@ export const gameStore = createSlice({
         return row;
       });
     },
-    stop: () => ({ ...initialState }),
+    executeControlAction: (state, action: PayloadAction<ControlAction>) => {
+      switch (action.payload) {
+        case "run":
+          state.settings.status = GameStatus.Running;
+          break;
+        case "stop":
+            state.settings.status = GameStatus.Stopped;
+            break;
+        case "pause":
+            state.settings.status = GameStatus.Paused;
+            break;
+        default:
+          break;
+      }
+    },
   },
 });
