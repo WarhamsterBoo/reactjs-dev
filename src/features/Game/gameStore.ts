@@ -47,7 +47,7 @@ const initialState: GameState = {
     yDimension: 10,
     fillingPercentage: 0,
     status: GameStatus.Stopped,
-    speed: 1,
+    speed: 10,
   },
   creatures: matrixGenerator(10, 10, DEAD),
 };
@@ -58,6 +58,48 @@ const changeCreaturesSize = (
   yDimension: number
 ): Creature[][] => {
   return resizeMatrix(creatures, xDimension, yDimension, DEAD);
+};
+
+const isStatusChangeAction = (action: ControlAction): Boolean => {
+  return action == "stop" || action == "run" || action == "pause";
+};
+
+const isSpeedChangeAction = (action: ControlAction): Boolean => {
+  return action == "normal" || action == "slower" || action == "faster";
+};
+
+const mapGameStatus = (action: ControlAction): GameStatus => {
+  switch (action) {
+    case "run":
+      return GameStatus.Running;
+    case "stop":
+      return GameStatus.Stopped;
+    case "pause":
+      return GameStatus.Paused;
+    default:
+      return GameStatus.Stopped;
+  }
+};
+
+const computeGameSpeed = (
+  initialSpeed: number,
+  action: ControlAction
+): number => {
+  switch (action) {
+    case "faster":
+      if (initialSpeed < 20) {
+        return initialSpeed + 1;
+      }
+      break;
+    case "slower":
+      if (initialSpeed > 0) {
+        return initialSpeed - 1;
+      }
+      break;
+    case "normal":
+      return 10;
+  }
+  return initialSpeed;
 };
 
 export const gameStore = createSlice({
@@ -103,31 +145,14 @@ export const gameStore = createSlice({
       });
     },
     executeControlAction: (state, action: PayloadAction<ControlAction>) => {
-      switch (action.payload) {
-        case "run":
-          state.settings.status = GameStatus.Running;
-          break;
-        case "stop":
-          state.settings.status = GameStatus.Stopped;
-          break;
-        case "pause":
-          state.settings.status = GameStatus.Paused;
-          break;
-        case "normal":
-          state.settings.speed = 1;
-          break;
-        case "faster":
-          if (state.settings.speed < 2) {
-            state.settings.speed += 0.1;
-          }
-          break;
-        case "slower":
-          if (state.settings.speed > 0) {
-            state.settings.speed -= 0.1;
-          }
-          break;
-        default:
-          break;
+      if (isStatusChangeAction(action.payload)) {
+        state.settings.status = mapGameStatus(action.payload);
+      }
+      if (isSpeedChangeAction(action.payload)) {
+        state.settings.speed = computeGameSpeed(
+          state.settings.speed,
+          action.payload
+        );
       }
     },
   },

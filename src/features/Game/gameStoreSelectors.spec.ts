@@ -9,7 +9,7 @@ describe("gameStoreSelectors", () => {
     yDimension: 3,
     fillingPercentage: 0.5,
     status: GameStatus.Stopped,
-    speed: 1,
+    speed: 10,
   };
   const appState: AppState = {
     auth: {

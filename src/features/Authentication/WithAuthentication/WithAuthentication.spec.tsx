@@ -24,7 +24,7 @@ const storeDefaultState: AppState = {
       xDimension: 0,
       yDimension: 0,
       status: GameStatus.Stopped,
-      speed: 1,
+      speed: 10,
     },
   },
 };

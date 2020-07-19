@@ -18,7 +18,7 @@ describe("game store", () => {
       yDimension: 10,
       fillingPercentage: 0,
       status: GameStatus.Stopped,
-      speed: 1,
+      speed: 10,
     },
     creatures: matrixGenerator<Creature>(10, 10, DEAD),
   };
@@ -28,7 +28,7 @@ describe("game store", () => {
     yDimension: 11,
     fillingPercentage: 0,
     status: GameStatus.Stopped,
-    speed: 1,
+    speed: 10,
   };
 
   const initialState: GameState = {
@@ -62,7 +62,7 @@ describe("game store", () => {
               yDimension: 3,
               fillingPercentage: 0,
               status: GameStatus.Stopped,
-              speed: 1,
+              speed: 10,
             },
             creatures: originalCreatures,
           },
@@ -90,7 +90,7 @@ describe("game store", () => {
               yDimension: 2,
               fillingPercentage: 0,
               status: GameStatus.Stopped,
-              speed: 1,
+              speed: 10,
             },
             creatures: originalCreatures,
           },
@@ -114,7 +114,7 @@ describe("game store", () => {
             yDimension: 2,
             fillingPercentage: 0.5,
             status: GameStatus.Stopped,
-            speed: 1,
+            speed: 10,
           },
           creatures: [],
         },
@@ -142,7 +142,7 @@ describe("game store", () => {
             yDimension: 2,
             fillingPercentage: 0.5,
             status: GameStatus.Stopped,
-            speed: 1,
+            speed: 10,
           },
           creatures: [
             [DEAD, DEAD],
@@ -166,7 +166,7 @@ describe("game store", () => {
         yDimension: 11,
         fillingPercentage: 2,
         status: GameStatus.Stopped,
-        speed: 1,
+        speed: 10,
       };
 
       expect(
@@ -182,7 +182,7 @@ describe("game store", () => {
         yDimension: 15,
         fillingPercentage: 0.2,
         status: GameStatus.Stopped,
-        speed: 1,
+        speed: 10,
       };
 
       expect(
@@ -208,7 +208,7 @@ describe("game store", () => {
             yDimension: 2,
             fillingPercentage: 0,
             status: GameStatus.Stopped,
-            speed: 1,
+            speed: 10,
           },
           creatures: [
             [ALIVE, { isAlive: initialState }],
@@ -246,16 +246,17 @@ describe("game store", () => {
 
     it.each`
       controlAction | initialGameSpeed | expectedGameSpeed
-      ${"normal"}   | ${1}             | ${1}
-      ${"normal"}   | ${1.5}           | ${1}
-      ${"slower"}   | ${1}             | ${0.9}
-      ${"slower"}   | ${0.1}           | ${0}
+      ${"normal"}   | ${10}            | ${10}
+      ${"normal"}   | ${15}            | ${10}
+      ${"normal"}   | ${5}             | ${10}
+      ${"slower"}   | ${10}            | ${9}
+      ${"slower"}   | ${1}             | ${0}
       ${"slower"}   | ${0}             | ${0}
-      ${"faster"}   | ${1}             | ${1.1}
-      ${"faster"}   | ${1.9}           | ${2}
-      ${"faster"}   | ${2}             | ${2}
+      ${"faster"}   | ${10}            | ${11}
+      ${"faster"}   | ${19}            | ${20}
+      ${"faster"}   | ${20}            | ${20}
     `(
-      "should change game speed from $initialGameSpeed to to $expectedGameSpeed when executing $controlAction",
+      "should change game speed from $initialGameSpeed to $expectedGameSpeed when executing $controlAction",
       ({ controlAction, initialGameSpeed, expectedGameSpeed }) => {
         expect(
           gameStore.reducer(
