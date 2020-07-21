@@ -1,7 +1,11 @@
 import { AppState } from "@/AppStore";
 import { AuthStatus } from "@/features/Authentication";
 import { GameSettings, GameStatus } from "./gameStore";
-import { settingsSelector, gameStatusSelector } from "./gameStoreSelectors";
+import {
+  settingsSelector,
+  gameStatusSelector,
+  gameSpeedSelector,
+} from "./gameStoreSelectors";
 
 describe("gameStoreSelectors", () => {
   const settings: GameSettings = {
@@ -9,7 +13,7 @@ describe("gameStoreSelectors", () => {
     yDimension: 3,
     fillingPercentage: 0.5,
     status: GameStatus.Stopped,
-    speed: 10,
+    speed: 15,
   };
   const appState: AppState = {
     auth: {
@@ -41,5 +45,9 @@ describe("gameStoreSelectors", () => {
         },
       })
     ).toEqual(gameStatus);
+  });
+
+  it("should select game speed", () => {
+    expect(gameSpeedSelector(appState)).toEqual(15);
   });
 });

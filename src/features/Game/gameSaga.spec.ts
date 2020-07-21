@@ -1,7 +1,7 @@
 import { testSaga } from "redux-saga-test-plan";
-import { watchSettingsChange, watchingControlActions } from "./gameSaga";
-import { gameStore, GameStatus } from "./gameStore";
-import { settingsSelector, gameStatusSelector } from "./gameStoreSelectors";
+import { watchingControlActions, watchSettingsChange } from "./gameSaga";
+import { gameStore } from "./gameStore";
+import { settingsSelector } from "./gameStoreSelectors";
 
 describe("game saga", () => {
   describe("watchSettingChange", () => {
@@ -83,18 +83,39 @@ describe("game saga", () => {
   });
 
   describe("watchingControlActions", () => {
-    it("should reset state if stop control action executed", () => {
+    it("should dispatch corresponding actions", () => {
       const sut = testSaga(watchingControlActions);
 
       sut
         .next()
+        .take(gameStore.actions.executeControlAction("run").type)
+        .next({ payload: "run" })
+        .put(gameStore.actions.run())
+        .back(2)
+        .next()
         .take(gameStore.actions.executeControlAction("stop").type)
-        .next()
-        .select(gameStatusSelector)
-        .next(GameStatus.Stopped)
+        .next({ payload: "stop" })
         .put(gameStore.actions.reset())
+        .back(2)
         .next()
-        .take(gameStore.actions.executeControlAction("stop").type);
+        .take(gameStore.actions.executeControlAction("pause").type)
+        .next({ payload: "pause" })
+        .put(gameStore.actions.stop())
+        .back(2)
+        .next()
+        .take(gameStore.actions.executeControlAction("faster").type)
+        .next({ payload: "faster" })
+        .put(gameStore.actions.faster())
+        .back(2)
+        .next()
+        .take(gameStore.actions.executeControlAction("slower").type)
+        .next({ payload: "slower" })
+        .put(gameStore.actions.slower())
+        .back(2)
+        .next()
+        .take(gameStore.actions.executeControlAction("normal").type)
+        .next({ payload: "normal" })
+        .put(gameStore.actions.normal());
     });
   });
 });

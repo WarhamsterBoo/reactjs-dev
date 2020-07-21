@@ -1,6 +1,6 @@
 import { fork, put, select, take } from "redux-saga/effects";
-import { GameSettings, gameStore, GameStatus } from "./gameStore";
-import { settingsSelector, gameStatusSelector } from "./gameStoreSelectors";
+import { GameSettings, gameStore } from "./gameStore";
+import { settingsSelector } from "./gameStoreSelectors";
 
 export function* watchSettingsChange() {
   while (true) {
@@ -23,17 +23,55 @@ export function* watchSettingsChange() {
 
 export function* watchingControlActions() {
   while (true) {
-    yield take(gameStore.actions.executeControlAction.type);
-    const gameStatus = yield select(gameStatusSelector);
-    if (gameStatus == GameStatus.Stopped) {
-      yield put(gameStore.actions.reset());
-    } else {
-      yield put(gameStore.actions.newGeneration());
+    const controlAction = (yield take(
+      gameStore.actions.executeControlAction.type
+    )).payload;
+
+    switch (controlAction) {
+      case "run":
+        yield put(gameStore.actions.run());
+        break;
+      case "stop":
+        yield put(gameStore.actions.reset());
+        break;
+      case "pause":
+        yield put(gameStore.actions.stop());
+        break;
+      case "faster":
+        yield put(gameStore.actions.faster());
+        break;
+      case "slower":
+        yield put(gameStore.actions.slower());
+        break;
+      case "normal":
+        yield put(gameStore.actions.normal());
+        break;
     }
   }
 }
 
+// export function* looper2() {
+//   while (true) {
+//     const state: AppState = yield select();
+//     console.warn("!!!", state.game.settings.speed);
+//     yield put(gameStore.actions.newGeneration())
+//     yield delay(state.game.settings.speed * 100)
+//   }
+// }
+
+// export function* looper() {
+//   while (yield take(gameStore.actions.run.type)) {
+
+//     const bgt = yield fork(looper2)
+
+//     yield take([gameStore.actions.stop.type, gameStore.actions.reset.type])
+
+//     yield cancel(bgt)
+//   }
+// }
+
 export function* gameSaga() {
   yield fork(watchSettingsChange);
   yield fork(watchingControlActions);
+  // yield fork(looper)
 }

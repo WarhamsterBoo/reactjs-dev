@@ -227,52 +227,39 @@ describe("game store", () => {
   });
 
   describe("executeControlAction", () => {
-    it.each`
-      controlAction | expectedGameStatus
-      ${"stop"}     | ${GameStatus.Stopped}
-      ${"run"}      | ${GameStatus.Running}
-      ${"pause"}    | ${GameStatus.Paused}
-    `(
-      "should change game status to $expectedGameStatus when executing $controlAction",
-      ({ controlAction, expectedGameStatus }) => {
-        expect(
-          gameStore.reducer(
-            initialState,
-            gameStore.actions.executeControlAction(controlAction)
-          ).settings.status
-        ).toBe(expectedGameStatus);
-      }
-    );
+    it("should do nothing", () => {
+      const targetSettings: GameSettings = {
+        xDimension: 11,
+        yDimension: 11,
+        fillingPercentage: 2,
+        status: GameStatus.Stopped,
+        speed: 10,
+      };
 
-    it.each`
-      controlAction | initialGameSpeed | expectedGameSpeed
-      ${"normal"}   | ${10}            | ${10}
-      ${"normal"}   | ${15}            | ${10}
-      ${"normal"}   | ${5}             | ${10}
-      ${"slower"}   | ${10}            | ${9}
-      ${"slower"}   | ${1}             | ${0}
-      ${"slower"}   | ${0}             | ${0}
-      ${"faster"}   | ${10}            | ${11}
-      ${"faster"}   | ${19}            | ${20}
-      ${"faster"}   | ${20}            | ${20}
-    `(
-      "should change game speed from $initialGameSpeed to $expectedGameSpeed when executing $controlAction",
-      ({ controlAction, initialGameSpeed, expectedGameSpeed }) => {
-        expect(
-          gameStore.reducer(
-            {
-              ...initialState,
-              settings: { ...initialState.settings, speed: initialGameSpeed },
-            },
-            gameStore.actions.executeControlAction(controlAction)
-          ).settings.speed
-        ).toBe(expectedGameSpeed);
-      }
-    );
+      expect(
+        gameStore.reducer(
+          initialState,
+          gameStore.actions.executeControlAction()
+        )
+      ).toEqual(initialState);
+    });
   });
 
-  describe("reset", () => {
-    it("should reset state to initial", () => {
+  describe("control actions", () => {
+    it("should set GameStatus.Running when run action dispatched", () => {
+      expect(
+        gameStore.reducer(defaultState, gameStore.actions.run()).settings.status
+      ).toEqual(GameStatus.Running);
+    });
+
+    it("should set GameStatus.Paused when stop action dispatched", () => {
+      expect(
+        gameStore.reducer(defaultState, gameStore.actions.stop()).settings
+          .status
+      ).toEqual(GameStatus.Paused);
+    });
+
+    it("should should reset state to initial when reset action dispatched", () => {
       expect(
         gameStore.reducer(
           {
@@ -289,5 +276,83 @@ describe("game store", () => {
         )
       ).toEqual(defaultState);
     });
+
+    it("should should reset state to initial when reset action dispatched", () => {
+      expect(
+        gameStore.reducer(
+          {
+            settings: {
+              xDimension: 11,
+              yDimension: 11,
+              fillingPercentage: 90,
+              speed: 15,
+              status: GameStatus.Running,
+            },
+            creatures: matrixGenerator(11, 11, DEAD),
+          },
+          gameStore.actions.reset()
+        )
+      ).toEqual(defaultState);
+    });
+
+    it.each`
+      initialGameSpeed | expectedGameSpeed
+      ${10}            | ${9}
+      ${1}             | ${0}
+      ${0}             | ${0}
+    `(
+      "should change game speed from $initialGameSpeed to $expectedGameSpeed when dispatching faster action",
+      ({ initialGameSpeed, expectedGameSpeed }) => {
+        expect(
+          gameStore.reducer(
+            {
+              ...initialState,
+              settings: { ...initialState.settings, speed: initialGameSpeed },
+            },
+            gameStore.actions.faster()
+          ).settings.speed
+        ).toBe(expectedGameSpeed);
+      }
+    );
+
+    it.each`
+      initialGameSpeed | expectedGameSpeed
+      ${10}            | ${11}
+      ${19}            | ${20}
+      ${20}            | ${20}
+    `(
+      "should change game speed from $initialGameSpeed to $expectedGameSpeed when dispatching slower action",
+      ({ initialGameSpeed, expectedGameSpeed }) => {
+        expect(
+          gameStore.reducer(
+            {
+              ...initialState,
+              settings: { ...initialState.settings, speed: initialGameSpeed },
+            },
+            gameStore.actions.slower()
+          ).settings.speed
+        ).toBe(expectedGameSpeed);
+      }
+    );
+
+    it.each`
+      initialGameSpeed | expectedGameSpeed
+      ${10}            | ${10}
+      ${15}            | ${10}
+      ${5}             | ${10}
+    `(
+      "should change game speed from $initialGameSpeed to $expectedGameSpeed when dispatching normal action",
+      ({ initialGameSpeed, expectedGameSpeed }) => {
+        expect(
+          gameStore.reducer(
+            {
+              ...initialState,
+              settings: { ...initialState.settings, speed: initialGameSpeed },
+            },
+            gameStore.actions.normal()
+          ).settings.speed
+        ).toBe(expectedGameSpeed);
+      }
+    );
   });
 });
