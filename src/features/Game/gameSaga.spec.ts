@@ -1,13 +1,13 @@
+import { createMockTask } from "@redux-saga/testing-utils";
 import { testSaga } from "redux-saga-test-plan";
 import {
-  watchingControlActions,
-  watchSettingsChange,
   gameFlow,
   gameLoop,
+  watchingControlActions,
+  watchSettingsChange,
 } from "./gameSaga";
 import { gameStore } from "./gameStore";
-import { settingsSelector, gameSpeedSelector } from "./gameStoreSelectors";
-import { createMockTask } from "@redux-saga/testing-utils";
+import { gameSpeedSelector, settingsSelector } from "./gameStoreSelectors";
 
 describe("game saga", () => {
   describe("watchSettingChange", () => {
@@ -125,8 +125,8 @@ describe("game saga", () => {
     });
   });
 
-  describe("gameFlow", () => {
-    it("should", () => {
+  describe("game flow", () => {
+    it("gameFlow should run gameLoop", () => {
       const sut = testSaga(gameFlow);
       const loop = createMockTask();
 
@@ -141,6 +141,27 @@ describe("game saga", () => {
         .cancel(loop)
         .next()
         .take(gameStore.actions.run().type);
+    });
+
+    it("gameLoop should generate new creatures with game speed", () => {
+      const sut = testSaga(gameLoop);
+
+      sut
+        .next()
+        .select(gameSpeedSelector)
+        .next(10)
+        .put(gameStore.actions.newGeneration())
+        .next()
+        .delay(10 * 100)
+        .next()
+        .select(gameSpeedSelector)
+        .back(4)
+        .next()
+        .select(gameSpeedSelector)
+        .next(1)
+        .put(gameStore.actions.newGeneration())
+        .next()
+        .delay(1 * 100);
     });
   });
 });
