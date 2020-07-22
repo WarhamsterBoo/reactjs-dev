@@ -1,7 +1,13 @@
 import { testSaga } from "redux-saga-test-plan";
-import { watchingControlActions, watchSettingsChange } from "./gameSaga";
+import {
+  watchingControlActions,
+  watchSettingsChange,
+  gameFlow,
+  gameLoop,
+} from "./gameSaga";
 import { gameStore } from "./gameStore";
-import { settingsSelector } from "./gameStoreSelectors";
+import { settingsSelector, gameSpeedSelector } from "./gameStoreSelectors";
+import { createMockTask } from "@redux-saga/testing-utils";
 
 describe("game saga", () => {
   describe("watchSettingChange", () => {
@@ -116,6 +122,25 @@ describe("game saga", () => {
         .take(gameStore.actions.executeControlAction("normal").type)
         .next({ payload: "normal" })
         .put(gameStore.actions.normal());
+    });
+  });
+
+  describe("gameFlow", () => {
+    it("should", () => {
+      const sut = testSaga(gameFlow);
+      const loop = createMockTask();
+
+      sut
+        .next()
+        .take(gameStore.actions.run().type)
+        .next(true)
+        .fork(gameLoop)
+        .next(loop)
+        .take([gameStore.actions.stop().type, gameStore.actions.reset().type])
+        .next()
+        .cancel(loop)
+        .next()
+        .take(gameStore.actions.run().type);
     });
   });
 });

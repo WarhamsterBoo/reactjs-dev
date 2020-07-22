@@ -1,4 +1,4 @@
-import { fork, put, select, take } from "redux-saga/effects";
+import { cancel, fork, put, select, take } from "redux-saga/effects";
 import { GameSettings, gameStore } from "./gameStore";
 import { settingsSelector } from "./gameStoreSelectors";
 
@@ -50,28 +50,26 @@ export function* watchingControlActions() {
   }
 }
 
-// export function* looper2() {
-//   while (true) {
-//     const state: AppState = yield select();
-//     console.warn("!!!", state.game.settings.speed);
-//     yield put(gameStore.actions.newGeneration())
-//     yield delay(state.game.settings.speed * 100)
-//   }
-// }
+export function* gameLoop() {
+  while (true) {
+    // const speed = yield select(gameSpeedSelector);
+    // yield put(gameStore.actions.newGeneration())
+    // yield delay(speed * 100)
+  }
+}
 
-// export function* looper() {
-//   while (yield take(gameStore.actions.run.type)) {
+export function* gameFlow() {
+  while (yield take(gameStore.actions.run.type)) {
+    const loop = yield fork(gameLoop);
 
-//     const bgt = yield fork(looper2)
+    yield take([gameStore.actions.stop.type, gameStore.actions.reset.type]);
 
-//     yield take([gameStore.actions.stop.type, gameStore.actions.reset.type])
-
-//     yield cancel(bgt)
-//   }
-// }
+    yield cancel(loop);
+  }
+}
 
 export function* gameSaga() {
   yield fork(watchSettingsChange);
   yield fork(watchingControlActions);
-  // yield fork(looper)
+  yield fork(gameFlow);
 }

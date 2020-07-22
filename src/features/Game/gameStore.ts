@@ -102,7 +102,7 @@ export const gameStore = createSlice({
         return row;
       });
     },
-    executeControlAction: () => {},
+    executeControlAction: (__, _: PayloadAction<ControlAction>) => {},
     run: (state, _: AnyAction) => {
       state.settings.status = GameStatus.Running;
     },
