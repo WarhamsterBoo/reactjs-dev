@@ -7,13 +7,13 @@ import {
   CreatureCoordinates,
   GameSettings,
   gameStore,
-  WorldCreature,
+  Population,
 } from "./gameStore";
 
 interface GameProps {
   settings: GameSettings;
   onControlActionClick: (action: ControlAction) => void;
-  creatures: WorldCreature[][];
+  creatures: Population;
   toggleCreatureState: (coordinates: CreatureCoordinates) => void;
   applySettings: () => void;
   onSettingsChange: (settings: GameSettings) => void;
@@ -53,7 +53,7 @@ const mapStateToProps = (state: AppState) => {
 };
 
 const mapDispatchToProps = {
-  onControlActionClick: gameStore.actions.stop,
+  onControlActionClick: gameStore.actions.executeControlAction,
   toggleCreatureState: gameStore.actions.toggleCreatureState,
   applySettings: gameStore.actions.applySettings,
   onSettingsChange: gameStore.actions.changeSettings,

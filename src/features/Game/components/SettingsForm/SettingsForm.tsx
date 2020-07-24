@@ -1,17 +1,12 @@
 import { Button, InputNumber, Label } from "@/components";
+import { GameSettings } from "@/features/Game/gameStore";
 import React, { FormEvent, useCallback } from "react";
 import { FieldSet, Form, Legend } from "./SettingsForm.styled";
 
-interface Settings {
-  xDimension: number;
-  yDimension: number;
-  fillingPercentage: number;
-}
-
 export interface SettingsFormProps {
-  gameSettings: Settings;
+  gameSettings: GameSettings;
   applySettings: () => void;
-  onSettingsChange: (settings: Settings) => void;
+  onSettingsChange: (settings: GameSettings) => void;
 }
 
 export const SettingsForm: React.FC<SettingsFormProps> = ({

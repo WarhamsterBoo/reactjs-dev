@@ -1,5 +1,6 @@
 import { AppState } from "@/AppStore";
 import { AuthStatus, authStore } from "@/features/Authentication";
+import { GameStatus } from "@/features/Game";
 import { mount } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
@@ -18,6 +19,8 @@ const store = configureMockStore<AppState>([])({
       fillingPercentage: 0,
       xDimension: 0,
       yDimension: 0,
+      status: GameStatus.Stopped,
+      speed: 10,
     },
   },
 });

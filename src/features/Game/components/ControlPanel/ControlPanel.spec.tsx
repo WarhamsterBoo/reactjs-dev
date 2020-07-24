@@ -11,9 +11,9 @@ describe("ControlPanel", () => {
 
   it.each`
     buttonId    | action
-    ${"stop"}   | ${"stop"}
+    ${"reset"}  | ${"reset"}
     ${"run"}    | ${"run"}
-    ${"pause"}  | ${"pause"}
+    ${"stop"}   | ${"stop"}
     ${"slower"} | ${"slower"}
     ${"normal"} | ${"normal"}
     ${"faster"} | ${"faster"}

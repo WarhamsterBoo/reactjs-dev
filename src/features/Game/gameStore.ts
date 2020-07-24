@@ -1,19 +1,39 @@
 import { matrixGenerator, resizeMatrix } from "@/utils/arrayUtils";
 import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Engine } from "./Engine";
+import { ControlAction } from "./components";
 
-export interface WorldCreature {
+export interface Creature {
   isAlive: boolean;
+}
+
+export const ALIVE: Creature = {
+  isAlive: true,
+};
+
+export const DEAD: Creature = {
+  isAlive: false,
+};
+
+export type Population = Creature[][];
+
+export enum GameStatus {
+  Paused,
+  Running,
+  Stopped,
 }
 
 export interface GameSettings {
   xDimension: number;
   yDimension: number;
   fillingPercentage: number;
+  status: GameStatus;
+  speed: number;
 }
 
 export interface GameState {
   settings: GameSettings;
-  creatures: WorldCreature[][];
+  creatures: Population;
 }
 
 export interface CreatureCoordinates {
@@ -22,42 +42,22 @@ export interface CreatureCoordinates {
 }
 
 const initialState: GameState = {
-  settings: { xDimension: 10, yDimension: 10, fillingPercentage: 0 },
-  creatures: matrixGenerator(10, 10, { isAlive: false }),
-};
-
-const generateRandomCreatures = ({
-  xDimension,
-  yDimension,
-  fillingPercentage,
-}: GameSettings): WorldCreature[][] => {
-  const creatures = matrixGenerator<WorldCreature>(xDimension, yDimension, {
-    isAlive: false,
-  });
-
-  let NumberOfAliveCreatures = Math.trunc(
-    xDimension * yDimension * fillingPercentage
-  );
-  while (NumberOfAliveCreatures > 0) {
-    const x = Math.floor(Math.random() * Math.floor(xDimension));
-    const y = Math.floor(Math.random() * Math.floor(yDimension));
-    if (!creatures[x][y].isAlive) {
-      creatures[x][y].isAlive = true;
-      NumberOfAliveCreatures--;
-    }
-  }
-
-  return creatures;
+  settings: {
+    xDimension: 10,
+    yDimension: 10,
+    fillingPercentage: 0,
+    status: GameStatus.Stopped,
+    speed: 10,
+  },
+  creatures: matrixGenerator<Creature>(10, 10, DEAD),
 };
 
 const changeCreaturesSize = (
-  creatures: WorldCreature[][],
+  creatures: Population,
   xDimension: number,
   yDimension: number
-): WorldCreature[][] => {
-  return resizeMatrix(creatures, xDimension, yDimension, {
-    isAlive: false,
-  });
+): Creature[][] => {
+  return resizeMatrix(creatures, xDimension, yDimension, DEAD);
 };
 
 export const gameStore = createSlice({
@@ -76,7 +76,17 @@ export const gameStore = createSlice({
       );
     },
     generateNewCreatures: (state, _: AnyAction) => {
-      state.creatures = generateRandomCreatures(state.settings);
+      const { xDimension, yDimension, fillingPercentage } = {
+        ...state.settings,
+      };
+      state.creatures = Engine.firstGeneration(
+        xDimension,
+        yDimension,
+        fillingPercentage
+      );
+    },
+    newGeneration: (state, _: AnyAction) => {
+      state.creatures = Engine.nextGeneration(state.creatures);
     },
     toggleCreatureState: (
       state,
@@ -92,6 +102,26 @@ export const gameStore = createSlice({
         return row;
       });
     },
-    stop: () => ({ ...initialState }),
+    executeControlAction: (__, _: PayloadAction<ControlAction>) => {},
+    run: (state, _: AnyAction) => {
+      state.settings.status = GameStatus.Running;
+    },
+    stop: (state, _: AnyAction) => {
+      state.settings.status = GameStatus.Paused;
+    },
+    reset: (__, _: AnyAction) => initialState,
+    faster: (state, _: AnyAction) => {
+      if (state.settings.speed > 0) {
+        state.settings.speed -= 1;
+      }
+    },
+    slower: (state, _: AnyAction) => {
+      if (state.settings.speed < 20) {
+        state.settings.speed += 1;
+      }
+    },
+    normal: (state, _: AnyAction) => {
+      state.settings.speed = 10;
+    },
   },
 });
