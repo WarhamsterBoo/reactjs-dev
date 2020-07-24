@@ -8,15 +8,22 @@ export function* watchSettingsChange() {
     const oldSettings: GameSettings = yield select(settingsSelector);
     yield take(gameStore.actions.applySettings.type);
     const newSettings: GameSettings = yield select(settingsSelector);
-    if (newSettings.fillingPercentage < 0 || newSettings.fillingPercentage > 1)
-      continue;
 
-    if (oldSettings.fillingPercentage != newSettings.fillingPercentage) {
-      yield put(gameStore.actions.generateNewCreatures());
-    } else if (
+    const fillingPercentageIsInvalid =
+      newSettings.fillingPercentage < 0 || newSettings.fillingPercentage > 1;
+    const fillingPercentageChanged =
+      oldSettings.fillingPercentage != newSettings.fillingPercentage;
+    const creturesSizeChanged =
       oldSettings.xDimension != newSettings.xDimension ||
-      oldSettings.yDimension != newSettings.yDimension
-    ) {
+      oldSettings.yDimension != newSettings.yDimension;
+
+    if (fillingPercentageIsInvalid) {
+      continue;
+    }
+
+    if (fillingPercentageChanged) {
+      yield put(gameStore.actions.generateNewCreatures());
+    } else if (creturesSizeChanged) {
       yield put(gameStore.actions.resizeCreatures());
     }
   }
