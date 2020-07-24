@@ -1,5 +1,7 @@
 import { auth } from "@/api/auth";
 import { userSessionStorage } from "@/api/userSessionStorage";
+import { appReducer, AppState } from "@/AppStore";
+import { GameStatus } from "@/features/Game";
 import { expectSaga } from "redux-saga-test-plan";
 import { call } from "redux-saga-test-plan/matchers";
 import { throwError } from "redux-saga-test-plan/providers";
@@ -13,7 +15,10 @@ describe("login flow", () => {
         [call(userSessionStorage.getCurrentSession), "Jane Doe"],
       ]);
 
-      return sut.put(authStore.actions.login("Jane Doe")).silentRun();
+      return sut
+        .put(authStore.actions.login())
+        .put(authStore.actions.username_changes("Jane Doe"))
+        .silentRun();
     });
   });
 
@@ -24,13 +29,26 @@ describe("login flow", () => {
           [call(userSessionStorage.getCurrentSession), undefined],
           [call(auth.login, "John Doe"), {}],
         ])
-        .withReducer(authStore.reducer)
-        .withState({
-          userName: undefined,
-          status: AuthStatus.not_authenticated,
-          loginError: undefined,
+        .withReducer(appReducer)
+        .withState<AppState>({
+          game: {
+            settings: {
+              xDimension: 1,
+              yDimension: 1,
+              fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 10,
+            },
+            creatures: [],
+          },
+          auth: {
+            userName: undefined,
+            status: AuthStatus.not_authenticated,
+            loginError: undefined,
+          },
         })
-        .dispatch(authStore.actions.login("John Doe"));
+        .dispatch(authStore.actions.username_changes("John Doe"))
+        .dispatch(authStore.actions.login());
 
       return sut
         .put(authStore.actions.login_success())
@@ -45,16 +63,29 @@ describe("login flow", () => {
           [call(userSessionStorage.getCurrentSession), "John Doe"],
           [call(auth.login, "John Doe"), {}],
         ])
-        .withReducer(authStore.reducer)
-        .withState({
-          userName: undefined,
-          status: AuthStatus.not_authenticated,
-          loginError: undefined,
+        .withReducer(appReducer)
+        .withState<AppState>({
+          game: {
+            settings: {
+              xDimension: 1,
+              yDimension: 1,
+              fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 10,
+            },
+            creatures: [],
+          },
+          auth: {
+            userName: undefined,
+            status: AuthStatus.not_authenticated,
+            loginError: undefined,
+          },
         });
 
       return sut
         .fork(restoreCurrentSession)
-        .put(authStore.actions.login("John Doe"))
+        .put(authStore.actions.username_changes("John Doe"))
+        .put(authStore.actions.login())
         .call(auth.login, "John Doe")
         .call(userSessionStorage.newSession, "John Doe")
         .put(authStore.actions.login_success())
@@ -68,13 +99,26 @@ describe("login flow", () => {
           [call(auth.login, "John Doe"), {}],
           [call(auth.logout), {}],
         ])
-        .withReducer(authStore.reducer)
-        .withState({
-          userName: undefined,
-          status: AuthStatus.not_authenticated,
-          loginError: undefined,
+        .withReducer(appReducer)
+        .withState<AppState>({
+          game: {
+            settings: {
+              xDimension: 1,
+              yDimension: 1,
+              fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 10,
+            },
+            creatures: [],
+          },
+          auth: {
+            userName: undefined,
+            status: AuthStatus.not_authenticated,
+            loginError: undefined,
+          },
         })
-        .dispatch(authStore.actions.login("John Doe"))
+        .dispatch(authStore.actions.username_changes("John Doe"))
+        .dispatch(authStore.actions.login())
         .dispatch(authStore.actions.logout());
 
       return sut
@@ -92,13 +136,26 @@ describe("login flow", () => {
             throwError(new Error("something went wrong")),
           ],
         ])
-        .withReducer(authStore.reducer)
-        .withState({
-          userName: undefined,
-          status: AuthStatus.not_authenticated,
-          loginError: undefined,
+        .withReducer(appReducer)
+        .withState<AppState>({
+          game: {
+            settings: {
+              xDimension: 1,
+              yDimension: 1,
+              fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 10,
+            },
+            creatures: [],
+          },
+          auth: {
+            userName: undefined,
+            status: AuthStatus.not_authenticated,
+            loginError: undefined,
+          },
         })
-        .dispatch(authStore.actions.login("John Doe"));
+        .dispatch(authStore.actions.username_changes("John Doe"))
+        .dispatch(authStore.actions.login());
 
       return sut
         .put(authStore.actions.login_failed("something went wrong"))

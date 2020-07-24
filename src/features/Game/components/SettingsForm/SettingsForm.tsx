@@ -1,45 +1,35 @@
 import { Button, InputNumber, Label } from "@/components";
-import React, { FormEvent, useCallback, useState } from "react";
+import { GameSettings } from "@/features/Game/gameStore";
+import React, { FormEvent, useCallback } from "react";
 import { FieldSet, Form, Legend } from "./SettingsForm.styled";
 
-interface Settings {
-  xDimension: number;
-  yDimension: number;
-  fillingPercentage: number;
-}
-
 export interface SettingsFormProps {
-  gameSettings: Settings;
-  onSettingsSubmit: (settings: Settings) => void;
+  gameSettings: GameSettings;
+  applySettings: () => void;
+  onSettingsChange: (settings: GameSettings) => void;
 }
 
 export const SettingsForm: React.FC<SettingsFormProps> = ({
   gameSettings,
-  onSettingsSubmit,
+  applySettings,
+  onSettingsChange,
 }) => {
-  const [settings, setSettings] = useState<Settings>({
-    ...gameSettings,
-    fillingPercentage: Math.round(gameSettings.fillingPercentage * 100),
-  });
-
-  const onHandleInputChange = useCallback((ev: FormEvent<HTMLInputElement>) => {
-    const { name, value } = ev.target as HTMLInputElement;
-
-    setSettings((prevSettings) => ({
-      ...prevSettings,
-      [name]: parseInt(value),
-    }));
-  }, []);
-
   const onHandleSubmit = useCallback(
     (ev: FormEvent) => {
       ev.preventDefault();
-      onSettingsSubmit({
-        ...settings,
-        fillingPercentage: settings.fillingPercentage / 100,
-      });
+      applySettings();
     },
-    [onSettingsSubmit, settings]
+    [applySettings]
+  );
+
+  const onHandleInputChange = useCallback(
+    (ev: FormEvent<HTMLInputElement>) => {
+      const { name, value } = ev.target as HTMLInputElement;
+      const settingValue =
+        name === "fillingPercentage" ? parseInt(value) / 100 : parseInt(value);
+      onSettingsChange({ ...gameSettings, [name]: settingValue });
+    },
+    [onSettingsChange, gameSettings]
   );
 
   return (
@@ -49,7 +39,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
         <Label>
           X dimension:
           <InputNumber
-            value={settings.xDimension}
+            value={gameSettings.xDimension}
             onChange={onHandleInputChange}
             name="xDimension"
           />
@@ -57,7 +47,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
         <Label>
           Y dimension:
           <InputNumber
-            value={settings.yDimension}
+            value={gameSettings.yDimension}
             onChange={onHandleInputChange}
             name="yDimension"
           />
@@ -66,7 +56,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
           Filling Percentage:
           <InputNumber
             min="0"
-            value={settings.fillingPercentage}
+            value={gameSettings.fillingPercentage * 100}
             onChange={onHandleInputChange}
             name="fillingPercentage"
           />

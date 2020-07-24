@@ -5,5 +5,11 @@ import { NameForm } from "./NameForm";
 export default { title: "Name Form Component" };
 
 export const NameFormStory: React.FC<{}> = () => {
-  return <NameForm onNameSubmit={action("onSubmit")} />;
+  return (
+    <NameForm
+      userName={"Bob"}
+      onUserNameChange={action("onChange")}
+      onNameSubmit={action("onSubmit")}
+    />
+  );
 };

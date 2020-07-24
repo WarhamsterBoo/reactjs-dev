@@ -7,23 +7,25 @@ import {
   CreatureCoordinates,
   GameSettings,
   gameStore,
-  WorldCreature,
+  Population,
 } from "./gameStore";
 
 interface GameProps {
   settings: GameSettings;
-  onSettingsSubmit: (settings: GameSettings) => void;
   onControlActionClick: (action: ControlAction) => void;
-  creatures: WorldCreature[][];
+  creatures: Population;
   toggleCreatureState: (coordinates: CreatureCoordinates) => void;
+  applySettings: () => void;
+  onSettingsChange: (settings: GameSettings) => void;
 }
 
 const GameComponent: React.FC<GameProps> = ({
   settings,
-  onSettingsSubmit,
   onControlActionClick,
   creatures,
   toggleCreatureState,
+  applySettings,
+  onSettingsChange,
 }) => {
   const onCreatureClick = useCallback(
     (x: number, y: number) => toggleCreatureState({ x, y }),
@@ -34,7 +36,8 @@ const GameComponent: React.FC<GameProps> = ({
     <GameWrapper>
       <SettingsForm
         gameSettings={settings}
-        onSettingsSubmit={onSettingsSubmit}
+        onSettingsChange={onSettingsChange}
+        applySettings={applySettings}
       />
       <World creatures={creatures} onClick={onCreatureClick} />
       <ControlPanel onControlButtonClick={onControlActionClick} />
@@ -50,9 +53,10 @@ const mapStateToProps = (state: AppState) => {
 };
 
 const mapDispatchToProps = {
-  onSettingsSubmit: gameStore.actions.changeSettingsTo,
-  onControlActionClick: gameStore.actions.stop,
+  onControlActionClick: gameStore.actions.executeControlAction,
   toggleCreatureState: gameStore.actions.toggleCreatureState,
+  applySettings: gameStore.actions.applySettings,
+  onSettingsChange: gameStore.actions.changeSettings,
 };
 
 export const Game = connect(mapStateToProps, mapDispatchToProps)(GameComponent);

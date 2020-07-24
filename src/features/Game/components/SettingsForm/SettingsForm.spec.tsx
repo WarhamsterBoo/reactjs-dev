@@ -13,7 +13,8 @@ describe("SettingsForm", () => {
     const sut = shallow(
       <SettingsForm
         gameSettings={defaultInitialSettings}
-        onSettingsSubmit={jest.fn()}
+        applySettings={jest.fn()}
+        onSettingsChange={jest.fn()}
       />
     );
 
@@ -21,88 +22,57 @@ describe("SettingsForm", () => {
   });
 
   it.each`
-    inputName              | value
-    ${"xDimension"}        | ${"10"}
-    ${"yDimension"}        | ${"20"}
-    ${"fillingPercentage"} | ${"30"}
+    target                                                    | expectedSettings
+    ${{ target: { value: "1", name: "xDimension" } }}         | ${{ ...defaultInitialSettings, xDimension: 1 }}
+    ${{ target: { value: "1", name: "yDimension" } }}         | ${{ ...defaultInitialSettings, yDimension: 1 }}
+    ${{ target: { value: "60", name: "fillingPercentage" } }} | ${{ ...defaultInitialSettings, fillingPercentage: 0.6 }}
   `(
-    "should change value to $value in $inputName input",
-    ({ inputName, value }) => {
+    "should call onSettingsChange with $expectedSettings when $target.target.name changes to $target.target.value",
+    ({ target, expectedSettings }) => {
+      const fakeOnChangeValue = jest.fn();
       const sut = mount(
         <SettingsForm
           gameSettings={defaultInitialSettings}
-          onSettingsSubmit={jest.fn()}
+          applySettings={jest.fn()}
+          onSettingsChange={fakeOnChangeValue}
         />
       );
+      sut
+        .find(`input[name="${target.target.name}"]`)
+        .simulate("change", target);
 
-      sut.find(`input[name="${inputName}"]`).simulate("change", {
-        target: { value: value, name: inputName },
-      });
+      sut.find("button").simulate("submit");
 
-      expect(sut.find(`input[name="${inputName}"]`).prop("value")).toBe(
-        parseInt(value)
-      );
+      expect(fakeOnChangeValue).toHaveBeenCalledTimes(1);
+      expect(fakeOnChangeValue).toHaveBeenCalledWith(expectedSettings);
     }
   );
 
-  it("should call onSubmit with values from inputs", () => {
-    const fakeOnSubmit = jest.fn();
+  it("should call applySettings when submit button clicked", () => {
+    const fakeApplySettings = jest.fn();
     const sut = mount(
       <SettingsForm
         gameSettings={defaultInitialSettings}
-        onSettingsSubmit={fakeOnSubmit}
+        onSettingsChange={jest.fn()}
+        applySettings={fakeApplySettings}
       />
     );
-    sut.find(`input[name="xDimension"]`).simulate("change", {
-      target: { value: "10", name: "xDimension" },
-    });
-    sut.find(`input[name="yDimension"]`).simulate("change", {
-      target: { value: "20", name: "yDimension" },
-    });
-    sut.find(`input[name="fillingPercentage"]`).simulate("change", {
-      target: { value: "0", name: "fillingPercentage" },
-    });
 
     sut.find("button").simulate("submit");
 
-    expect(fakeOnSubmit).toHaveBeenCalledTimes(1);
-    expect(fakeOnSubmit).toHaveBeenCalledWith({
-      xDimension: 10,
-      yDimension: 20,
-      fillingPercentage: 0,
-    });
-  });
-
-  it("should transform fillingPercentage from percents to fraction", () => {
-    const fakeOnSubmit = jest.fn();
-    const sut = mount(
-      <SettingsForm
-        gameSettings={defaultInitialSettings}
-        onSettingsSubmit={fakeOnSubmit}
-      />
-    );
-    sut.find(`input[name="fillingPercentage"]`).simulate("change", {
-      target: { value: "60", name: "fillingPercentage" },
-    });
-
-    sut.find("button").simulate("submit");
-
-    expect(fakeOnSubmit).toHaveBeenCalledTimes(1);
-    expect(fakeOnSubmit).toHaveBeenCalledWith({
-      ...defaultInitialSettings,
-      fillingPercentage: 0.6,
-    });
+    expect(fakeApplySettings).toHaveBeenCalledTimes(1);
   });
 
   it("should transform fillingPercentage from fraction to percents when displaying", () => {
     const sut = mount(
       <SettingsForm
-        gameSettings={{ ...defaultInitialSettings, fillingPercentage: 0.1 }}
-        onSettingsSubmit={jest.fn()}
+        gameSettings={{ ...defaultInitialSettings, fillingPercentage: 0.6 }}
+        onSettingsChange={jest.fn()}
+        applySettings={jest.fn()}
       />
     );
     const fillingPercentage = sut.find(`input[name="fillingPercentage"]`);
 
-    expect(fillingPercentage.prop("value")).toBe(10);
+    expect(fillingPercentage.prop("value")).toBe(60);
   });
 });

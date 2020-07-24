@@ -8,7 +8,8 @@ export const SettingsFormStory: React.FC<{}> = () => {
   return (
     <SettingsForm
       gameSettings={{ xDimension: 10, yDimension: 10, fillingPercentage: 0.1 }}
-      onSettingsSubmit={action("onSubmit")}
+      applySettings={action("onSubmit")}
+      onSettingsChange={action("onChange")}
     />
   );
 };

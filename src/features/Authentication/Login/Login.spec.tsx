@@ -1,10 +1,11 @@
 import { AppState } from "@/AppStore";
+import { GameStatus } from "@/features/Game";
 import { mount } from "enzyme";
 import React from "react";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import { AuthStatus, authStore } from "../authStore";
 import { Login } from ".";
+import { AuthStatus } from "../authStore";
 
 const store = configureMockStore<AppState>([])({
   auth: {
@@ -18,6 +19,8 @@ const store = configureMockStore<AppState>([])({
       fillingPercentage: 0,
       xDimension: 0,
       yDimension: 0,
+      status: GameStatus.Stopped,
+      speed: 10,
     },
   },
 });
@@ -42,17 +45,5 @@ describe("Login", () => {
     await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
 
     expect(mockHistory.push).toHaveBeenCalledWith("/");
-  });
-
-  it("should call auth api with userName", async () => {
-    const sut = mount(
-      <Provider store={store}>
-        <Login />
-      </Provider>
-    );
-
-    await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
-
-    expect(store.getActions()).toEqual([authStore.actions.login("John Doe")]);
   });
 });

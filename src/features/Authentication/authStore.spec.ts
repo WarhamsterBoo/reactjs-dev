@@ -13,13 +13,11 @@ describe("auth store", () => {
 
   it("should set in_progress status and userName at login action", () => {
     const initialState: AuthState = {
-      userName: undefined,
+      userName: "John Doe",
       status: AuthStatus.not_authenticated,
       loginError: undefined,
     };
-    expect(
-      authStore.reducer(initialState, authStore.actions.login("John Doe"))
-    ).toEqual({
+    expect(authStore.reducer(initialState, authStore.actions.login())).toEqual({
       userName: "John Doe",
       status: AuthStatus.in_progress,
       loginError: undefined,
@@ -32,9 +30,7 @@ describe("auth store", () => {
       status: AuthStatus.failed,
       loginError: "something went very wrong",
     };
-    expect(
-      authStore.reducer(initialState, authStore.actions.login("John Doe"))
-    ).toEqual({
+    expect(authStore.reducer(initialState, authStore.actions.login())).toEqual({
       userName: "John Doe",
       status: AuthStatus.in_progress,
       loginError: undefined,
@@ -88,4 +84,54 @@ describe("auth store", () => {
       }
     );
   });
+
+  it.each`
+    initialAuthState
+    ${AuthStatus.not_authenticated}
+    ${AuthStatus.failed}
+  `(
+    "should set userName at username_changes action if auth state $initialAuthState",
+    (initialAuthState) => {
+      const initialState: AuthState = {
+        userName: "John Doe",
+        status: AuthStatus.not_authenticated,
+        loginError: undefined,
+      };
+      expect(
+        authStore.reducer(
+          initialState,
+          authStore.actions.username_changes("Bob")
+        )
+      ).toEqual({
+        userName: "Bob",
+        status: AuthStatus.not_authenticated,
+        loginError: undefined,
+      });
+    }
+  );
+
+  it.each`
+    initialAuthState
+    ${AuthStatus.authenticated}
+    ${AuthStatus.in_progress}
+  `(
+    "should not set userName at username_changes action only if auth state $initialAuthState",
+    (initialAuthState) => {
+      const initialState: AuthState = {
+        userName: "John Doe",
+        status: initialAuthState,
+        loginError: undefined,
+      };
+      expect(
+        authStore.reducer(
+          initialState,
+          authStore.actions.username_changes("Bob")
+        )
+      ).toEqual({
+        userName: "John Doe",
+        status: initialAuthState,
+        loginError: undefined,
+      });
+    }
+  );
 });

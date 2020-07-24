@@ -1,25 +1,32 @@
 import { Button, InputText, Label } from "@/components";
-import React, { FormEvent, useCallback, useState } from "react";
+import React, { FormEvent, useCallback } from "react";
 import { Form } from "./NameForm.styled";
 
 interface NameFormProps {
-  onNameSubmit: (userName: string) => Promise<void>;
+  userName: string;
+  onUserNameChange: (name: string) => void;
+  onNameSubmit: () => void;
 }
 
-export const NameForm: React.FC<NameFormProps> = ({ onNameSubmit }) => {
-  const [userName, setUserName] = useState<string>("");
-
-  const onHandleInputChange = useCallback((ev: FormEvent<HTMLInputElement>) => {
-    const { value } = ev.target as HTMLInputElement;
-    setUserName(value);
-  }, []);
+export const NameForm: React.FC<NameFormProps> = ({
+  userName,
+  onUserNameChange,
+  onNameSubmit,
+}) => {
+  const onHandleInputChange = useCallback(
+    (ev: FormEvent<HTMLInputElement>) => {
+      const { value } = ev.target as HTMLInputElement;
+      onUserNameChange(value);
+    },
+    [onUserNameChange]
+  );
 
   const onHandleSubmit = useCallback(
     async (ev: FormEvent) => {
       ev.preventDefault();
-      await onNameSubmit(userName);
+      await onNameSubmit();
     },
-    [onNameSubmit, userName]
+    [onNameSubmit]
   );
 
   return (
