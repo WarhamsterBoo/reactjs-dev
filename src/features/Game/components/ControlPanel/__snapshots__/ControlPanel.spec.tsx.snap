@@ -3,7 +3,7 @@
 exports[`ControlPanel should render 1`] = `
 <Styled(div)>
   <Styled(button)
-    id="stop"
+    id="reset"
     onClick={[Function]}
   >
     Stop
@@ -15,7 +15,7 @@ exports[`ControlPanel should render 1`] = `
     Run
   </Styled(button)>
   <Styled(button)
-    id="pause"
+    id="stop"
     onClick={[Function]}
   >
     Pause

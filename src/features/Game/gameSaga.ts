@@ -1,6 +1,7 @@
-import { cancel, fork, put, select, take, delay } from "redux-saga/effects";
+import { cancel, delay, fork, put, select, take } from "redux-saga/effects";
+import { ControlAction } from "./components";
 import { GameSettings, gameStore } from "./gameStore";
-import { settingsSelector, gameSpeedSelector } from "./gameStoreSelectors";
+import { gameSpeedSelector, settingsSelector } from "./gameStoreSelectors";
 
 export function* watchSettingsChange() {
   while (true) {
@@ -23,30 +24,11 @@ export function* watchSettingsChange() {
 
 export function* watchingControlActions() {
   while (true) {
-    const controlAction = (yield take(
+    const controlAction: ControlAction = (yield take(
       gameStore.actions.executeControlAction.type
     )).payload;
 
-    switch (controlAction) {
-      case "run":
-        yield put(gameStore.actions.run());
-        break;
-      case "stop":
-        yield put(gameStore.actions.reset());
-        break;
-      case "pause":
-        yield put(gameStore.actions.stop());
-        break;
-      case "faster":
-        yield put(gameStore.actions.faster());
-        break;
-      case "slower":
-        yield put(gameStore.actions.slower());
-        break;
-      case "normal":
-        yield put(gameStore.actions.normal());
-        break;
-    }
+    yield put(gameStore.actions[controlAction]());
   }
 }
 
