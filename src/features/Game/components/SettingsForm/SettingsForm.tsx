@@ -56,7 +56,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
           Filling Percentage:
           <InputNumber
             min="0"
-            value={gameSettings.fillingPercentage * 100}
+            value={Math.floor(gameSettings.fillingPercentage * 100)}
             onChange={onHandleInputChange}
             name="fillingPercentage"
           />

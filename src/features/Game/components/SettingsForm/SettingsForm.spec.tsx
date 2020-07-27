@@ -1,12 +1,15 @@
 import { mount, shallow } from "enzyme";
 import React from "react";
 import { SettingsForm } from "./SettingsForm";
+import { GameSettings, GameStatus } from "../../gameStore";
 
 describe("SettingsForm", () => {
-  const defaultInitialSettings = {
+  const defaultInitialSettings: GameSettings = {
     xDimension: 10,
     yDimension: 10,
     fillingPercentage: 0,
+    speed: 10,
+    status: GameStatus.Stopped,
   };
 
   it("should render", () => {
@@ -63,16 +66,26 @@ describe("SettingsForm", () => {
     expect(fakeApplySettings).toHaveBeenCalledTimes(1);
   });
 
-  it("should transform fillingPercentage from fraction to percents when displaying", () => {
-    const sut = mount(
-      <SettingsForm
-        gameSettings={{ ...defaultInitialSettings, fillingPercentage: 0.6 }}
-        onSettingsChange={jest.fn()}
-        applySettings={jest.fn()}
-      />
-    );
-    const fillingPercentage = sut.find(`input[name="fillingPercentage"]`);
+  it.each`
+    fillingPercentageSetting | displayingFillingPercentage
+    ${0.6}                   | ${60}
+    ${0.07}                  | ${7}
+  `(
+    "should transform fillingPercentage from $fillingPercentageSetting to $displayingFillingPercentage when displaying",
+    ({ fillingPercentageSetting, displayingFillingPercentage }) => {
+      const sut = mount(
+        <SettingsForm
+          gameSettings={{
+            ...defaultInitialSettings,
+            fillingPercentage: fillingPercentageSetting,
+          }}
+          onSettingsChange={jest.fn()}
+          applySettings={jest.fn()}
+        />
+      );
+      const fillingPercentage = sut.find(`input[name="fillingPercentage"]`);
 
-    expect(fillingPercentage.prop("value")).toBe(60);
-  });
+      expect(fillingPercentage.prop("value")).toBe(displayingFillingPercentage);
+    }
+  );
 });
