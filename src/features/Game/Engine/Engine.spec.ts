@@ -19,16 +19,28 @@ describe("Engine", () => {
       }
     );
 
+    it("should throw if fillingPercentage less than 0", () => {
+      const act = () => Engine.firstGeneration(10, 10, -1);
+
+      expect(act).toThrow();
+    });
+
+    it("should throw if fillingPercentage greater than 100", () => {
+      const act = () => Engine.firstGeneration(10, 10, 101);
+
+      expect(act).toThrow();
+    });
+
     it.each`
       xDimension | yDimension | fillingPercentage | expectedAliveCount
       ${1}       | ${1}       | ${0}              | ${0}
-      ${1}       | ${1}       | ${1}              | ${1}
-      ${2}       | ${2}       | ${0.5}            | ${2}
-      ${2}       | ${2}       | ${0.25}           | ${1}
-      ${5}       | ${2}       | ${0.75}           | ${7}
-      ${5}       | ${5}       | ${1}              | ${25}
+      ${1}       | ${1}       | ${100}            | ${1}
+      ${2}       | ${2}       | ${50}             | ${2}
+      ${2}       | ${2}       | ${25}             | ${1}
+      ${5}       | ${2}       | ${75}             | ${7}
+      ${5}       | ${5}       | ${100}            | ${25}
       ${5}       | ${5}       | ${0}              | ${0}
-      ${5}       | ${5}       | ${0.6}            | ${15}
+      ${5}       | ${5}       | ${60}             | ${15}
     `(
       "should return population with $expectedAliveCount alive creatures with settings: {x: $xDimension, y: $yDimension, %: $fillingPercentage} ",
       ({ xDimension, yDimension, fillingPercentage, expectedAliveCount }) => {

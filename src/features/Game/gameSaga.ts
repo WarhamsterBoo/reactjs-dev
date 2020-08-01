@@ -10,7 +10,7 @@ export function* watchSettingsChange() {
     const newSettings: GameSettings = yield select(settingsSelector);
 
     const fillingPercentageIsInvalid =
-      newSettings.fillingPercentage < 0 || newSettings.fillingPercentage > 1;
+      newSettings.fillingPercentage < 0 || newSettings.fillingPercentage > 100;
     const fillingPercentageChanged =
       oldSettings.fillingPercentage != newSettings.fillingPercentage;
     const creturesSizeChanged =
