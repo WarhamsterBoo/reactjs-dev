@@ -44,8 +44,8 @@ describe("Engine", () => {
             creauresRow.filter((creature) => creature.isAlive).length,
           0
         );
-        expect(generatedCreatures.length).toBe(xDimension);
-        expect(generatedCreatures[0].length).toBe(yDimension);
+        expect(generatedCreatures.length).toBe(yDimension);
+        expect(generatedCreatures[0].length).toBe(xDimension);
         expect(numberOfAliveCreatures).toBe(expectedAliveCount);
       }
     );
