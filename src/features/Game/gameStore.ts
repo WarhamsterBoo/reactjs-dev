@@ -109,7 +109,9 @@ export const gameStore = createSlice({
     stop: (state, _: AnyAction) => {
       state.settings.status = GameStatus.Paused;
     },
-    reset: (__, _: AnyAction) => initialState,
+    reset: (state, _: AnyAction) => {
+      state.settings.status = GameStatus.Stopped;
+    },
     faster: (state, _: AnyAction) => {
       if (state.settings.speed > 0) {
         state.settings.speed -= 1;
