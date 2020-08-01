@@ -68,13 +68,6 @@ export const gameStore = createSlice({
     changeSettings: (state, action: PayloadAction<GameSettings>) => {
       state.settings = action.payload;
     },
-    resizeCreatures: (state, _: AnyAction) => {
-      state.creatures = changeCreaturesSize(
-        state.creatures,
-        state.settings.xDimension,
-        state.settings.yDimension
-      );
-    },
     generateNewCreatures: (state, _: AnyAction) => {
       const { xDimension, yDimension, fillingPercentage } = {
         ...state.settings,
