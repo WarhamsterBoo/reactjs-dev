@@ -134,4 +134,22 @@ describe("auth store", () => {
       });
     }
   );
+
+  it("should trim spaces in userName", () => {
+    const initialState: AuthState = {
+      userName: undefined,
+      status: AuthStatus.not_authenticated,
+      loginError: undefined,
+    };
+    expect(
+      authStore.reducer(
+        initialState,
+        authStore.actions.username_changes("    Bob    ")
+      )
+    ).toEqual({
+      userName: "Bob",
+      status: AuthStatus.not_authenticated,
+      loginError: undefined,
+    });
+  });
 });
