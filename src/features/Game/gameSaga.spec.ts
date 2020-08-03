@@ -11,17 +11,17 @@ import { gameSpeedSelector, settingsSelector } from "./gameStoreSelectors";
 
 describe("game saga", () => {
   describe("watchSettingChange", () => {
-    it("should not apply settings if fillingPercentage > 1", () => {
+    it("should not apply settings if fillingPercentage > 100", () => {
       const sut = testSaga(watchSettingsChange);
 
       sut
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
+        .next({ fillingPercentage: 50, xDimension: 1, yDimension: 1 })
         .take(gameStore.actions.applySettings().type)
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 1.5, xDimension: 1, yDimension: 1 })
+        .next({ fillingPercentage: 150, xDimension: 1, yDimension: 1 })
         .select(settingsSelector);
     });
 
@@ -31,11 +31,11 @@ describe("game saga", () => {
       sut
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
+        .next({ fillingPercentage: 50, xDimension: 1, yDimension: 1 })
         .take(gameStore.actions.applySettings().type)
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: -0.1, xDimension: 1, yDimension: 1 })
+        .next({ fillingPercentage: -10, xDimension: 1, yDimension: 1 })
         .select(settingsSelector);
     });
 
@@ -45,11 +45,11 @@ describe("game saga", () => {
       sut
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
+        .next({ fillingPercentage: 50, xDimension: 1, yDimension: 1 })
         .take(gameStore.actions.applySettings().type)
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 2, yDimension: 2 })
+        .next({ fillingPercentage: 50, xDimension: 2, yDimension: 2 })
         .put(gameStore.actions.resizeCreatures())
         .next()
         .select(settingsSelector);
@@ -61,11 +61,11 @@ describe("game saga", () => {
       sut
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
+        .next({ fillingPercentage: 50, xDimension: 1, yDimension: 1 })
         .take(gameStore.actions.applySettings().type)
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 0.7, xDimension: 2, yDimension: 2 })
+        .next({ fillingPercentage: 70, xDimension: 2, yDimension: 2 })
         .put(gameStore.actions.generateNewCreatures())
         .next()
         .select(settingsSelector);
@@ -77,11 +77,11 @@ describe("game saga", () => {
       sut
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
+        .next({ fillingPercentage: 50, xDimension: 1, yDimension: 1 })
         .take(gameStore.actions.applySettings().type)
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 0.7, xDimension: 1, yDimension: 1 })
+        .next({ fillingPercentage: 70, xDimension: 1, yDimension: 1 })
         .put(gameStore.actions.generateNewCreatures())
         .next()
         .select(settingsSelector);

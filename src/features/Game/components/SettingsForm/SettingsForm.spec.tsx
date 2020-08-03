@@ -21,14 +21,54 @@ describe("SettingsForm", () => {
       />
     );
 
-    expect(sut).toMatchSnapshot();
+    expect(sut).toMatchInlineSnapshot(`
+      <Styled(form)
+        onSubmit={[Function]}
+      >
+        <Styled(fieldset)>
+          <Styled(legend)>
+            Game settings
+          </Styled(legend)>
+          <Styled(label)>
+            X dimension:
+            <InputNumber
+              name="xDimension"
+              onChange={[Function]}
+              value={10}
+            />
+          </Styled(label)>
+          <Styled(label)>
+            Y dimension:
+            <InputNumber
+              name="yDimension"
+              onChange={[Function]}
+              value={10}
+            />
+          </Styled(label)>
+          <Styled(label)>
+            Filling Percentage:
+            <InputNumber
+              max="100"
+              min="0"
+              name="fillingPercentage"
+              onChange={[Function]}
+              value={0}
+            />
+          </Styled(label)>
+          <Styled(button)>
+            Apply
+          </Styled(button)>
+        </Styled(fieldset)>
+      </Styled(form)>
+    `);
   });
 
   it.each`
-    target                                                    | expectedSettings
-    ${{ target: { value: "1", name: "xDimension" } }}         | ${{ ...defaultInitialSettings, xDimension: 1 }}
-    ${{ target: { value: "1", name: "yDimension" } }}         | ${{ ...defaultInitialSettings, yDimension: 1 }}
-    ${{ target: { value: "60", name: "fillingPercentage" } }} | ${{ ...defaultInitialSettings, fillingPercentage: 0.6 }}
+    target                                                     | expectedSettings
+    ${{ target: { value: "1", name: "xDimension" } }}          | ${{ ...defaultInitialSettings, xDimension: 1 }}
+    ${{ target: { value: "1", name: "yDimension" } }}          | ${{ ...defaultInitialSettings, yDimension: 1 }}
+    ${{ target: { value: "60", name: "fillingPercentage" } }}  | ${{ ...defaultInitialSettings, fillingPercentage: 60 }}
+    ${{ target: { value: "100", name: "fillingPercentage" } }} | ${{ ...defaultInitialSettings, fillingPercentage: 100 }}
   `(
     "should call onSettingsChange with $expectedSettings when $target.target.name changes to $target.target.value",
     ({ target, expectedSettings }) => {
@@ -65,27 +105,4 @@ describe("SettingsForm", () => {
 
     expect(fakeApplySettings).toHaveBeenCalledTimes(1);
   });
-
-  it.each`
-    fillingPercentageSetting | displayingFillingPercentage
-    ${0.6}                   | ${60}
-    ${0.07}                  | ${7}
-  `(
-    "should transform fillingPercentage from $fillingPercentageSetting to $displayingFillingPercentage when displaying",
-    ({ fillingPercentageSetting, displayingFillingPercentage }) => {
-      const sut = mount(
-        <SettingsForm
-          gameSettings={{
-            ...defaultInitialSettings,
-            fillingPercentage: fillingPercentageSetting,
-          }}
-          onSettingsChange={jest.fn()}
-          applySettings={jest.fn()}
-        />
-      );
-      const fillingPercentage = sut.find(`input[name="fillingPercentage"]`);
-
-      expect(fillingPercentage.prop("value")).toBe(displayingFillingPercentage);
-    }
-  );
 });
