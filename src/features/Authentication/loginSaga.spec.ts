@@ -161,5 +161,33 @@ describe("login flow", () => {
         .put(authStore.actions.login_failed("something went wrong"))
         .silentRun();
     });
+
+    it("should not login user if username is empty", () => {
+      const sut = expectSaga(loginSaga)
+        .provide([[call(userSessionStorage.getCurrentSession), undefined]])
+        .withReducer(appReducer)
+        .withState<AppState>({
+          game: {
+            settings: {
+              xDimension: 1,
+              yDimension: 1,
+              fillingPercentage: 0,
+              status: GameStatus.Stopped,
+              speed: 10,
+            },
+            creatures: [],
+          },
+          auth: {
+            userName: "",
+            status: AuthStatus.not_authenticated,
+            loginError: undefined,
+          },
+        })
+        .dispatch(authStore.actions.login());
+
+      return sut
+        .put(authStore.actions.login_failed("user name cannot be empty"))
+        .silentRun();
+    });
   });
 });
