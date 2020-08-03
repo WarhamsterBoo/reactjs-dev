@@ -6,7 +6,46 @@ describe("ControlPanel", () => {
   it("should render", () => {
     const sut = shallow(<ControlPanel onControlButtonClick={jest.fn()} />);
 
-    expect(sut).toMatchSnapshot();
+    expect(sut).toMatchInlineSnapshot(`
+      <Styled(div)>
+        <Styled(button)
+          id="reset"
+          onClick={[Function]}
+        >
+          Reset
+        </Styled(button)>
+        <Styled(button)
+          id="run"
+          onClick={[Function]}
+        >
+          Run
+        </Styled(button)>
+        <Styled(button)
+          id="stop"
+          onClick={[Function]}
+        >
+          Pause
+        </Styled(button)>
+        <Styled(button)
+          id="faster"
+          onClick={[Function]}
+        >
+          Faster
+        </Styled(button)>
+        <Styled(button)
+          id="normal"
+          onClick={[Function]}
+        >
+          Normal
+        </Styled(button)>
+        <Styled(button)
+          id="slower"
+          onClick={[Function]}
+        >
+          Slower
+        </Styled(button)>
+      </Styled(div)>
+    `);
   });
 
   it.each`

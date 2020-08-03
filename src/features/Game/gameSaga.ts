@@ -26,6 +26,10 @@ export function* watchingControlActions() {
     )).payload;
 
     yield put(gameStore.actions[controlAction]());
+
+    if (controlAction == "reset") {
+      yield put(gameStore.actions.generateNewCreatures());
+    }
   }
 }
 
