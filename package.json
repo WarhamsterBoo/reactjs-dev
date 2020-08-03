@@ -14,8 +14,9 @@
     "loki-test": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
     "loki-update": "npx loki",
     "loki-approve": "npx loki approve",
+    "ts-check": "npx tsc -p tsconfig.json --noEmit",
     "test": "npm run lint && npm run jest-test && npm run loki-test",
-    "check": "npm run lint && npm run jest-test"
+    "check": "npm run lint && npm run ts-check && npm run jest-test"
   },
   "repository": {
     "type": "git",
