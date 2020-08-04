@@ -7,12 +7,6 @@ const config: webpack.Configuration = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     alias: {
-      shared: path.resolve(__dirname, "src/components/Shared/index"),
-      styles: path.resolve(__dirname, "src/styles"),
-      components: path.resolve(__dirname, "src/components"),
-      api: path.resolve(__dirname, "src/api"),
-      hoc: path.resolve(__dirname, "src/hoc"),
-      screens: path.resolve(__dirname, "src/screens"),
       "@": path.resolve(__dirname, "src"),
     },
   },

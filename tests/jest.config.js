@@ -11,5 +11,6 @@ module.exports = {
   moduleNameMapper: {
     "@/(.*)": "<rootDir>/src/$1",
   },
-  modulePaths: ["src/", "node_modules"],
+  testPathIgnorePatterns: ["<rootDir>/tests/e2e"],
+  modulePaths: ["src/", "node_modules"]
 };
