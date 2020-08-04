@@ -1,11 +1,17 @@
 import "expect-puppeteer";
 
 describe('App', () => {
-    beforeAll(async () => {
+    beforeEach(async () => {
         await page.goto('http://localhost:8080/login');
     });
 
-    it('should', async () => {
+    it('user should be able to login and logout', async () => {
+        await expect(page).toMatch('Hello there!');
+        await expect(page).toFill('input', 'User')
+        await expect(page).toClick('button', { text: 'Start' })
+        await expect(page).toMatch('Checking your identity')
+        await expect(page).toMatch('Hello, User', {timeout: 10000})
+        await expect(page).toClick('button', { text: 'Logout' })
         await expect(page).toMatch('Hello there!');
     });
 });
