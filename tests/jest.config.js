@@ -12,5 +12,13 @@ module.exports = {
     "@/(.*)": "<rootDir>/src/$1",
   },
   testPathIgnorePatterns: ["/tests/e2e"],
-  modulePaths: ["src/", "node_modules"]
+  modulePaths: ["src/", "node_modules"],
+  coverageThreshold: {
+    global: {
+      branches: 85,
+      functions: 85,
+      lines: 85,
+      statements: 85,
+    },
+  },
 };

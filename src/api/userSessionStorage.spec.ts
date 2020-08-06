@@ -1,35 +1,35 @@
-import { userSessionStorage } from './userSessionStorage'
+import { userSessionStorage } from "./userSessionStorage";
 
 describe("userSessionStorage", () => {
-    afterEach(() => {
-        localStorage.clear()
-    })
+  afterEach(() => {
+    localStorage.clear();
+  });
 
-    it("should create new session in localstorage", () => {
-        userSessionStorage.newSession("John Doe");
+  it("should create new session in localstorage", () => {
+    userSessionStorage.newSession("John Doe");
 
-        expect(localStorage.setItem).toBeCalledWith("username", "John Doe")
-    })
+    expect(localStorage.setItem).toBeCalledWith("username", "John Doe");
+  });
 
-    it("should create remove session from localstorage", () => {
-        userSessionStorage.endSession();
+  it("should create remove session from localstorage", () => {
+    userSessionStorage.endSession();
 
-        expect(localStorage.removeItem).toBeCalledWith("username")
-    })
+    expect(localStorage.removeItem).toBeCalledWith("username");
+  });
 
-    it("should retrieve existed user session", () => {
-        localStorage.__STORE__["username"] = "John Doe"
+  it("should retrieve existed user session", () => {
+    localStorage.__STORE__["username"] = "John Doe";
 
-        expect(userSessionStorage.getCurrentSession()).toBe("John Doe")
-    })
+    expect(userSessionStorage.getCurrentSession()).toBe("John Doe");
+  });
 
-    it("should return undefinedis user session does not exists", () => {
-        expect(userSessionStorage.getCurrentSession()).toBe(undefined)
-    })
+  it("should return undefinedis user session does not exists", () => {
+    expect(userSessionStorage.getCurrentSession()).toBe(undefined);
+  });
 
-    it("should indicate that session exists", () => {
-        localStorage.__STORE__["username"] = "John Doe"
+  it("should indicate that session exists", () => {
+    localStorage.__STORE__["username"] = "John Doe";
 
-        expect(userSessionStorage.hasActiveSession()).toBeTruthy()
-    })
-})
+    expect(userSessionStorage.hasActiveSession()).toBeTruthy();
+  });
+});

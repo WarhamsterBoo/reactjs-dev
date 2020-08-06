@@ -13,12 +13,13 @@
     "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./src/",
     "jest-test": "npx jest --config=./tests/jest.config.js",
     "jest-e2e": "npx jest --config=./tests/jest.e2e.config.js",
+    "jest-coverage": "npx jest --coverage --config=./tests/jest.config.js",
     "loki-test": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
     "loki-update": "npx loki",
     "loki-approve": "npx loki approve",
     "ts-check": "npx tsc -p tsconfig.json --noEmit",
     "check": "npm run lint && npm run ts-check && npm run jest-test && npm run jest-e2e",
-    "test": "npm run check && npm run loki-test"
+    "test": "npm run check && npm run jest-coverage && npm run loki-test"
   },
   "repository": {
     "type": "git",

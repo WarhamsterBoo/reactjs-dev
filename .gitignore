@@ -2,6 +2,7 @@
 /dist/
 /.vscode/
 /storybook-static/
+/coverage/
 # stryker temp files
 .stryker-tmp
 /reports/
