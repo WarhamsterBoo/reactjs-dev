@@ -2,7 +2,7 @@ module.exports = {
   clearMocks: true,
   coverageDirectory: "coverage",
   testEnvironment: "jsdom",
-  setupFilesAfterEnv: ["<rootDir>/tests/setupTests.js"],
+  setupFilesAfterEnv: ["<rootDir>/tests/setupTests.js", "jest-localstorage-mock"],
   transform: {
     "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
   },
@@ -11,6 +11,6 @@ module.exports = {
   moduleNameMapper: {
     "@/(.*)": "<rootDir>/src/$1",
   },
-  testPathIgnorePatterns: ["<rootDir>/tests/e2e"],
+  testPathIgnorePatterns: ["/tests/e2e"],
   modulePaths: ["src/", "node_modules"]
 };
