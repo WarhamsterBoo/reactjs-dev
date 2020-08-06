@@ -20,6 +20,22 @@ describe("login flow", () => {
         .put(authStore.actions.username_changes("Jane Doe"))
         .silentRun();
     });
+
+    it.each`
+      userStorage
+      ${undefined}
+      ${""}
+    `("should not dispatch login action if user session does not exists in storage", ({ userStorage }) => {
+      const sut = expectSaga(restoreCurrentSession).provide([
+        [call(userSessionStorage.getCurrentSession), userStorage],
+      ]);
+
+      return sut
+        .run()
+        .then(({ effects }) => {
+          expect(effects.put).toBeUndefined()
+        })
+    })
   });
 
   describe("loginSaga", () => {
