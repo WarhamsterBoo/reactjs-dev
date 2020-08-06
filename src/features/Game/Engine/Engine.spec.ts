@@ -22,13 +22,13 @@ describe("Engine", () => {
     it("should throw if fillingPercentage less than 0", () => {
       const act = () => Engine.firstGeneration(10, 10, -1);
 
-      expect(act).toThrow();
+      expect(act).toThrow("fillingPercentage cannot be less than 0");
     });
 
     it("should throw if fillingPercentage greater than 100", () => {
       const act = () => Engine.firstGeneration(10, 10, 101);
 
-      expect(act).toThrow();
+      expect(act).toThrow("fillingPercentage cannot be greater than 100");
     });
 
     it.each`
