@@ -5,6 +5,7 @@ import {
   gameLoop,
   watchingControlActions,
   watchSettingsChange,
+  gameSaga,
 } from "./gameSaga";
 import { gameStore } from "./gameStore";
 import { gameSpeedSelector, settingsSelector } from "./gameStoreSelectors";
@@ -35,7 +36,12 @@ describe("game saga", () => {
         .take(gameStore.actions.applySettings().type);
     });
 
-    it("should generate new creatures on apply settings", () => {
+    it.each`
+      fillingPercentage
+      ${0}
+      ${100}
+      ${50}
+    `("should generate new creatures on apply settings", ({fillingPercentage}) => {
       const sut = testSaga(watchSettingsChange);
 
       sut
@@ -43,7 +49,7 @@ describe("game saga", () => {
         .take(gameStore.actions.applySettings().type)
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 50, xDimension: 2, yDimension: 2 })
+        .next({ fillingPercentage: fillingPercentage, xDimension: 2, yDimension: 2 })
         .put(gameStore.actions.generateNewCreatures())
         .next()
         .take(gameStore.actions.applySettings().type);
@@ -59,33 +65,45 @@ describe("game saga", () => {
         .take(gameStore.actions.executeControlAction("run").type)
         .next({ payload: "run" })
         .put(gameStore.actions.run())
-        .back(2)
+        .next()
+        .take(gameStore.actions.executeControlAction("run").type)
+        .back(3)
         .next()
         .take(gameStore.actions.executeControlAction("reset").type)
         .next({ payload: "reset" })
         .put(gameStore.actions.reset())
         .next()
         .put(gameStore.actions.generateNewCreatures())
-        .back(3)
+        .next()
+        .take(gameStore.actions.executeControlAction("reset").type)
+        .back(4)
         .next()
         .take(gameStore.actions.executeControlAction("stop").type)
         .next({ payload: "stop" })
         .put(gameStore.actions.stop())
-        .back(2)
+        .next()
+        .take(gameStore.actions.executeControlAction("stop").type)
+        .back(3)
         .next()
         .take(gameStore.actions.executeControlAction("faster").type)
         .next({ payload: "faster" })
         .put(gameStore.actions.faster())
-        .back(2)
+        .next()
+        .take(gameStore.actions.executeControlAction("faster").type)
+        .back(3)
         .next()
         .take(gameStore.actions.executeControlAction("slower").type)
         .next({ payload: "slower" })
         .put(gameStore.actions.slower())
-        .back(2)
+        .next()
+        .take(gameStore.actions.executeControlAction("slower").type)
+        .back(3)
         .next()
         .take(gameStore.actions.executeControlAction("normal").type)
         .next({ payload: "normal" })
-        .put(gameStore.actions.normal());
+        .put(gameStore.actions.normal())
+        .next()
+        .take(gameStore.actions.executeControlAction("normal").type);
     });
   });
 
@@ -128,4 +146,17 @@ describe("game saga", () => {
         .delay(1 * 100);
     });
   });
+
+  it("should start sagas", () =>{
+    const sut = testSaga(gameSaga)
+
+    sut
+      .next()
+      .fork(watchSettingsChange)
+      .next()
+      .fork(watchingControlActions)
+      .next()
+      .fork(gameFlow)
+      .finish()
+  })
 });
