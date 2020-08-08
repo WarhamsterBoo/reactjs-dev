@@ -52,7 +52,7 @@ describe("game saga", () => {
           .next()
           .select(settingsSelector)
           .next({
-            fillingPercentage: fillingPercentage,
+            fillingPercentage,
             xDimension: 2,
             yDimension: 2,
           })
@@ -64,17 +64,31 @@ describe("game saga", () => {
   });
 
   describe("watchingControlActions", () => {
-    it("should dispatch corresponding actions", () => {
+    it.each`
+      controlAction | storeAction
+      ${"run"}      | ${() => gameStore.actions.run()}
+      ${"stop"}     | ${() => gameStore.actions.stop()}
+      ${"faster"}   | ${() => gameStore.actions.faster()}
+      ${"slower"}   | ${() => gameStore.actions.slower()}
+      ${"normal"}   | ${() => gameStore.actions.normal()}
+    `(
+      "should dispatch corresponding actions on $controlAction",
+      ({ controlAction, storeAction }) => {
+        const sut = testSaga(watchingControlActions);
+
+        sut
+          .next()
+          .take(gameStore.actions.executeControlAction(controlAction).type)
+          .next({ payload: controlAction })
+          .put(storeAction())
+          .next(gameStore.actions.executeControlAction(controlAction).type);
+      }
+    );
+
+    it("should dispatch reset and generateNewCreatures actions on reset", () => {
       const sut = testSaga(watchingControlActions);
 
       sut
-        .next()
-        .take(gameStore.actions.executeControlAction("run").type)
-        .next({ payload: "run" })
-        .put(gameStore.actions.run())
-        .next()
-        .take(gameStore.actions.executeControlAction("run").type)
-        .back(3)
         .next()
         .take(gameStore.actions.executeControlAction("reset").type)
         .next({ payload: "reset" })
@@ -82,35 +96,7 @@ describe("game saga", () => {
         .next()
         .put(gameStore.actions.generateNewCreatures())
         .next()
-        .take(gameStore.actions.executeControlAction("reset").type)
-        .back(4)
-        .next()
-        .take(gameStore.actions.executeControlAction("stop").type)
-        .next({ payload: "stop" })
-        .put(gameStore.actions.stop())
-        .next()
-        .take(gameStore.actions.executeControlAction("stop").type)
-        .back(3)
-        .next()
-        .take(gameStore.actions.executeControlAction("faster").type)
-        .next({ payload: "faster" })
-        .put(gameStore.actions.faster())
-        .next()
-        .take(gameStore.actions.executeControlAction("faster").type)
-        .back(3)
-        .next()
-        .take(gameStore.actions.executeControlAction("slower").type)
-        .next({ payload: "slower" })
-        .put(gameStore.actions.slower())
-        .next()
-        .take(gameStore.actions.executeControlAction("slower").type)
-        .back(3)
-        .next()
-        .take(gameStore.actions.executeControlAction("normal").type)
-        .next({ payload: "normal" })
-        .put(gameStore.actions.normal())
-        .next()
-        .take(gameStore.actions.executeControlAction("normal").type);
+        .take(gameStore.actions.executeControlAction("reset").type);
     });
   });
 

@@ -50,7 +50,10 @@ describe("Engine", () => {
           fillingPercentage
         );
 
-        const numberOfAliveCreatures = countByFilter(generatedCreatures, (creature) => creature.isAlive)
+        const numberOfAliveCreatures = countByFilter(
+          generatedCreatures,
+          (creature) => creature.isAlive
+        );
 
         expect(generatedCreatures.length).toBe(yDimension);
         expect(generatedCreatures[0].length).toBe(xDimension);
