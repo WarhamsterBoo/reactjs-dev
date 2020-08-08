@@ -23,6 +23,14 @@ export const create = {
         status: AuthStatus.authenticated,
         ...overrides
     }),
+    appState: (overrides?: Partial<AppState>): AppState => ({
+        auth: create.authState(),
+        game: {
+            creatures: [],
+            settings: create.gameSettings()
+        },
+        ...overrides
+    }),
     mockStore: (stateOverrides?: Partial<AppState>) =>
         configureMockStore<AppState>([])({
             auth: create.defaultAuthState(),
@@ -31,5 +39,5 @@ export const create = {
                 settings: create.gameSettings(),
             },
             ...stateOverrides
-        })
+        }),
 }
