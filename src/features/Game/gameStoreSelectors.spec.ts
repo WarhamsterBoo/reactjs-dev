@@ -1,33 +1,28 @@
-import { AppState } from "@/AppStore";
-import { AuthStatus } from "@/features/Authentication";
+import { create } from "tests/dsl/create";
 import { GameSettings, GameStatus } from "./gameStore";
 import {
-  settingsSelector,
-  gameStatusSelector,
   gameSpeedSelector,
+  gameStatusSelector,
+  settingsSelector,
 } from "./gameStoreSelectors";
-import { create } from "tests/dsl/create";
 
 describe("gameStoreSelectors", () => {
-  const settings: GameSettings = create.gameSettings({
-    xDimension: 2,
-    yDimension: 3,
-    fillingPercentage: 50,
-    speed: 15,
-  });
-  const appState: AppState = {
-    auth: {
-      status: AuthStatus.authenticated,
-      userName: "Bob",
-      loginError: undefined,
-    },
-    game: {
-      creatures: [],
-      settings,
-    },
-  };
   it("should select settings", () => {
-    expect(settingsSelector(appState)).toEqual(settings);
+    const settings: GameSettings = create.gameSettings({
+      xDimension: 2,
+      yDimension: 3,
+      fillingPercentage: 50,
+      speed: 15,
+    });
+    expect(
+      settingsSelector(
+        create.appState({
+          game: create.gameState({
+            settings,
+          }),
+        })
+      )
+    ).toEqual(settings);
   });
 
   it.each`
@@ -37,17 +32,29 @@ describe("gameStoreSelectors", () => {
     ${GameStatus.Paused}
   `("should correctly select $gameStatus game status", ({ gameStatus }) => {
     expect(
-      gameStatusSelector({
-        ...appState,
-        game: {
-          ...appState.game,
-          settings: { ...appState.game.settings, status: gameStatus },
-        },
-      })
+      gameStatusSelector(
+        create.appState({
+          game: create.gameState({
+            settings: create.gameSettings({
+              status: gameStatus,
+            }),
+          }),
+        })
+      )
     ).toEqual(gameStatus);
   });
 
   it("should select game speed", () => {
-    expect(gameSpeedSelector(appState)).toEqual(15);
+    expect(
+      gameSpeedSelector(
+        create.appState({
+          game: create.gameState({
+            settings: create.gameSettings({
+              speed: 19,
+            }),
+          }),
+        })
+      )
+    ).toEqual(19);
   });
 });
