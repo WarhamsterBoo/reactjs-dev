@@ -1,5 +1,5 @@
 import { ALIVE, DEAD } from "@/features/Game";
-import { matrixGenerator } from "@/utils/arrayUtils";
+import { matrixGenerator, countByFilter } from "@/utils/arrayUtils";
 import { Engine } from "./Engine";
 
 describe("Engine", () => {
@@ -50,12 +50,8 @@ describe("Engine", () => {
           fillingPercentage
         );
 
-        const numberOfAliveCreatures = generatedCreatures.reduce<number>(
-          (accumulator, creauresRow) =>
-            accumulator +
-            creauresRow.filter((creature) => creature.isAlive).length,
-          0
-        );
+        const numberOfAliveCreatures = countByFilter(generatedCreatures, (creature) => creature.isAlive)
+
         expect(generatedCreatures.length).toBe(yDimension);
         expect(generatedCreatures[0].length).toBe(xDimension);
         expect(numberOfAliveCreatures).toBe(expectedAliveCount);

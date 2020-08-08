@@ -1,3 +1,4 @@
+import { DEAD } from "@/features/Game/gameStore";
 import { mount, shallow } from "enzyme";
 import React from "react";
 import { CreatureState, World } from "./World";
@@ -14,7 +15,7 @@ describe("World", () => {
   });
 
   it("should render with 1 x 1 size and creature is dead", () => {
-    const creatures: CreatureState[][] = [[{ isAlive: false }]];
+    const creatures: CreatureState[][] = [[DEAD]];
 
     const sut = shallow(<World creatures={creatures} onClick={jest.fn()} />);
 
@@ -23,9 +24,9 @@ describe("World", () => {
 
   it("should render with 2 x 2 size filled with creatures", () => {
     const creatures: CreatureState[][] = [
-      [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
-      [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
-      [{ isAlive: false }, { isAlive: false }, { isAlive: false }],
+      [DEAD, DEAD, DEAD],
+      [DEAD, DEAD, DEAD],
+      [DEAD, DEAD, DEAD],
     ];
 
     const sut = shallow(<World creatures={creatures} onClick={jest.fn()} />);
@@ -34,7 +35,7 @@ describe("World", () => {
   });
 
   it("should call onClick callback with passed coordinates", () => {
-    const creatures: CreatureState[][] = [[{ isAlive: false }]];
+    const creatures: CreatureState[][] = [[DEAD]];
     const fakeOnClick = jest.fn();
     const sut = mount(<World creatures={creatures} onClick={fakeOnClick} />);
 
