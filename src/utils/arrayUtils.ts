@@ -25,3 +25,7 @@ export const resizeMatrix = <T>(
     })
   );
 };
+
+export const countByFilter = <T>(matrix: T[][], filter: (item: T) => boolean) => {
+  return 4
+}

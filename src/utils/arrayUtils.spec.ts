@@ -1,7 +1,7 @@
-import { resizeMatrix } from "./arrayUtils";
+import { resizeMatrix, countByFilter } from "./arrayUtils";
 
 describe("arrayUtils", () => {
-  describe("resizeArray", () => {
+  describe("resizeMatrix", () => {
     it("should return same array if new size is equal to previous size", () => {
       const initialArray = [
         [1, 2],
@@ -76,4 +76,16 @@ describe("arrayUtils", () => {
       ]);
     });
   });
+
+  describe("countByFilter", () => {
+    it("should count number of items that matches filter", () => {
+      const matrix = [
+        [1, -1, 5],
+        [-9, 0, 6],
+        [-5,-7, -8]
+      ];
+
+      expect(countByFilter(matrix, (item) => item > 0)).toBe(4)
+    })
+  })
 });
