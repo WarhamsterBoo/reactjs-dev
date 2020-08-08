@@ -1,5 +1,6 @@
 import { mountWithMockStore } from "tests/dsl/mountWithMockStore";
 import { Login } from ".";
+import React from "react";
 
 const mockHistory = { push: jest.fn() };
 jest.mock("react-router-dom", () => ({
@@ -8,7 +9,7 @@ jest.mock("react-router-dom", () => ({
 
 describe("Login", () => {
   it("should redirect to game screen after auth", async () => {
-    const { sut } = mountWithMockStore(Login);
+    const { sut } = mountWithMockStore(<Login />);
 
     await (sut.find("NameForm").prop("onNameSubmit") as Function)("John Doe");
 

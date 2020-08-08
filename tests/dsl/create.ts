@@ -18,12 +18,13 @@ export const create = {
         userName: undefined,
         ...overrides
     }),
-    mockStore: () =>
+    mockStore: (stateOverrides?: Partial<AppState>) =>
         configureMockStore<AppState>([])({
             auth: create.authState(),
             game: {
                 creatures: [],
                 settings: create.gameSettings(),
             },
+            ...stateOverrides
         })
 }

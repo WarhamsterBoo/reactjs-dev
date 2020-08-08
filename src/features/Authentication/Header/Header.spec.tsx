@@ -1,6 +1,7 @@
 import { authStore } from "@/features/Authentication";
 import { mountWithMockStore } from "tests/dsl/mountWithMockStore";
 import { Header } from "./Header";
+import React from "react";
 
 const mockHistory = { push: jest.fn() };
 jest.mock("react-router-dom", () => ({
@@ -9,7 +10,7 @@ jest.mock("react-router-dom", () => ({
 
 describe("Header", () => {
   it("should call logOutUser function prop when Logout button clicked", () => {
-    const { sut, store } = mountWithMockStore(Header);
+    const { sut, store } = mountWithMockStore(<Header />);
 
     sut.find("Styled(button)").simulate("click");
 
@@ -17,7 +18,7 @@ describe("Header", () => {
   });
 
   it("should redirect to /login when Logout button clicked", () => {
-    const { sut } = mountWithMockStore(Header);
+    const { sut } = mountWithMockStore(<Header />);
 
     sut.find("Styled(button)").simulate("click");
 
