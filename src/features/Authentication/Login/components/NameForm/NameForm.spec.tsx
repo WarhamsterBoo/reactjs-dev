@@ -1,5 +1,6 @@
 import { mount, shallow } from "enzyme";
 import React from "react";
+import { simulateChange } from "tests/dsl/enzymeHelpers";
 import { NameForm } from "./NameForm";
 
 describe("Name Form", () => {
@@ -12,7 +13,26 @@ describe("Name Form", () => {
       />
     );
 
-    expect(sut).toMatchSnapshot();
+    expect(sut).toMatchInlineSnapshot(`
+      <Styled(form)
+        onSubmit={[Function]}
+      >
+        <Styled(label)>
+          Hello there!
+        </Styled(label)>
+        <InputText
+          onChange={[Function]}
+          placeholder="Enter your name"
+          required={true}
+          value="Bob"
+        />
+        <Styled(button)
+          type="submit"
+        >
+          Start
+        </Styled(button)>
+      </Styled(form)>
+    `);
   });
 
   it("should call onLoginNameChange when loginName changes in input", () => {
@@ -25,12 +45,7 @@ describe("Name Form", () => {
       />
     );
 
-    sut
-      .find(`input[type="text"]`)
-      .at(0)
-      .simulate("change", {
-        target: { value: "John Doe", name: "name" },
-      });
+    simulateChange(sut.find(`input[type="text"]`), "John Doe");
 
     expect(onLoginNameChanges).toHaveBeenCalledTimes(1);
     expect(onLoginNameChanges).toHaveBeenCalledWith("John Doe");
@@ -45,9 +60,7 @@ describe("Name Form", () => {
         onNameSubmit={fakeOnSubmit}
       />
     );
-    sut.find(`input[type="text"]`).simulate("change", {
-      target: { value: "Jane Doe" },
-    });
+    simulateChange(sut.find(`input[type="text"]`), "John Doe");
 
     sut.find("button").simulate("submit");
 
