@@ -10,26 +10,18 @@ import {
 } from "./gameStore";
 import { matrixGenerator } from "@/utils/arrayUtils";
 import { Engine } from "./Engine";
+import { create } from "tests/dsl/create";
 
 describe("game store", () => {
   const defaultState: GameState = {
-    settings: {
-      xDimension: 10,
-      yDimension: 10,
-      fillingPercentage: 0,
-      status: GameStatus.Stopped,
-      speed: 10,
-    },
+    settings: create.gameSettings(),
     creatures: matrixGenerator<Creature>(10, 10, DEAD),
   };
 
-  const initialSettings: GameSettings = {
+  const initialSettings: GameSettings = create.gameSettings({
     xDimension: 11,
     yDimension: 11,
-    fillingPercentage: 0,
-    status: GameStatus.Stopped,
-    speed: 10,
-  };
+  });
 
   const initialState: GameState = {
     settings: initialSettings,
@@ -51,13 +43,11 @@ describe("game store", () => {
 
       const generatedCreatures = gameStore.reducer(
         {
-          settings: {
+          settings: create.gameSettings({
             xDimension: 2,
             yDimension: 2,
             fillingPercentage: 50,
-            status: GameStatus.Stopped,
-            speed: 10,
-          },
+          }),
           creatures: [],
         },
         gameStore.actions.generateNewCreatures()
@@ -79,13 +69,11 @@ describe("game store", () => {
 
       const nextGeneration = gameStore.reducer(
         {
-          settings: {
+          settings: create.gameSettings({
             xDimension: 2,
             yDimension: 2,
             fillingPercentage: 50,
-            status: GameStatus.Stopped,
-            speed: 10,
-          },
+          }),
           creatures: [
             [DEAD, DEAD],
             [ALIVE, ALIVE],
@@ -103,13 +91,11 @@ describe("game store", () => {
 
   describe("applySettings", () => {
     it("should do nothing", () => {
-      const targetSettings: GameSettings = {
+      const targetSettings: GameSettings = create.gameSettings({
         xDimension: 11,
         yDimension: 11,
         fillingPercentage: 20,
-        status: GameStatus.Stopped,
-        speed: 10,
-      };
+      });
 
       expect(
         gameStore.reducer(initialState, gameStore.actions.applySettings())
@@ -119,13 +105,11 @@ describe("game store", () => {
 
   describe("changeSettings", () => {
     it("should save settings", () => {
-      const targetSettings: GameSettings = {
+      const targetSettings: GameSettings = create.gameSettings({
         xDimension: 15,
         yDimension: 15,
         fillingPercentage: 20,
-        status: GameStatus.Stopped,
-        speed: 10,
-      };
+      });
 
       expect(
         gameStore.reducer(
@@ -145,13 +129,10 @@ describe("game store", () => {
       "should change Creature isAlive from $initialState to $expectedState when toggleCreatureState action dispatched",
       ({ initialState, expectedState }) => {
         const originState: GameState = {
-          settings: {
+          settings: create.gameSettings({
             xDimension: 2,
             yDimension: 2,
-            fillingPercentage: 0,
-            status: GameStatus.Stopped,
-            speed: 10,
-          },
+          }),
           creatures: [
             [ALIVE, { isAlive: initialState }],
             [DEAD, ALIVE],
@@ -170,13 +151,11 @@ describe("game store", () => {
 
   describe("executeControlAction", () => {
     it("should do nothing", () => {
-      const targetSettings: GameSettings = {
+      const targetSettings: GameSettings = create.gameSettings({
         xDimension: 11,
         yDimension: 11,
         fillingPercentage: 20,
-        status: GameStatus.Stopped,
-        speed: 10,
-      };
+      });
 
       expect(
         gameStore.reducer(

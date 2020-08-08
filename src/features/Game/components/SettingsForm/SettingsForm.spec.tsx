@@ -1,21 +1,13 @@
 import { mount, shallow } from "enzyme";
 import React from "react";
+import { create } from "tests/dsl/create";
 import { SettingsForm } from "./SettingsForm";
-import { GameSettings, GameStatus } from "../../gameStore";
 
 describe("SettingsForm", () => {
-  const defaultInitialSettings: GameSettings = {
-    xDimension: 10,
-    yDimension: 10,
-    fillingPercentage: 0,
-    speed: 10,
-    status: GameStatus.Stopped,
-  };
-
   it("should render", () => {
     const sut = shallow(
       <SettingsForm
-        gameSettings={defaultInitialSettings}
+        gameSettings={create.gameSettings()}
         applySettings={jest.fn()}
         onSettingsChange={jest.fn()}
       />
@@ -65,17 +57,17 @@ describe("SettingsForm", () => {
 
   it.each`
     target                                                     | expectedSettings
-    ${{ target: { value: "1", name: "xDimension" } }}          | ${{ ...defaultInitialSettings, xDimension: 1 }}
-    ${{ target: { value: "1", name: "yDimension" } }}          | ${{ ...defaultInitialSettings, yDimension: 1 }}
-    ${{ target: { value: "60", name: "fillingPercentage" } }}  | ${{ ...defaultInitialSettings, fillingPercentage: 60 }}
-    ${{ target: { value: "100", name: "fillingPercentage" } }} | ${{ ...defaultInitialSettings, fillingPercentage: 100 }}
+    ${{ target: { value: "1", name: "xDimension" } }}          | ${create.gameSettings({ xDimension: 1 })}
+    ${{ target: { value: "1", name: "yDimension" } }}          | ${create.gameSettings({ yDimension: 1 })}
+    ${{ target: { value: "60", name: "fillingPercentage" } }}  | ${create.gameSettings({ fillingPercentage: 60 })}
+    ${{ target: { value: "100", name: "fillingPercentage" } }} | ${create.gameSettings({ fillingPercentage: 100 })}
   `(
     "should call onSettingsChange with $expectedSettings when $target.target.name changes to $target.target.value",
     ({ target, expectedSettings }) => {
       const fakeOnChangeValue = jest.fn();
       const sut = mount(
         <SettingsForm
-          gameSettings={defaultInitialSettings}
+          gameSettings={create.gameSettings()}
           applySettings={jest.fn()}
           onSettingsChange={fakeOnChangeValue}
         />
@@ -95,7 +87,7 @@ describe("SettingsForm", () => {
     const fakeApplySettings = jest.fn();
     const sut = mount(
       <SettingsForm
-        gameSettings={defaultInitialSettings}
+        gameSettings={create.gameSettings()}
         onSettingsChange={jest.fn()}
         applySettings={fakeApplySettings}
       />

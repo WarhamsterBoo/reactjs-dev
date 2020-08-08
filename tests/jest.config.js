@@ -11,8 +11,8 @@ module.exports = {
   moduleNameMapper: {
     "@/(.*)": "<rootDir>/src/$1",
   },
-  testPathIgnorePatterns: ["/tests/e2e"],
-  modulePaths: ["src/", "node_modules"],
+  testPathIgnorePatterns: ["tests/e2e"],
+  modulePaths: ["<rootDir>"],
   coverageThreshold: {
     global: {
       branches: 85,

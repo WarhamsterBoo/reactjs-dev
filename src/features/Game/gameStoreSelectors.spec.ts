@@ -6,15 +6,15 @@ import {
   gameStatusSelector,
   gameSpeedSelector,
 } from "./gameStoreSelectors";
+import { create } from "tests/dsl/create";
 
 describe("gameStoreSelectors", () => {
-  const settings: GameSettings = {
+  const settings: GameSettings = create.gameSettings({
     xDimension: 2,
     yDimension: 3,
     fillingPercentage: 50,
-    status: GameStatus.Stopped,
     speed: 15,
-  };
+  });
   const appState: AppState = {
     auth: {
       status: AuthStatus.authenticated,

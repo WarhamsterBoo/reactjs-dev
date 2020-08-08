@@ -41,19 +41,26 @@ describe("game saga", () => {
       ${0}
       ${100}
       ${50}
-    `("should generate new creatures on apply settings", ({fillingPercentage}) => {
-      const sut = testSaga(watchSettingsChange);
+    `(
+      "should generate new creatures on apply settings",
+      ({ fillingPercentage }) => {
+        const sut = testSaga(watchSettingsChange);
 
-      sut
-        .next()
-        .take(gameStore.actions.applySettings().type)
-        .next()
-        .select(settingsSelector)
-        .next({ fillingPercentage: fillingPercentage, xDimension: 2, yDimension: 2 })
-        .put(gameStore.actions.generateNewCreatures())
-        .next()
-        .take(gameStore.actions.applySettings().type);
-    });
+        sut
+          .next()
+          .take(gameStore.actions.applySettings().type)
+          .next()
+          .select(settingsSelector)
+          .next({
+            fillingPercentage: fillingPercentage,
+            xDimension: 2,
+            yDimension: 2,
+          })
+          .put(gameStore.actions.generateNewCreatures())
+          .next()
+          .take(gameStore.actions.applySettings().type);
+      }
+    );
   });
 
   describe("watchingControlActions", () => {
@@ -147,8 +154,8 @@ describe("game saga", () => {
     });
   });
 
-  it("should start sagas", () =>{
-    const sut = testSaga(gameSaga)
+  it("should start sagas", () => {
+    const sut = testSaga(gameSaga);
 
     sut
       .next()
@@ -157,6 +164,6 @@ describe("game saga", () => {
       .fork(watchingControlActions)
       .next()
       .fork(gameFlow)
-      .finish()
-  })
+      .finish();
+  });
 });

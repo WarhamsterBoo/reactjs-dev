@@ -25,17 +25,18 @@ describe("login flow", () => {
       userStorage
       ${undefined}
       ${""}
-    `("should not dispatch login action if user session does not exists in storage", ({ userStorage }) => {
-      const sut = expectSaga(restoreCurrentSession).provide([
-        [call(userSessionStorage.getCurrentSession), userStorage],
-      ]);
+    `(
+      "should not dispatch login action if user session does not exists in storage",
+      ({ userStorage }) => {
+        const sut = expectSaga(restoreCurrentSession).provide([
+          [call(userSessionStorage.getCurrentSession), userStorage],
+        ]);
 
-      return sut
-        .run()
-        .then(({ effects }) => {
-          expect(effects.put).toBeUndefined()
-        })
-    })
+        return sut.run().then(({ effects }) => {
+          expect(effects.put).toBeUndefined();
+        });
+      }
+    );
   });
 
   describe("loginSaga", () => {
