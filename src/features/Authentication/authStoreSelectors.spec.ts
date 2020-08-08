@@ -7,9 +7,9 @@ import { create } from "tests/dsl/create";
 describe("gameStoreSelectors", () => {
   const appState = create.appState({
     auth: create.authState({
-      userName: "Bob"
-    })
-  })
+      userName: "Bob",
+    }),
+  });
 
   it("should select settings", () => {
     expect(userNameSelector(appState)).toEqual("Bob");
