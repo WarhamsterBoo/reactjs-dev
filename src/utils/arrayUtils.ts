@@ -26,6 +26,9 @@ export const resizeMatrix = <T>(
   );
 };
 
-export const countByFilter = <T>(matrix: T[][], filter: (item: T) => boolean) => {
-  return 4
-}
+export const countByFilter = <T>(matrix: T[][], filter: (item: T) => boolean) =>
+  matrix.reduce<number>(
+    (accumulator, creauresRow) =>
+      accumulator + creauresRow.filter(filter).length,
+    0
+  );
