@@ -1,4 +1,7 @@
-import { GameSettings, GameStatus } from "@/features/Game/gameStore"
+import { AppState } from "@/AppStore";
+import { AuthState, AuthStatus } from "@/features/Authentication";
+import { GameSettings, GameStatus } from "@/features/Game/gameStore";
+import configureMockStore from "redux-mock-store";
 
 export const create = {
     gameSettings: (overrides?: Partial<GameSettings>): GameSettings => ({
@@ -8,5 +11,19 @@ export const create = {
         speed: 10,
         status: GameStatus.Stopped,
         ...overrides
-    })
+    }),
+    authState: (overrides?: Partial<AuthState>) => ({
+        loginError: undefined,
+        status: AuthStatus.not_authenticated,
+        userName: undefined,
+        ...overrides
+    }),
+    mockStore: () =>
+        configureMockStore<AppState>([])({
+            auth: create.authState(),
+            game: {
+                creatures: [],
+                settings: create.gameSettings(),
+            },
+        })
 }

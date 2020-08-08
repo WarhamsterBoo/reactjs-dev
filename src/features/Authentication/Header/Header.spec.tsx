@@ -1,29 +1,6 @@
-import { AppState } from "@/AppStore";
-import { AuthStatus, authStore } from "@/features/Authentication";
-import { GameStatus } from "@/features/Game";
-import { mount } from "enzyme";
-import React from "react";
-import { Provider } from "react-redux";
-import configureMockStore from "redux-mock-store";
+import { authStore } from "@/features/Authentication";
+import { mountWithMockStore } from "tests/dsl/mountWithMockStore";
 import { Header } from "./Header";
-
-const store = configureMockStore<AppState>([])({
-  auth: {
-    loginError: undefined,
-    status: AuthStatus.not_authenticated,
-    userName: undefined,
-  },
-  game: {
-    creatures: [],
-    settings: {
-      fillingPercentage: 0,
-      xDimension: 0,
-      yDimension: 0,
-      status: GameStatus.Stopped,
-      speed: 10,
-    },
-  },
-});
 
 const mockHistory = { push: jest.fn() };
 jest.mock("react-router-dom", () => ({
@@ -31,16 +8,8 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("Header", () => {
-  beforeEach(() => {
-    store.clearActions();
-  });
-
   it("should call logOutUser function prop when Logout button clicked", () => {
-    const sut = mount(
-      <Provider store={store}>
-        <Header />
-      </Provider>
-    );
+    const { sut, store } = mountWithMockStore(Header);
 
     sut.find("Styled(button)").simulate("click");
 
@@ -48,11 +17,7 @@ describe("Header", () => {
   });
 
   it("should redirect to /login when Logout button clicked", () => {
-    const sut = mount(
-      <Provider store={store}>
-        <Header />
-      </Provider>
-    );
+    const { sut } = mountWithMockStore(Header);
 
     sut.find("Styled(button)").simulate("click");
 
