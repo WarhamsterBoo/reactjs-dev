@@ -11,7 +11,7 @@ describe("gameStoreSelectors", () => {
   const settings: GameSettings = {
     xDimension: 2,
     yDimension: 3,
-    fillingPercentage: 0.5,
+    fillingPercentage: 50,
     status: GameStatus.Stopped,
     speed: 15,
   };

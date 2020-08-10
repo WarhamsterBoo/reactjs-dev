@@ -25,11 +25,20 @@ export const Engine = {
     yDimension: number,
     fillingPercentage: number
   ): Population => {
+    if (fillingPercentage < 0) {
+      throw new Error("fillingPercentage cannot be less than 0");
+    }
+    if (fillingPercentage > 100) {
+      throw new Error("fillingPercentage cannot be greater than 100");
+    }
+
     const creatures = matrixGenerator<Creature>(xDimension, yDimension, DEAD);
 
+    const fillingFraction = fillingPercentage / 100;
     let NumberOfAliveCreatures = Math.trunc(
-      xDimension * yDimension * fillingPercentage
+      xDimension * yDimension * fillingFraction
     );
+
     while (NumberOfAliveCreatures > 0) {
       const x = Math.floor(Math.random() * Math.floor(xDimension));
       const y = Math.floor(Math.random() * Math.floor(yDimension));
