@@ -11,18 +11,16 @@ import { gameSpeedSelector, settingsSelector } from "./gameStoreSelectors";
 
 describe("game saga", () => {
   describe("watchSettingChange", () => {
-    it("should not apply settings if fillingPercentage > 1", () => {
+    it("should not apply settings if fillingPercentage > 100", () => {
       const sut = testSaga(watchSettingsChange);
 
       sut
         .next()
-        .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
         .take(gameStore.actions.applySettings().type)
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 1.5, xDimension: 1, yDimension: 1 })
-        .select(settingsSelector);
+        .next({ fillingPercentage: 150, xDimension: 1, yDimension: 1 })
+        .take(gameStore.actions.applySettings().type);
     });
 
     it("should not apply settings if fillingPercentage < 0", () => {
@@ -30,61 +28,25 @@ describe("game saga", () => {
 
       sut
         .next()
-        .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
         .take(gameStore.actions.applySettings().type)
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: -0.1, xDimension: 1, yDimension: 1 })
-        .select(settingsSelector);
+        .next({ fillingPercentage: -10, xDimension: 1, yDimension: 1 })
+        .take(gameStore.actions.applySettings().type);
     });
 
-    it("should resize creatures with same state if filling percentage does not change", () => {
+    it("should generate new creatures on apply settings", () => {
       const sut = testSaga(watchSettingsChange);
 
       sut
         .next()
-        .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
         .take(gameStore.actions.applySettings().type)
         .next()
         .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 2, yDimension: 2 })
-        .put(gameStore.actions.resizeCreatures())
-        .next()
-        .select(settingsSelector);
-    });
-
-    it("should generate new creatures if filling percentage and dimensions change", () => {
-      const sut = testSaga(watchSettingsChange);
-
-      sut
-        .next()
-        .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
-        .take(gameStore.actions.applySettings().type)
-        .next()
-        .select(settingsSelector)
-        .next({ fillingPercentage: 0.7, xDimension: 2, yDimension: 2 })
+        .next({ fillingPercentage: 50, xDimension: 2, yDimension: 2 })
         .put(gameStore.actions.generateNewCreatures())
         .next()
-        .select(settingsSelector);
-    });
-
-    it("should generate new creatures if only filling percentage changes", () => {
-      const sut = testSaga(watchSettingsChange);
-
-      sut
-        .next()
-        .select(settingsSelector)
-        .next({ fillingPercentage: 0.5, xDimension: 1, yDimension: 1 })
-        .take(gameStore.actions.applySettings().type)
-        .next()
-        .select(settingsSelector)
-        .next({ fillingPercentage: 0.7, xDimension: 1, yDimension: 1 })
-        .put(gameStore.actions.generateNewCreatures())
-        .next()
-        .select(settingsSelector);
+        .take(gameStore.actions.applySettings().type);
     });
   });
 
@@ -102,7 +64,9 @@ describe("game saga", () => {
         .take(gameStore.actions.executeControlAction("reset").type)
         .next({ payload: "reset" })
         .put(gameStore.actions.reset())
-        .back(2)
+        .next()
+        .put(gameStore.actions.generateNewCreatures())
+        .back(3)
         .next()
         .take(gameStore.actions.executeControlAction("stop").type)
         .next({ payload: "stop" })

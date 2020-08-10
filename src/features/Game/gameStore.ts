@@ -68,13 +68,6 @@ export const gameStore = createSlice({
     changeSettings: (state, action: PayloadAction<GameSettings>) => {
       state.settings = action.payload;
     },
-    resizeCreatures: (state, _: AnyAction) => {
-      state.creatures = changeCreaturesSize(
-        state.creatures,
-        state.settings.xDimension,
-        state.settings.yDimension
-      );
-    },
     generateNewCreatures: (state, _: AnyAction) => {
       const { xDimension, yDimension, fillingPercentage } = {
         ...state.settings,
@@ -109,7 +102,9 @@ export const gameStore = createSlice({
     stop: (state, _: AnyAction) => {
       state.settings.status = GameStatus.Paused;
     },
-    reset: (__, _: AnyAction) => initialState,
+    reset: (state, _: AnyAction) => {
+      state.settings.status = GameStatus.Stopped;
+    },
     faster: (state, _: AnyAction) => {
       if (state.settings.speed > 0) {
         state.settings.speed -= 1;

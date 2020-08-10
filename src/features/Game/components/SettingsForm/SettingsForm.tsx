@@ -25,9 +25,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
   const onHandleInputChange = useCallback(
     (ev: FormEvent<HTMLInputElement>) => {
       const { name, value } = ev.target as HTMLInputElement;
-      const settingValue =
-        name === "fillingPercentage" ? parseInt(value) / 100 : parseInt(value);
-      onSettingsChange({ ...gameSettings, [name]: settingValue });
+      onSettingsChange({ ...gameSettings, [name]: parseInt(value) });
     },
     [onSettingsChange, gameSettings]
   );
@@ -56,7 +54,8 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
           Filling Percentage:
           <InputNumber
             min="0"
-            value={Math.floor(gameSettings.fillingPercentage * 100)}
+            max="100"
+            value={gameSettings.fillingPercentage}
             onChange={onHandleInputChange}
             name="fillingPercentage"
           />

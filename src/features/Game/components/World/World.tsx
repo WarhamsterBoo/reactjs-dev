@@ -18,17 +18,17 @@ export const World: React.FC<WorldProps> = ({ creatures, onClick }) => {
 
   return (
     <WorldWrapper>
-      {creatures.map((row, x) => [
-        ...row.map((creature, y) => (
+      {creatures.map((row, y) => [
+        ...row.map((creature, x) => (
           <Creature
-            key={`{${x}${y}}`}
-            x={x}
-            y={y}
+            key={`{${y}${x}}`}
+            x={y}
+            y={x}
             isAlive={creature.isAlive}
             onClick={onClick}
           />
         )),
-        <br key={`${x}`} />,
+        <br key={`${y}`} />,
       ])}
     </WorldWrapper>
   );

@@ -5,27 +5,17 @@ import { gameSpeedSelector, settingsSelector } from "./gameStoreSelectors";
 
 export function* watchSettingsChange() {
   while (true) {
-    const oldSettings: GameSettings = yield select(settingsSelector);
     yield take(gameStore.actions.applySettings.type);
-    const newSettings: GameSettings = yield select(settingsSelector);
+    const settings: GameSettings = yield select(settingsSelector);
 
     const fillingPercentageIsInvalid =
-      newSettings.fillingPercentage < 0 || newSettings.fillingPercentage > 1;
-    const fillingPercentageChanged =
-      oldSettings.fillingPercentage != newSettings.fillingPercentage;
-    const creturesSizeChanged =
-      oldSettings.xDimension != newSettings.xDimension ||
-      oldSettings.yDimension != newSettings.yDimension;
+      settings.fillingPercentage < 0 || settings.fillingPercentage > 100;
 
     if (fillingPercentageIsInvalid) {
       continue;
     }
 
-    if (fillingPercentageChanged) {
-      yield put(gameStore.actions.generateNewCreatures());
-    } else if (creturesSizeChanged) {
-      yield put(gameStore.actions.resizeCreatures());
-    }
+    yield put(gameStore.actions.generateNewCreatures());
   }
 }
 
@@ -36,6 +26,10 @@ export function* watchingControlActions() {
     )).payload;
 
     yield put(gameStore.actions[controlAction]());
+
+    if (controlAction == "reset") {
+      yield put(gameStore.actions.generateNewCreatures());
+    }
   }
 }
 

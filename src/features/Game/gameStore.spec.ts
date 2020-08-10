@@ -42,64 +42,6 @@ describe("game store", () => {
     ).toEqual(defaultState);
   });
 
-  describe("resizeCreatures", () => {
-    it("should be able to increase creatures size according to settings without creatures state reset", () => {
-      const originalCreatures: Population = [
-        [ALIVE, ALIVE],
-        [DEAD, ALIVE],
-      ];
-      const expectedCreatures: Population = [
-        [ALIVE, ALIVE, DEAD],
-        [DEAD, ALIVE, DEAD],
-        [DEAD, DEAD, DEAD],
-      ];
-
-      expect(
-        gameStore.reducer(
-          {
-            settings: {
-              xDimension: 3,
-              yDimension: 3,
-              fillingPercentage: 0,
-              status: GameStatus.Stopped,
-              speed: 10,
-            },
-            creatures: originalCreatures,
-          },
-          gameStore.actions.resizeCreatures()
-        ).creatures
-      ).toEqual(expectedCreatures);
-    });
-
-    it("should be able to reduce creatures size according to settings without creatures state reset", () => {
-      const originalCreatures: Population = [
-        [ALIVE, ALIVE, DEAD],
-        [DEAD, ALIVE, DEAD],
-        [DEAD, DEAD, DEAD],
-      ];
-      const expectedCreatures: Population = [
-        [ALIVE, ALIVE],
-        [DEAD, ALIVE],
-      ];
-
-      expect(
-        gameStore.reducer(
-          {
-            settings: {
-              xDimension: 2,
-              yDimension: 2,
-              fillingPercentage: 0,
-              status: GameStatus.Stopped,
-              speed: 10,
-            },
-            creatures: originalCreatures,
-          },
-          gameStore.actions.resizeCreatures()
-        ).creatures
-      ).toEqual(expectedCreatures);
-    });
-  });
-
   describe("generateCreatures", () => {
     it("should generate first generation of the population", () => {
       Engine.firstGeneration = () => [
@@ -112,7 +54,7 @@ describe("game store", () => {
           settings: {
             xDimension: 2,
             yDimension: 2,
-            fillingPercentage: 0.5,
+            fillingPercentage: 50,
             status: GameStatus.Stopped,
             speed: 10,
           },
@@ -140,7 +82,7 @@ describe("game store", () => {
           settings: {
             xDimension: 2,
             yDimension: 2,
-            fillingPercentage: 0.5,
+            fillingPercentage: 50,
             status: GameStatus.Stopped,
             speed: 10,
           },
@@ -164,7 +106,7 @@ describe("game store", () => {
       const targetSettings: GameSettings = {
         xDimension: 11,
         yDimension: 11,
-        fillingPercentage: 2,
+        fillingPercentage: 20,
         status: GameStatus.Stopped,
         speed: 10,
       };
@@ -180,7 +122,7 @@ describe("game store", () => {
       const targetSettings: GameSettings = {
         xDimension: 15,
         yDimension: 15,
-        fillingPercentage: 0.2,
+        fillingPercentage: 20,
         status: GameStatus.Stopped,
         speed: 10,
       };
@@ -231,7 +173,7 @@ describe("game store", () => {
       const targetSettings: GameSettings = {
         xDimension: 11,
         yDimension: 11,
-        fillingPercentage: 2,
+        fillingPercentage: 20,
         status: GameStatus.Stopped,
         speed: 10,
       };
@@ -239,7 +181,7 @@ describe("game store", () => {
       expect(
         gameStore.reducer(
           initialState,
-          gameStore.actions.executeControlAction()
+          gameStore.actions.executeControlAction("run")
         )
       ).toEqual(initialState);
     });
@@ -259,40 +201,11 @@ describe("game store", () => {
       ).toEqual(GameStatus.Paused);
     });
 
-    it("should should reset state to initial when reset action dispatched", () => {
+    it("should set GameStatus.Stopped when reset action dispatched", () => {
       expect(
-        gameStore.reducer(
-          {
-            settings: {
-              xDimension: 11,
-              yDimension: 11,
-              fillingPercentage: 90,
-              speed: 15,
-              status: GameStatus.Running,
-            },
-            creatures: matrixGenerator(11, 11, DEAD),
-          },
-          gameStore.actions.reset()
-        )
-      ).toEqual(defaultState);
-    });
-
-    it("should should reset state to initial when reset action dispatched", () => {
-      expect(
-        gameStore.reducer(
-          {
-            settings: {
-              xDimension: 11,
-              yDimension: 11,
-              fillingPercentage: 90,
-              speed: 15,
-              status: GameStatus.Running,
-            },
-            creatures: matrixGenerator(11, 11, DEAD),
-          },
-          gameStore.actions.reset()
-        )
-      ).toEqual(defaultState);
+        gameStore.reducer(defaultState, gameStore.actions.reset()).settings
+          .status
+      ).toEqual(GameStatus.Stopped);
     });
 
     it.each`
