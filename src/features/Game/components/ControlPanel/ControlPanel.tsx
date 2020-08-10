@@ -28,7 +28,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
   return (
     <ButtonsContainer>
       <Button id="reset" onClick={onClickHandler}>
-        Stop
+        Reset
       </Button>
       <Button id="run" onClick={onClickHandler}>
         Run
