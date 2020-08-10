@@ -9,7 +9,7 @@ export function* watchSettingsChange() {
     const settings: GameSettings = yield select(settingsSelector);
 
     const fillingPercentageIsInvalid =
-      settings.fillingPercentage < 0 || settings.fillingPercentage > 1;
+      settings.fillingPercentage < 0 || settings.fillingPercentage > 100;
 
     if (fillingPercentageIsInvalid) {
       continue;

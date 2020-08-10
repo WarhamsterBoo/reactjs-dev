@@ -48,5 +48,32 @@ describe("arrayUtils", () => {
         [{ id: 3 }, { id: 3 }],
       ]);
     });
+
+    it("should resize Y axis", () => {
+      const initialArray = [
+        [1, 2],
+        [3, 4],
+      ];
+
+      expect(resizeMatrix(initialArray, 3, 4, 0)).toEqual([
+        [1, 2, 0],
+        [3, 4, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+      ]);
+    });
+
+    it("should resize X axis", () => {
+      const initialArray = [
+        [1, 2],
+        [3, 4],
+      ];
+
+      expect(resizeMatrix(initialArray, 4, 3, 0)).toEqual([
+        [1, 2, 0, 0],
+        [3, 4, 0, 0],
+        [0, 0, 0, 0],
+      ]);
+    });
   });
 });

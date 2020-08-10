@@ -54,7 +54,7 @@ describe("game store", () => {
           settings: {
             xDimension: 2,
             yDimension: 2,
-            fillingPercentage: 0.5,
+            fillingPercentage: 50,
             status: GameStatus.Stopped,
             speed: 10,
           },
@@ -82,7 +82,7 @@ describe("game store", () => {
           settings: {
             xDimension: 2,
             yDimension: 2,
-            fillingPercentage: 0.5,
+            fillingPercentage: 50,
             status: GameStatus.Stopped,
             speed: 10,
           },
@@ -106,7 +106,7 @@ describe("game store", () => {
       const targetSettings: GameSettings = {
         xDimension: 11,
         yDimension: 11,
-        fillingPercentage: 2,
+        fillingPercentage: 20,
         status: GameStatus.Stopped,
         speed: 10,
       };
@@ -122,7 +122,7 @@ describe("game store", () => {
       const targetSettings: GameSettings = {
         xDimension: 15,
         yDimension: 15,
-        fillingPercentage: 0.2,
+        fillingPercentage: 20,
         status: GameStatus.Stopped,
         speed: 10,
       };
@@ -173,7 +173,7 @@ describe("game store", () => {
       const targetSettings: GameSettings = {
         xDimension: 11,
         yDimension: 11,
-        fillingPercentage: 2,
+        fillingPercentage: 20,
         status: GameStatus.Stopped,
         speed: 10,
       };
@@ -181,7 +181,7 @@ describe("game store", () => {
       expect(
         gameStore.reducer(
           initialState,
-          gameStore.actions.executeControlAction()
+          gameStore.actions.executeControlAction("run")
         )
       ).toEqual(initialState);
     });

@@ -3,8 +3,8 @@ export const matrixGenerator = <T>(
   y: number,
   initialValue: T
 ): T[][] =>
-  Array.from({ length: x }).map(() =>
-    Array.from({ length: y }).map(() =>
+  Array.from({ length: y }).map(() =>
+    Array.from({ length: x }).map(() =>
       typeof initialValue === "object" ? { ...initialValue } : initialValue
     )
   );
