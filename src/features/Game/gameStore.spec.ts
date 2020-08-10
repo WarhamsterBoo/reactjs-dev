@@ -42,64 +42,6 @@ describe("game store", () => {
     ).toEqual(defaultState);
   });
 
-  describe("resizeCreatures", () => {
-    it("should be able to increase creatures size according to settings without creatures state reset", () => {
-      const originalCreatures: Population = [
-        [ALIVE, ALIVE],
-        [DEAD, ALIVE],
-      ];
-      const expectedCreatures: Population = [
-        [ALIVE, ALIVE, DEAD],
-        [DEAD, ALIVE, DEAD],
-        [DEAD, DEAD, DEAD],
-      ];
-
-      expect(
-        gameStore.reducer(
-          {
-            settings: {
-              xDimension: 3,
-              yDimension: 3,
-              fillingPercentage: 0,
-              status: GameStatus.Stopped,
-              speed: 10,
-            },
-            creatures: originalCreatures,
-          },
-          gameStore.actions.resizeCreatures()
-        ).creatures
-      ).toEqual(expectedCreatures);
-    });
-
-    it("should be able to reduce creatures size according to settings without creatures state reset", () => {
-      const originalCreatures: Population = [
-        [ALIVE, ALIVE, DEAD],
-        [DEAD, ALIVE, DEAD],
-        [DEAD, DEAD, DEAD],
-      ];
-      const expectedCreatures: Population = [
-        [ALIVE, ALIVE],
-        [DEAD, ALIVE],
-      ];
-
-      expect(
-        gameStore.reducer(
-          {
-            settings: {
-              xDimension: 2,
-              yDimension: 2,
-              fillingPercentage: 0,
-              status: GameStatus.Stopped,
-              speed: 10,
-            },
-            creatures: originalCreatures,
-          },
-          gameStore.actions.resizeCreatures()
-        ).creatures
-      ).toEqual(expectedCreatures);
-    });
-  });
-
   describe("generateCreatures", () => {
     it("should generate first generation of the population", () => {
       Engine.firstGeneration = () => [
