@@ -19,7 +19,12 @@ export function* loginSaga() {
 
   while (true) {
     yield take(authStore.actions.login.type);
+
     const userName = yield select(userNameSelector);
+    if (!userName) {
+      yield put(authStore.actions.login_failed("user name cannot be empty"));
+      return;
+    }
 
     try {
       yield call(auth.login, userName);
