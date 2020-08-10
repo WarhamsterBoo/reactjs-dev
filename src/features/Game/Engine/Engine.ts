@@ -8,15 +8,15 @@ const numberOfAliveNeighbours = (
 ): number => {
   let alive = 0;
 
-  for (let i = x - 1; i <= x + 1; i++) {
-    for (let j = y - 1; j <= y + 1; j++) {
+  for (let i = y - 1; i <= y + 1; i++) {
+    for (let j = x - 1; j <= x + 1; j++) {
       if (creatures[i] && creatures[i][j]?.isAlive) {
         alive++;
       }
     }
   }
 
-  return creatures[x] && creatures[x][y]?.isAlive ? alive - 1 : alive;
+  return creatures[y] && creatures[y][x]?.isAlive ? alive - 1 : alive;
 };
 
 export const Engine = {
@@ -42,8 +42,8 @@ export const Engine = {
     while (NumberOfAliveCreatures > 0) {
       const x = Math.floor(Math.random() * Math.floor(xDimension));
       const y = Math.floor(Math.random() * Math.floor(yDimension));
-      if (!creatures[x][y].isAlive) {
-        creatures[x][y].isAlive = true;
+      if (!creatures[y][x].isAlive) {
+        creatures[y][x].isAlive = true;
         NumberOfAliveCreatures--;
       }
     }
@@ -51,8 +51,8 @@ export const Engine = {
     return creatures;
   },
   nextGeneration(creatures: Population): Population {
-    return creatures?.map((row, x) =>
-      row.map((value, y) => {
+    return creatures?.map((row, y) =>
+      row.map((value, x) => {
         const aliveCreatures = numberOfAliveNeighbours(creatures, x, y);
         if (value.isAlive && (aliveCreatures == 2 || aliveCreatures == 3)) {
           return ALIVE;
