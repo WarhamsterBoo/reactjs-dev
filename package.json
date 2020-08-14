@@ -19,7 +19,7 @@
     "loki-approve": "npx loki approve",
     "ts-check": "npx tsc -p tsconfig.json --noEmit",
     "check": "npm run lint && npm run ts-check && npm run jest-test",
-    "test": "npm run check && npm run jest-coverage && npm run jest-e2e && npm run loki-test"
+    "test": "npm run check && npm run jest-coverage && npm run jest-e2e"
   },
   "repository": {
     "type": "git",
