@@ -5,6 +5,7 @@ import {
   gameLoop,
   watchingControlActions,
   watchSettingsChange,
+  gameSaga,
 } from "./gameSaga";
 import { gameStore } from "./gameStore";
 import { gameSpeedSelector, settingsSelector } from "./gameStoreSelectors";
@@ -35,57 +36,67 @@ describe("game saga", () => {
         .take(gameStore.actions.applySettings().type);
     });
 
-    it("should generate new creatures on apply settings", () => {
-      const sut = testSaga(watchSettingsChange);
+    it.each`
+      fillingPercentage
+      ${0}
+      ${100}
+      ${50}
+    `(
+      "should generate new creatures on apply settings",
+      ({ fillingPercentage }) => {
+        const sut = testSaga(watchSettingsChange);
 
-      sut
-        .next()
-        .take(gameStore.actions.applySettings().type)
-        .next()
-        .select(settingsSelector)
-        .next({ fillingPercentage: 50, xDimension: 2, yDimension: 2 })
-        .put(gameStore.actions.generateNewCreatures())
-        .next()
-        .take(gameStore.actions.applySettings().type);
-    });
+        sut
+          .next()
+          .take(gameStore.actions.applySettings().type)
+          .next()
+          .select(settingsSelector)
+          .next({
+            fillingPercentage,
+            xDimension: 2,
+            yDimension: 2,
+          })
+          .put(gameStore.actions.generateNewCreatures())
+          .next()
+          .take(gameStore.actions.applySettings().type);
+      }
+    );
   });
 
   describe("watchingControlActions", () => {
-    it("should dispatch corresponding actions", () => {
+    it.each`
+      controlAction | storeAction
+      ${"run"}      | ${() => gameStore.actions.run()}
+      ${"stop"}     | ${() => gameStore.actions.stop()}
+      ${"faster"}   | ${() => gameStore.actions.faster()}
+      ${"slower"}   | ${() => gameStore.actions.slower()}
+      ${"normal"}   | ${() => gameStore.actions.normal()}
+    `(
+      "should dispatch corresponding actions on $controlAction",
+      ({ controlAction, storeAction }) => {
+        const sut = testSaga(watchingControlActions);
+
+        sut
+          .next()
+          .take(gameStore.actions.executeControlAction(controlAction).type)
+          .next({ payload: controlAction })
+          .put(storeAction())
+          .next(gameStore.actions.executeControlAction(controlAction).type);
+      }
+    );
+
+    it("should dispatch reset and generateNewCreatures actions on reset", () => {
       const sut = testSaga(watchingControlActions);
 
       sut
-        .next()
-        .take(gameStore.actions.executeControlAction("run").type)
-        .next({ payload: "run" })
-        .put(gameStore.actions.run())
-        .back(2)
         .next()
         .take(gameStore.actions.executeControlAction("reset").type)
         .next({ payload: "reset" })
         .put(gameStore.actions.reset())
         .next()
         .put(gameStore.actions.generateNewCreatures())
-        .back(3)
         .next()
-        .take(gameStore.actions.executeControlAction("stop").type)
-        .next({ payload: "stop" })
-        .put(gameStore.actions.stop())
-        .back(2)
-        .next()
-        .take(gameStore.actions.executeControlAction("faster").type)
-        .next({ payload: "faster" })
-        .put(gameStore.actions.faster())
-        .back(2)
-        .next()
-        .take(gameStore.actions.executeControlAction("slower").type)
-        .next({ payload: "slower" })
-        .put(gameStore.actions.slower())
-        .back(2)
-        .next()
-        .take(gameStore.actions.executeControlAction("normal").type)
-        .next({ payload: "normal" })
-        .put(gameStore.actions.normal());
+        .take(gameStore.actions.executeControlAction("reset").type);
     });
   });
 
@@ -127,5 +138,18 @@ describe("game saga", () => {
         .next()
         .delay(1 * 100);
     });
+  });
+
+  it("should start sagas", () => {
+    const sut = testSaga(gameSaga);
+
+    sut
+      .next()
+      .fork(watchSettingsChange)
+      .next()
+      .fork(watchingControlActions)
+      .next()
+      .fork(gameFlow)
+      .finish();
   });
 });

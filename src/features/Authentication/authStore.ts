@@ -24,7 +24,10 @@ export const authStore = createSlice({
   initialState,
   reducers: {
     username_changes: (state, action: PayloadAction<string>) => {
-      if (state.status == AuthStatus.not_authenticated) {
+      if (
+        state.status == AuthStatus.not_authenticated ||
+        state.status == AuthStatus.failed
+      ) {
         state.userName = action.payload.trim();
       }
     },
