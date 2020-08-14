@@ -9,7 +9,7 @@ export function* restoreCurrentSession() {
     userSessionStorage.getCurrentSession
   );
   if (currentUsername && currentUsername.length > 0) {
-    yield put(authStore.actions.username_changes(currentUsername));
+    yield put(authStore.actions.change_username(currentUsername));
     yield put(authStore.actions.login());
   }
 }

@@ -80,7 +80,7 @@ describe("auth store", () => {
     ${AuthStatus.not_authenticated}
     ${AuthStatus.failed}
   `(
-    "should set userName at username_changes action if auth state $initialAuthState",
+    "should set userName at change_username action if auth state $initialAuthState",
     ({ initialAuthState }) => {
       const initialState = create.authState({
         userName: "John Doe",
@@ -90,7 +90,7 @@ describe("auth store", () => {
       expect(
         authStore.reducer(
           initialState,
-          authStore.actions.username_changes("Bob")
+          authStore.actions.change_username("Bob")
         )
       ).toEqual(
         create.authState({
@@ -106,7 +106,7 @@ describe("auth store", () => {
     ${AuthStatus.authenticated}
     ${AuthStatus.in_progress}
   `(
-    "should not set userName at username_changes action only if auth state $initialAuthState",
+    "should not set userName at change_username action only if auth state $initialAuthState",
     ({ initialAuthState }) => {
       const initialState = create.authState({
         userName: "John Doe",
@@ -116,7 +116,7 @@ describe("auth store", () => {
       expect(
         authStore.reducer(
           initialState,
-          authStore.actions.username_changes("Bob")
+          authStore.actions.change_username("Bob")
         )
       ).toEqual(
         create.authState({
@@ -127,22 +127,22 @@ describe("auth store", () => {
     }
   );
 
-  it("should trim spaces in userName", () => {
-    const initialState = create.authState({
-      userName: "John Doe",
-      status: AuthStatus.not_authenticated,
-    });
-
-    expect(
-      authStore.reducer(
-        initialState,
-        authStore.actions.username_changes("    Bob    ")
-      )
-    ).toEqual(
-      create.authState({
-        userName: "Bob",
+  it.each`
+    initialUsername        | expectedUserName
+    ${"   Bob"}            | ${"Bob"}
+    ${"Alice   "}          | ${"Alice"}
+    ${"   John    Doe   "} | ${"John    Doe"}
+  `(
+    "should trim spaces from '$initialUsername' at login aciton",
+    ({ initialUsername, expectedUserName }) => {
+      const initialState = create.authState({
+        userName: initialUsername,
         status: AuthStatus.not_authenticated,
-      })
-    );
-  });
+      });
+
+      expect(
+        authStore.reducer(initialState, authStore.actions.login()).userName
+      ).toEqual(expectedUserName);
+    }
+  );
 });
