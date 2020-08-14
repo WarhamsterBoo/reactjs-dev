@@ -126,4 +126,23 @@ describe("auth store", () => {
       );
     }
   );
+
+  it.each`
+    initialUsername        | expectedUserName
+    ${"   Bob"}            | ${"Bob"}
+    ${"Alice   "}          | ${"Alice"}
+    ${"   John    Doe   "} | ${"John    Doe"}
+  `(
+    "should trim spaces from '$initialUsername' at login aciton",
+    ({ initialUsername, expectedUserName }) => {
+      const initialState = create.authState({
+        userName: initialUsername,
+        status: AuthStatus.not_authenticated,
+      });
+
+      expect(
+        authStore.reducer(initialState, authStore.actions.login()).userName
+      ).toEqual(expectedUserName);
+    }
+  );
 });

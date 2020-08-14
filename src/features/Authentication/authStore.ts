@@ -32,6 +32,7 @@ export const authStore = createSlice({
       }
     },
     login: (state, _: AnyAction) => {
+      state.userName = state.userName?.trim();
       state.status = AuthStatus.in_progress;
       state.loginError = undefined;
     },
