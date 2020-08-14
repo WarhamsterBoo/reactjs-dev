@@ -28,7 +28,7 @@ export const authStore = createSlice({
         state.status == AuthStatus.not_authenticated ||
         state.status == AuthStatus.failed
       ) {
-        state.userName = action.payload.trim();
+        state.userName = action.payload;
       }
     },
     login: (state, _: AnyAction) => {

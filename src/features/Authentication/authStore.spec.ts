@@ -126,23 +126,4 @@ describe("auth store", () => {
       );
     }
   );
-
-  it("should trim spaces in userName", () => {
-    const initialState = create.authState({
-      userName: "John Doe",
-      status: AuthStatus.not_authenticated,
-    });
-
-    expect(
-      authStore.reducer(
-        initialState,
-        authStore.actions.username_changes("    Bob    ")
-      )
-    ).toEqual(
-      create.authState({
-        userName: "Bob",
-        status: AuthStatus.not_authenticated,
-      })
-    );
-  });
 });
