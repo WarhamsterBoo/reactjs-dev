@@ -1,3 +1,5 @@
+![Test](https://github.com/WarhamsterBoo/reactjs-dev/workflows/CI/badge.svg)
+
 # ReactJS Developer course
 
 # Webpack + babel + typescript базовая настройка
