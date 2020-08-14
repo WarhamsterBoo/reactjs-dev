@@ -18,8 +18,8 @@
     "loki-update": "npx loki",
     "loki-approve": "npx loki approve",
     "ts-check": "npx tsc -p tsconfig.json --noEmit",
-    "check": "npm run lint && npm run ts-check && npm run jest-test && npm run jest-e2e",
-    "test": "npm run check && npm run jest-coverage && npm run loki-test"
+    "check": "npm run lint && npm run ts-check && npm run jest-test",
+    "test": "npm run check && npm run jest-coverage && npm run jest-e2e"
   },
   "repository": {
     "type": "git",
@@ -75,7 +75,7 @@
     "jest-environment-puppeteer": "^4.4.0",
     "jest-localstorage-mock": "^2.4.3",
     "jest-puppeteer": "^4.4.0",
-    "loki": "^0.20.3",
+    "loki": "^0.24.0",
     "prettier": "^2.0.2",
     "puppeteer": "^5.2.1",
     "react-test-renderer": "^16.13.1",
@@ -89,7 +89,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run test"
+      "pre-commit": "npm run lint"
     }
   },
   "dependencies": {
