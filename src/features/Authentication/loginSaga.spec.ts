@@ -17,7 +17,7 @@ describe("login flow", () => {
 
       return sut
         .put(authStore.actions.login())
-        .put(authStore.actions.username_changes("Jane Doe"))
+        .put(authStore.actions.change_username("Jane Doe"))
         .silentRun();
     });
 
@@ -48,7 +48,7 @@ describe("login flow", () => {
         ])
         .withReducer(appReducer)
         .withState<AppState>(create.appState())
-        .dispatch(authStore.actions.username_changes("John Doe"))
+        .dispatch(authStore.actions.change_username("John Doe"))
         .dispatch(authStore.actions.login());
 
       return sut
@@ -69,7 +69,7 @@ describe("login flow", () => {
 
       return sut
         .fork(restoreCurrentSession)
-        .put(authStore.actions.username_changes("John Doe"))
+        .put(authStore.actions.change_username("John Doe"))
         .put(authStore.actions.login())
         .call(auth.login, "John Doe")
         .call(userSessionStorage.newSession, "John Doe")
@@ -86,7 +86,7 @@ describe("login flow", () => {
         ])
         .withReducer(appReducer)
         .withState<AppState>(create.appState())
-        .dispatch(authStore.actions.username_changes("John Doe"))
+        .dispatch(authStore.actions.change_username("John Doe"))
         .dispatch(authStore.actions.login())
         .dispatch(authStore.actions.logout());
 
@@ -107,7 +107,7 @@ describe("login flow", () => {
         ])
         .withReducer(appReducer)
         .withState<AppState>(create.appState())
-        .dispatch(authStore.actions.username_changes("John Doe"))
+        .dispatch(authStore.actions.change_username("John Doe"))
         .dispatch(authStore.actions.login());
 
       return sut
