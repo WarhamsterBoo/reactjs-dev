@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout
+    - name: checkout
       uses: actions/checkout@v2
     
-    - name: Cache
+    - name: restore cache
       uses: actions/cache@v2
       with:
         path: ~/.npm
@@ -20,5 +20,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
 
-    - name: Install prerequisites
+    - name: install_prerequisites
       run: npm i
+      
+    - name: build_and_test
+      run: |
+        npm run build
+        npm run test
