@@ -1,5 +1,5 @@
 import { ALIVE, DEAD } from "@/features/Game";
-import { matrixGenerator } from "@/utils/arrayUtils";
+import { matrixGenerator, countByFilter } from "@/utils/arrayUtils";
 import { Engine } from "./Engine";
 
 describe("Engine", () => {
@@ -22,13 +22,13 @@ describe("Engine", () => {
     it("should throw if fillingPercentage less than 0", () => {
       const act = () => Engine.firstGeneration(10, 10, -1);
 
-      expect(act).toThrow();
+      expect(act).toThrow("fillingPercentage cannot be less than 0");
     });
 
     it("should throw if fillingPercentage greater than 100", () => {
       const act = () => Engine.firstGeneration(10, 10, 101);
 
-      expect(act).toThrow();
+      expect(act).toThrow("fillingPercentage cannot be greater than 100");
     });
 
     it.each`
@@ -50,12 +50,11 @@ describe("Engine", () => {
           fillingPercentage
         );
 
-        const numberOfAliveCreatures = generatedCreatures.reduce<number>(
-          (accumulator, creauresRow) =>
-            accumulator +
-            creauresRow.filter((creature) => creature.isAlive).length,
-          0
+        const numberOfAliveCreatures = countByFilter(
+          generatedCreatures,
+          (creature) => creature.isAlive
         );
+
         expect(generatedCreatures.length).toBe(yDimension);
         expect(generatedCreatures[0].length).toBe(xDimension);
         expect(numberOfAliveCreatures).toBe(expectedAliveCount);

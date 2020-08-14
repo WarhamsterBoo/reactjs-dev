@@ -1,18 +1,13 @@
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import webpack from "webpack";
+import * as webpack from 'webpack';
+import 'webpack-dev-server';
 
 const config: webpack.Configuration = {
   entry: "./src/index.tsx",
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     alias: {
-      shared: path.resolve(__dirname, "src/components/Shared/index"),
-      styles: path.resolve(__dirname, "src/styles"),
-      components: path.resolve(__dirname, "src/components"),
-      api: path.resolve(__dirname, "src/api"),
-      hoc: path.resolve(__dirname, "src/hoc"),
-      screens: path.resolve(__dirname, "src/screens"),
       "@": path.resolve(__dirname, "src"),
     },
   },
