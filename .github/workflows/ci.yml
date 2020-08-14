@@ -28,10 +28,15 @@ jobs:
         npm run build
         npm run test
 
-    - name: Upload loki difference on fail
+    # - name: Upload loki difference on fail
+    #   uses: actions/upload-artifact@v2
+    #   if: failure()
+    #   with:
+    #     name: loki_difference
+    #     path: ./.loki/difference
+
+    - name: Upload coverage report
       uses: actions/upload-artifact@v2
-      if: failure()
       with:
-        name: loki_difference
-        path: ./.loki/difference
-    
+        name: coverage
+        path: ./coverage/lcov-report
