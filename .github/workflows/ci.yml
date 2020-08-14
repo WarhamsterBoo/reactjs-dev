@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: checkout
+    - name: Checkout
       uses: actions/checkout@v2
     
-    - name: restore cache
+    - name: Restore cache
       uses: actions/cache@v2
       with:
         path: ~/.npm
@@ -20,15 +20,15 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
 
-    - name: install_prerequisites
+    - name: Install prerequisites
       run: npm i
       
-    - name: build_and_test
+    - name: Build and test
       run: |
         npm run build
         npm run test
 
-    - name: upload_artifact
+    - name: Upload loki difference on fail
       uses: actions/upload-artifact@v2
       if: failure()
       with:
