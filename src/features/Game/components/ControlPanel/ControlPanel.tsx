@@ -5,7 +5,7 @@ import { ButtonsContainer } from "./ControlPanel.styled";
 export type ControlAction =
   | "reset"
   | "run"
-  | "stop"
+  | "pause"
   | "slower"
   | "normal"
   | "faster";
@@ -33,7 +33,7 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
       <Button id="run" onClick={onClickHandler}>
         Run
       </Button>
-      <Button id="stop" onClick={onClickHandler}>
+      <Button id="pause" onClick={onClickHandler}>
         Pause
       </Button>
       <Button id="faster" onClick={onClickHandler}>

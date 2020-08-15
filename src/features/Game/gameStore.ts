@@ -95,7 +95,7 @@ export const gameStore = createSlice({
     run: (state, _: AnyAction) => {
       state.settings.status = GameStatus.Running;
     },
-    stop: (state, _: AnyAction) => {
+    pause: (state, _: AnyAction) => {
       state.settings.status = GameStatus.Paused;
     },
     reset: (state, _: AnyAction) => {

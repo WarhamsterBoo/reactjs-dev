@@ -163,7 +163,7 @@ describe("game store", () => {
 
     it("should set GameStatus.Paused when stop action dispatched", () => {
       expect(
-        gameStore.reducer(create.defaultGameState(), gameStore.actions.stop())
+        gameStore.reducer(create.defaultGameState(), gameStore.actions.pause())
           .settings.status
       ).toEqual(GameStatus.Paused);
     });
