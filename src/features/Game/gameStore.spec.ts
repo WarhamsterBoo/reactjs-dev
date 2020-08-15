@@ -242,7 +242,7 @@ describe("game store", () => {
     );
   });
 
-  describe("resetGame", () => {
+  describe("stop", () => {
     it("should reset game state to default", () => {
       const initialState = create.gameState({
         creatures: matrixGenerator(11, 11, DEAD),
@@ -252,9 +252,9 @@ describe("game store", () => {
         }),
       });
 
-      expect(
-        gameStore.reducer(initialState, gameStore.actions.resetGame())
-      ).toEqual(create.defaultGameState());
+      expect(gameStore.reducer(initialState, gameStore.actions.stop())).toEqual(
+        create.defaultGameState()
+      );
     });
   });
 });

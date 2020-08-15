@@ -95,7 +95,7 @@ describe("login flow", () => {
         .call(auth.logout)
         .call(userSessionStorage.endSession)
         .put(gameStore.actions.reset())
-        .put(gameStore.actions.resetGame())
+        .put(gameStore.actions.stop())
         .silentRun();
     });
 

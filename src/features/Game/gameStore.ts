@@ -60,10 +60,6 @@ export const gameStore = createSlice({
     changeSettings: (state, action: PayloadAction<GameSettings>) => {
       state.settings = action.payload;
     },
-    // resetGame: (state, _: AnyAction) => {
-    //   Object.assign(state, defaultState());
-    // },
-    resetGame: () => defaultState(),
     generateNewCreatures: (state, _: AnyAction) => {
       const { xDimension, yDimension, fillingPercentage } = {
         ...state.settings,
@@ -92,6 +88,7 @@ export const gameStore = createSlice({
       });
     },
     executeControlAction: (__, _: PayloadAction<ControlAction>) => {},
+    stop: () => defaultState(),
     run: (state, _: AnyAction) => {
       state.settings.status = GameStatus.Running;
     },
