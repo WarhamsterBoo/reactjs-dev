@@ -10,7 +10,7 @@
     "build-prod": "npx webpack --config webpack.config.ts --mode=production",
     "build-storybook": "npx build-storybook",
     "storybook": "npx start-storybook -p 6006",
-    "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./src/",
+    "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./src/ && npx eslint --ext .js,.jsx,.ts,.tsx --fix ./tests/dsl/",
     "jest-test": "npx jest --config=./tests/jest.config.js",
     "jest-e2e": "npx jest --config=./tests/jest.e2e.config.js",
     "jest-coverage": "npx jest --coverage --config=./tests/jest.config.js",
