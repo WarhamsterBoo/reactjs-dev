@@ -94,7 +94,6 @@ describe("login flow", () => {
       return sut
         .call(auth.logout)
         .call(userSessionStorage.endSession)
-        .put(gameStore.actions.reset())
         .put(gameStore.actions.stop())
         .silentRun();
     });

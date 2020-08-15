@@ -38,7 +38,6 @@ export function* loginSaga() {
     yield call(userSessionStorage.newSession, userName);
 
     yield take(authStore.actions.logout.type);
-    yield put(gameStore.actions.reset());
     yield put(gameStore.actions.stop());
     yield call(auth.logout);
     yield call(userSessionStorage.endSession);

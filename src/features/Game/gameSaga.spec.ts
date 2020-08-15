@@ -111,7 +111,11 @@ describe("game saga", () => {
         .next(true)
         .fork(gameLoop)
         .next(loop)
-        .take([gameStore.actions.pause().type, gameStore.actions.reset().type])
+        .take([
+          gameStore.actions.pause().type,
+          gameStore.actions.reset().type,
+          gameStore.actions.stop().type,
+        ])
         .next()
         .cancel(loop)
         .next()
