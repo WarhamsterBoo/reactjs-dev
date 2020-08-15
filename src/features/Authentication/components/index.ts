@@ -1,2 +1,2 @@
 export * from "./HeaderPanel";
-export * from "./Login";
+export * from "./NameForm";
