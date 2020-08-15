@@ -1,4 +1,4 @@
-import { GameStatus, GameSettings } from "@/features/Game/gameStore";
+import { GameSettings, GameStatus } from "@/features/Game/gameStore";
 import { action } from "@storybook/addon-actions";
 import React, { useState } from "react";
 import { SettingsForm } from "./SettingsForm";
