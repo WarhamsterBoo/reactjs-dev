@@ -1,4 +1,4 @@
-import { Header } from "@/features/Authentication/components";
+import { Header } from "@/features/Authentication";
 import { WithAuthentication } from "@/features/Authentication/WithAuthentication";
 import { Game } from "@/features/Game";
 import React from "react";

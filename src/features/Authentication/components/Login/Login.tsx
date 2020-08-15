@@ -1,5 +1,5 @@
 import { AppState } from "@/AppStore";
-import { authStore } from "@/features/Authentication";
+import { authStore } from "@/features/Authentication/authStore";
 import React, { useCallback } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
