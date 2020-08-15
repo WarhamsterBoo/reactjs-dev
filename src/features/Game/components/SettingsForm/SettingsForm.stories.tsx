@@ -18,7 +18,10 @@ export const SettingsFormStory: React.FC<{}> = () => {
     <SettingsForm
       gameSettings={settings}
       applySettings={action("onSubmit")}
-      onSettingsChange={(newSettings) => setSettings(newSettings)}
+      onSettingsChange={(newSettings) => {
+        action("onSettingsChange")(newSettings);
+        setSettings(newSettings);
+      }}
     />
   );
 };
