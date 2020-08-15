@@ -1,19 +1,24 @@
+import { authStore } from "@/features/Authentication";
+import { gameStore } from "@/features/Game";
+import { rootSaga } from "@/sagas";
 import {
   applyMiddleware,
   combineReducers,
   compose,
   createStore,
 } from "@reduxjs/toolkit";
+import { connectRouter, routerMiddleware } from "connected-react-router";
+import { createBrowserHistory } from "history";
 import createSagaMiddleware from "redux-saga";
-import { authStore } from "@/features/Authentication";
-import { gameStore } from "@/features/Game";
-import { rootSaga } from "@/sagas";
 
 const sagaMiddleware = createSagaMiddleware();
+
+export const appHistory = createBrowserHistory();
 
 export const appReducer = combineReducers({
   game: gameStore.reducer,
   auth: authStore.reducer,
+  router: connectRouter(appHistory),
 });
 
 const composeEnhancers =
@@ -23,8 +28,11 @@ const composeEnhancers =
 
 export const store = createStore(
   appReducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
+  composeEnhancers(
+    applyMiddleware(sagaMiddleware),
+    applyMiddleware(routerMiddleware(appHistory))
+  )
 );
 sagaMiddleware.run(rootSaga);
 
-export type AppState = ReturnType<typeof appReducer>;
+export type AppState = Omit<ReturnType<typeof appReducer>, "router">;
