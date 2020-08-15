@@ -6,8 +6,8 @@ exports[`World should render nothing with 0 x 0 size: [] 1`] = `""`;
 
 exports[`World should render with 1 x 1 size and creature is dead 1`] = `
 <Styled(div)>
-  <Creature
-    isAlive={false}
+  <Cell
+    hasAliveCreature={false}
     key="{00}"
     onClick={[MockFunction]}
     x={0}
@@ -21,22 +21,22 @@ exports[`World should render with 1 x 1 size and creature is dead 1`] = `
 
 exports[`World should render with 2 x 2 size filled with creatures 1`] = `
 <Styled(div)>
-  <Creature
-    isAlive={false}
+  <Cell
+    hasAliveCreature={false}
     key="{00}"
     onClick={[MockFunction]}
     x={0}
     y={0}
   />
-  <Creature
-    isAlive={false}
+  <Cell
+    hasAliveCreature={false}
     key="{01}"
     onClick={[MockFunction]}
     x={0}
     y={1}
   />
-  <Creature
-    isAlive={false}
+  <Cell
+    hasAliveCreature={false}
     key="{02}"
     onClick={[MockFunction]}
     x={0}
@@ -45,22 +45,22 @@ exports[`World should render with 2 x 2 size filled with creatures 1`] = `
   <br
     key="0"
   />
-  <Creature
-    isAlive={false}
+  <Cell
+    hasAliveCreature={false}
     key="{10}"
     onClick={[MockFunction]}
     x={1}
     y={0}
   />
-  <Creature
-    isAlive={false}
+  <Cell
+    hasAliveCreature={false}
     key="{11}"
     onClick={[MockFunction]}
     x={1}
     y={1}
   />
-  <Creature
-    isAlive={false}
+  <Cell
+    hasAliveCreature={false}
     key="{12}"
     onClick={[MockFunction]}
     x={1}
@@ -69,22 +69,22 @@ exports[`World should render with 2 x 2 size filled with creatures 1`] = `
   <br
     key="1"
   />
-  <Creature
-    isAlive={false}
+  <Cell
+    hasAliveCreature={false}
     key="{20}"
     onClick={[MockFunction]}
     x={2}
     y={0}
   />
-  <Creature
-    isAlive={false}
+  <Cell
+    hasAliveCreature={false}
     key="{21}"
     onClick={[MockFunction]}
     x={2}
     y={1}
   />
-  <Creature
-    isAlive={false}
+  <Cell
+    hasAliveCreature={false}
     key="{22}"
     onClick={[MockFunction]}
     x={2}

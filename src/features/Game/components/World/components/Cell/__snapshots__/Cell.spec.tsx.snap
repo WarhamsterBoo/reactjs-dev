@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Creature should render alive 1`] = `
+exports[`Cell should render cell with alive creature 1`] = `
 .emotion-0 {
   width: 20px;
   height: 20px;
@@ -22,7 +22,7 @@ exports[`Creature should render alive 1`] = `
 />
 `;
 
-exports[`Creature should render dead 1`] = `
+exports[`Cell should render cell with dead creature 1`] = `
 .emotion-0 {
   width: 20px;
   height: 20px;
