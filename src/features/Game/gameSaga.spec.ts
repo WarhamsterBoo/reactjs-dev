@@ -67,7 +67,7 @@ describe("game saga", () => {
     it.each`
       controlAction | storeAction
       ${"run"}      | ${() => gameStore.actions.run()}
-      ${"stop"}     | ${() => gameStore.actions.stop()}
+      ${"pause"}    | ${() => gameStore.actions.pause()}
       ${"faster"}   | ${() => gameStore.actions.faster()}
       ${"slower"}   | ${() => gameStore.actions.slower()}
       ${"normal"}   | ${() => gameStore.actions.normal()}
@@ -111,7 +111,7 @@ describe("game saga", () => {
         .next(true)
         .fork(gameLoop)
         .next(loop)
-        .take([gameStore.actions.stop().type, gameStore.actions.reset().type])
+        .take([gameStore.actions.pause().type, gameStore.actions.reset().type])
         .next()
         .cancel(loop)
         .next()

@@ -21,7 +21,7 @@ describe("ControlPanel", () => {
           Run
         </Styled(button)>
         <Styled(button)
-          id="stop"
+          id="pause"
           onClick={[Function]}
         >
           Pause
@@ -52,7 +52,7 @@ describe("ControlPanel", () => {
     buttonId    | action
     ${"reset"}  | ${"reset"}
     ${"run"}    | ${"run"}
-    ${"stop"}   | ${"stop"}
+    ${"pause"}  | ${"pause"}
     ${"slower"} | ${"slower"}
     ${"normal"} | ${"normal"}
     ${"faster"} | ${"faster"}

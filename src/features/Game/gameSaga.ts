@@ -45,7 +45,7 @@ export function* gameFlow() {
   while (yield take(gameStore.actions.run.type)) {
     const loop = yield fork(gameLoop);
 
-    yield take([gameStore.actions.stop.type, gameStore.actions.reset.type]);
+    yield take([gameStore.actions.pause.type, gameStore.actions.reset.type]);
 
     yield cancel(loop);
   }
