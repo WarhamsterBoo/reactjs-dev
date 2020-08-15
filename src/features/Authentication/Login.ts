@@ -1,7 +1,7 @@
 import { AppState } from "@/AppStore";
 import { connect } from "react-redux";
 import { authStore } from "./authStore";
-import { NameForm } from "./components";
+import { LoginForm } from "./components";
 
 const mapStateToProps = (state: AppState) => {
   return {
@@ -15,4 +15,4 @@ const mapDispatchToProps = {
   onNameSubmit: authStore.actions.login,
 };
 
-export const Login = connect(mapStateToProps, mapDispatchToProps)(NameForm);
+export const Login = connect(mapStateToProps, mapDispatchToProps)(LoginForm);

@@ -1,12 +1,12 @@
 import { mount, shallow } from "enzyme";
 import React from "react";
 import { simulateChange } from "tests/dsl/enzymeHelpers";
-import { NameForm } from "./NameForm";
+import { LoginForm } from "./LoginForm";
 
-describe("Name Form", () => {
+describe("Login Form", () => {
   it("should render", () => {
     const sut = shallow(
-      <NameForm
+      <LoginForm
         userName={"Bob"}
         onUserNameChange={jest.fn()}
         onNameSubmit={jest.fn()}
@@ -38,7 +38,7 @@ describe("Name Form", () => {
   it("should call onLoginNameChange when loginName changes in input", () => {
     const onLoginNameChanges = jest.fn();
     const sut = mount(
-      <NameForm
+      <LoginForm
         userName={"Bob"}
         onUserNameChange={onLoginNameChanges}
         onNameSubmit={jest.fn()}
@@ -54,7 +54,7 @@ describe("Name Form", () => {
   it("should call onNameSubmit when submit button clicked", () => {
     const fakeOnSubmit = jest.fn();
     const sut = mount(
-      <NameForm
+      <LoginForm
         userName={"Bob"}
         onUserNameChange={jest.fn()}
         onNameSubmit={fakeOnSubmit}
