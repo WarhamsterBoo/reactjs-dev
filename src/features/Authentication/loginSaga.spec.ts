@@ -7,6 +7,7 @@ import { throwError } from "redux-saga-test-plan/providers";
 import { create } from "tests/dsl/create";
 import { authStore } from "./authStore";
 import { loginSaga, restoreCurrentSession } from "./loginSaga";
+import { gameStore } from "../Game";
 
 describe("login flow", () => {
   describe("restoreCurrentSessionSaga", () => {
@@ -93,6 +94,8 @@ describe("login flow", () => {
       return sut
         .call(auth.logout)
         .call(userSessionStorage.endSession)
+        .put(gameStore.actions.reset())
+        .put(gameStore.actions.resetGame())
         .silentRun();
     });
 
