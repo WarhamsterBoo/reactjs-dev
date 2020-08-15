@@ -1,6 +1,6 @@
 import { mount, shallow } from "enzyme";
 import React from "react";
-import { WorldCreature, World } from "./World";
+import { World, WorldCreature } from "./World";
 
 describe("World", () => {
   it.each`
