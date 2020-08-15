@@ -7,7 +7,7 @@ describe("SettingsForm", () => {
   it("should render", () => {
     const sut = shallow(
       <SettingsForm
-        gameSettings={create.gameSettings()}
+        gameSettings={create.defaultGameSettings()}
         applySettings={jest.fn()}
         onSettingsChange={jest.fn()}
       />

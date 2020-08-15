@@ -1,37 +1,20 @@
-import {
-  gameStore,
-  GameState,
-  GameSettings,
-  Creature,
-  DEAD,
-  Population,
-  ALIVE,
-  GameStatus,
-} from "./gameStore";
 import { matrixGenerator } from "@/utils/arrayUtils";
-import { Engine } from "./Engine";
 import { create } from "tests/dsl/create";
+import { Engine } from "./Engine";
+import {
+  ALIVE,
+  DEAD,
+  GameSettings,
+  GameState,
+  GameStatus,
+  gameStore,
+} from "./gameStore";
 
 describe("game store", () => {
-  const defaultState: GameState = {
-    settings: create.gameSettings(),
-    creatures: matrixGenerator<Creature>(10, 10, DEAD),
-  };
-
-  const initialSettings: GameSettings = create.gameSettings({
-    xDimension: 11,
-    yDimension: 11,
-  });
-
-  const initialState: GameState = {
-    settings: initialSettings,
-    creatures: matrixGenerator<Creature>(11, 11, DEAD),
-  };
-
   it("should return initial state", () => {
     expect(
       gameStore.reducer(undefined, { type: "SOMEINVALIDACTIONTYPE" })
-    ).toEqual(defaultState);
+    ).toEqual(create.defaultGameState());
   });
 
   describe("generateCreatures", () => {
@@ -91,10 +74,12 @@ describe("game store", () => {
 
   describe("applySettings", () => {
     it("should do nothing", () => {
-      const targetSettings: GameSettings = create.gameSettings({
-        xDimension: 11,
-        yDimension: 11,
-        fillingPercentage: 20,
+      const initialState = create.gameState({
+        creatures: matrixGenerator(11, 11, DEAD),
+        settings: create.gameSettings({
+          xDimension: 11,
+          yDimension: 11,
+        }),
       });
 
       expect(
@@ -113,7 +98,7 @@ describe("game store", () => {
 
       expect(
         gameStore.reducer(
-          initialState,
+          create.gameState(),
           gameStore.actions.changeSettings(targetSettings)
         ).settings
       ).toEqual(targetSettings);
@@ -151,10 +136,12 @@ describe("game store", () => {
 
   describe("executeControlAction", () => {
     it("should do nothing", () => {
-      const targetSettings: GameSettings = create.gameSettings({
-        xDimension: 11,
-        yDimension: 11,
-        fillingPercentage: 20,
+      const initialState = create.gameState({
+        creatures: matrixGenerator(11, 11, DEAD),
+        settings: create.gameSettings({
+          xDimension: 11,
+          yDimension: 11,
+        }),
       });
 
       expect(
@@ -169,21 +156,22 @@ describe("game store", () => {
   describe("control actions", () => {
     it("should set GameStatus.Running when run action dispatched", () => {
       expect(
-        gameStore.reducer(defaultState, gameStore.actions.run()).settings.status
+        gameStore.reducer(create.defaultGameState(), gameStore.actions.run())
+          .settings.status
       ).toEqual(GameStatus.Running);
     });
 
     it("should set GameStatus.Paused when stop action dispatched", () => {
       expect(
-        gameStore.reducer(defaultState, gameStore.actions.stop()).settings
-          .status
+        gameStore.reducer(create.defaultGameState(), gameStore.actions.stop())
+          .settings.status
       ).toEqual(GameStatus.Paused);
     });
 
     it("should set GameStatus.Stopped when reset action dispatched", () => {
       expect(
-        gameStore.reducer(defaultState, gameStore.actions.reset()).settings
-          .status
+        gameStore.reducer(create.defaultGameState(), gameStore.actions.reset())
+          .settings.status
       ).toEqual(GameStatus.Stopped);
     });
 
@@ -195,6 +183,8 @@ describe("game store", () => {
     `(
       "should change game speed from $initialGameSpeed to $expectedGameSpeed when dispatching faster action",
       ({ initialGameSpeed, expectedGameSpeed }) => {
+        const initialState = create.gameState();
+
         expect(
           gameStore.reducer(
             {
@@ -215,6 +205,8 @@ describe("game store", () => {
     `(
       "should change game speed from $initialGameSpeed to $expectedGameSpeed when dispatching slower action",
       ({ initialGameSpeed, expectedGameSpeed }) => {
+        const initialState = create.gameState();
+
         expect(
           gameStore.reducer(
             {
@@ -235,6 +227,8 @@ describe("game store", () => {
     `(
       "should change game speed from $initialGameSpeed to $expectedGameSpeed when dispatching normal action",
       ({ initialGameSpeed, expectedGameSpeed }) => {
+        const initialState = create.gameState();
+
         expect(
           gameStore.reducer(
             {
@@ -246,5 +240,21 @@ describe("game store", () => {
         ).toBe(expectedGameSpeed);
       }
     );
+  });
+
+  describe("resetGame", () => {
+    it("should reset game state to default", () => {
+      const initialState = create.gameState({
+        creatures: matrixGenerator(11, 11, DEAD),
+        settings: create.gameSettings({
+          xDimension: 11,
+          yDimension: 11,
+        }),
+      });
+
+      expect(
+        gameStore.reducer(initialState, gameStore.actions.resetGame())
+      ).toEqual(create.defaultGameState());
+    });
   });
 });

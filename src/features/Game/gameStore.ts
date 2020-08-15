@@ -1,7 +1,7 @@
-import { matrixGenerator, resizeMatrix } from "@/utils/arrayUtils";
+import { matrixGenerator } from "@/utils/arrayUtils";
 import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Engine } from "./Engine";
 import { ControlAction } from "./components";
+import { Engine } from "./Engine";
 
 export interface Creature {
   isAlive: boolean;
@@ -41,7 +41,7 @@ export interface CreatureCoordinates {
   y: number;
 }
 
-const initialState: GameState = {
+const defaultState = (): GameState => ({
   settings: {
     xDimension: 10,
     yDimension: 10,
@@ -50,24 +50,20 @@ const initialState: GameState = {
     speed: 10,
   },
   creatures: matrixGenerator<Creature>(10, 10, DEAD),
-};
-
-const changeCreaturesSize = (
-  creatures: Population,
-  xDimension: number,
-  yDimension: number
-): Creature[][] => {
-  return resizeMatrix(creatures, xDimension, yDimension, DEAD);
-};
+});
 
 export const gameStore = createSlice({
   name: "game",
-  initialState,
+  initialState: defaultState(),
   reducers: {
     applySettings: (state, _: AnyAction) => state,
     changeSettings: (state, action: PayloadAction<GameSettings>) => {
       state.settings = action.payload;
     },
+    // resetGame: (state, _: AnyAction) => {
+    //   Object.assign(state, defaultState());
+    // },
+    resetGame: () => defaultState(),
     generateNewCreatures: (state, _: AnyAction) => {
       const { xDimension, yDimension, fillingPercentage } = {
         ...state.settings,
