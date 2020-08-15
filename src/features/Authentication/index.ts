@@ -1,4 +1,4 @@
 export * from "./authStore";
-export * from "./Login";
+export * from "./components";
 export * from "./loginSaga";
 export * from "./WithAuthentication";
