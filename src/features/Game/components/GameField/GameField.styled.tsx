@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
 import { colors } from "@/styles/colors";
+import styled from "@emotion/styled";
 
-export const GameWrapper = styled.div`
+export const GameFieldWrapper = styled.div`
   min-width: 600px;
   min-height: 400px;
 
