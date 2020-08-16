@@ -10,7 +10,6 @@ const mapStateToProps = (state: AppState) => {
 };
 
 const mapDispatchToProps = {
-  login: authStore.actions.login,
   onUserNameChange: authStore.actions.change_username,
   onNameSubmit: authStore.actions.login,
 };

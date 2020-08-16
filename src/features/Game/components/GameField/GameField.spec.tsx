@@ -1,8 +1,9 @@
 import { DEAD, GameStatus } from "@/features/Game";
 import { matrixGenerator } from "@/utils/arrayUtils";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import React from "react";
 import { GameField } from "./GameField";
+import { create } from "tests/dsl/create";
 
 describe("Game Field", () => {
   it("should render", () => {
@@ -371,5 +372,24 @@ describe("Game Field", () => {
         />
       </Styled(div)>
     `);
+  });
+
+  it("should call toggleCreatureState callback props with correct arguments", () => {
+    const toggleCreatureStateFake = jest.fn();
+    const sut = mount(
+      <GameField
+        creatures={matrixGenerator(10, 10, DEAD)}
+        settings={create.gameSettings()}
+        applySettings={() => {}}
+        onControlActionClick={() => {}}
+        onSettingsChange={() => {}}
+        toggleCreatureState={toggleCreatureStateFake}
+      />
+    );
+
+    (sut.find("World").prop("onClick") as Function)(1, 2);
+
+    expect(toggleCreatureStateFake).toBeCalledTimes(1);
+    expect(toggleCreatureStateFake).toBeCalledWith({ x: 1, y: 2 });
   });
 });
