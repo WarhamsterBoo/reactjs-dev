@@ -1,10 +1,10 @@
-import React, { useCallback } from "react";
-import { useHistory } from "react-router-dom";
-import { Button } from "@/components";
-import { Greeting, HeaderContainer } from "./Header.styled";
-import { connect } from "react-redux";
 import { AppState } from "@/AppStore";
+import { Button } from "@/components";
 import { authStore } from "@/features/Authentication";
+import React, { useCallback } from "react";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { Greeting, HeaderContainer } from "./Header.styled";
 
 export interface HeaderProps {
   userName: string | undefined;
@@ -18,7 +18,6 @@ const HeaderComponent: React.FC<HeaderProps> = ({
   const history = useHistory();
   const onLogoutClick = useCallback(() => {
     logOutUser();
-    history.push("/login");
   }, [logOutUser]);
 
   return (

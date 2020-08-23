@@ -1,13 +1,13 @@
 import React from "react";
-import { Creature } from "./components";
+import { Cell } from "./components";
 import { WorldWrapper } from "./World.styled";
 
-export interface CreatureState {
+export interface WorldCreature {
   isAlive: boolean;
 }
 
 export interface WorldProps {
-  creatures: CreatureState[][];
+  creatures: WorldCreature[][];
   onClick: (x: number, y: number) => void;
 }
 
@@ -20,11 +20,11 @@ export const World: React.FC<WorldProps> = ({ creatures, onClick }) => {
     <WorldWrapper>
       {creatures.map((row, y) => [
         ...row.map((creature, x) => (
-          <Creature
+          <Cell
             key={`{${y}${x}}`}
             x={y}
             y={x}
-            isAlive={creature.isAlive}
+            hasAliveCreature={creature.isAlive}
             onClick={onClick}
           />
         )),

@@ -1,14 +1,19 @@
 import { action } from "@storybook/addon-actions";
-import React from "react";
+import React, { useState } from "react";
 import { NameForm } from "./NameForm";
 
 export default { title: "Name Form Component" };
 
 export const NameFormStory: React.FC<{}> = () => {
+  const [userName, setUserName] = useState<string>("Bob");
+
   return (
     <NameForm
-      userName={"Bob"}
-      onUserNameChange={action("onChange")}
+      userName={userName}
+      onUserNameChange={(userName: string) => {
+        setUserName(userName);
+        action("onChange")(userName);
+      }}
       onNameSubmit={action("onSubmit")}
     />
   );

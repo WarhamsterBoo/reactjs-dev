@@ -8,6 +8,7 @@ import { create } from "tests/dsl/create";
 import { authStore } from "./authStore";
 import { loginSaga, restoreCurrentSession } from "./loginSaga";
 import { gameStore } from "../Game";
+import { push } from "connected-react-router";
 
 describe("login flow", () => {
   describe("restoreCurrentSessionSaga", () => {
@@ -53,6 +54,7 @@ describe("login flow", () => {
         .dispatch(authStore.actions.login());
 
       return sut
+        .put(push("/"))
         .put(authStore.actions.login_success())
         .call(auth.login, "John Doe")
         .call(userSessionStorage.newSession, "John Doe")
@@ -74,6 +76,7 @@ describe("login flow", () => {
         .put(authStore.actions.login())
         .call(auth.login, "John Doe")
         .call(userSessionStorage.newSession, "John Doe")
+        .put(push("/"))
         .put(authStore.actions.login_success())
         .silentRun();
     });
@@ -92,6 +95,7 @@ describe("login flow", () => {
         .dispatch(authStore.actions.logout());
 
       return sut
+        .put(push("/login"))
         .call(auth.logout)
         .call(userSessionStorage.endSession)
         .put(gameStore.actions.stop())

@@ -1,24 +1,24 @@
 import React from "react";
-import { StyledCreature } from "./StyledCreature";
+import { StyledCell } from "./StyledCell";
 
-export interface CreatureProps {
+export interface CellProps {
   x: number;
   y: number;
-  isAlive: boolean;
+  hasAliveCreature: boolean;
   onClick: (x: number, y: number) => void;
   transitionMs?: number;
 }
 
-export const Creature: React.FC<CreatureProps> = ({
+export const Cell: React.FC<CellProps> = ({
   x,
   y,
-  isAlive,
+  hasAliveCreature,
   onClick,
   transitionMs = 500,
 }) => {
   return (
-    <StyledCreature
-      isAlive={isAlive}
+    <StyledCell
+      hasAliveCreature={hasAliveCreature}
       transitionMs={transitionMs}
       onClick={() => onClick(x, y)}
     />

@@ -1,9 +1,9 @@
+import { AppState } from "@/AppStore";
 import { authStore } from "@/features/Authentication";
 import React, { useCallback } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { NameForm } from "./components";
-import { AppState } from "@/AppStore";
 
 interface LoginComponentProps {
   userName: string;
@@ -17,9 +17,8 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
   onLoginNameChanges,
 }) => {
   const history = useHistory();
-  const onSubmit = useCallback(async () => {
+  const onSubmit = useCallback(() => {
     login();
-    history.push("/");
   }, [login]);
 
   return (
