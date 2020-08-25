@@ -25,6 +25,21 @@
 + 2 балла за работоспособность и решение поставленной задачи
 + 1 балл за SSR
 
+# Implementation
+
+## SSR
+
+Для запуска приложения на express с SSR через puppeteer-renderer:
+1. Склонировать [puppeteer-renderer](https://github.com/zenato/puppeteer-renderer.git)
+2. Прописать в запуске puppeteer флаг `'--disable-web-security'` вот [тут](https://github.com/zenato/puppeteer-renderer/blob/e78bda694a474990f94ce9d9b1e924226453a4cb/src/renderer.js#L109)
+3. `npm i`
+4. `npm start` с портом по умолчанию 3000
+5. Вернуться репозиторий `reactjs-dev` и выполнить `npm start` из дирректории `./ssr`
+6. Приложение будет доступно по ссылке `http://localhost:5005`
+
+
+---
+
 # Webpack + babel + typescript базовая настройка
 Webpack + babel + typescript базовая настройка
 Цель: В результате получим базовый скелет webpack + typescript проекта
