@@ -2,7 +2,7 @@ import "expect-puppeteer";
 
 describe("App", () => {
   beforeEach(async () => {
-    await page.goto("http://localhost:8080/login");
+    await page.goto("http://localhost:8080/#/login");
   });
 
   it("user should be able to login and logout", async () => {

@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/WarhamsterBoo/reactjs-dev/issues"
   },
-  "homepage": "https://github.com/WarhamsterBoo/reactjs-dev#readme",
+  "homepage": "https://warhamsterboo.github.io/reactjs-dev",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",

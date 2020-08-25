@@ -8,12 +8,13 @@ import {
   createStore,
 } from "@reduxjs/toolkit";
 import { connectRouter, routerMiddleware } from "connected-react-router";
+import { createHashHistory } from "history";
 import { createBrowserHistory } from "history";
 import createSagaMiddleware from "redux-saga";
 
 const sagaMiddleware = createSagaMiddleware();
 
-export const appHistory = createBrowserHistory();
+export const appHistory = createHashHistory();
 
 export const appReducer = combineReducers({
   game: gameStore.reducer,
