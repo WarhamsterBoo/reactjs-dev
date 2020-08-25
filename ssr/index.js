@@ -6,7 +6,8 @@ const app = express();
 
 app.use(
   puppeteerRenderer({
-    url: "http://localhost:5005/render",
+    url: "http://localhost:3000",
+    userAgentPattern: /^((?!HeadlessChrome).)*$/,
   })
 );
 
