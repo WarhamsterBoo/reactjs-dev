@@ -25,7 +25,7 @@ export function* loginSaga() {
     const userName = yield select(userNameSelector);
     if (!userName) {
       yield put(authStore.actions.login_failed("user name cannot be empty"));
-      return;
+      continue;
     }
 
     yield put(push("/"));
@@ -34,7 +34,7 @@ export function* loginSaga() {
       yield call(auth.login, userName);
     } catch (e) {
       yield put(authStore.actions.login_failed(e.message));
-      return;
+      continue;
     }
     yield put(authStore.actions.login_success());
     yield call(userSessionStorage.newSession, userName);
@@ -43,7 +43,7 @@ export function* loginSaga() {
     yield put(gameStore.actions.stop());
 
     yield put(push("/login"));
-    yield call(auth.logout);
+    yield call(auth.logout, userName);
     yield call(userSessionStorage.endSession);
   }
 }
