@@ -19,13 +19,34 @@ describe("App", () => {
         }
       >
         <Styled(div)>
-          <BrowserRouter>
+          <Connect(ConnectedRouterWithContext)
+            history={
+              Object {
+                "action": "POP",
+                "block": [Function],
+                "createHref": [Function],
+                "go": [Function],
+                "goBack": [Function],
+                "goForward": [Function],
+                "length": 1,
+                "listen": [Function],
+                "location": Object {
+                  "hash": "",
+                  "pathname": "/",
+                  "search": "",
+                  "state": undefined,
+                },
+                "push": [Function],
+                "replace": [Function],
+              }
+            }
+          >
             <Switch>
               <Route
                 exact={true}
                 path="/login"
               >
-                <LoginScreen />
+                <Connect(LoginForm) />
               </Route>
               <Route
                 exact={true}
@@ -40,7 +61,7 @@ describe("App", () => {
                 <GameScreen />
               </Route>
             </Switch>
-          </BrowserRouter>
+          </Connect(ConnectedRouterWithContext)>
         </Styled(div)>
       </Provider>
     `);

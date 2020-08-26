@@ -2,6 +2,49 @@
 
 # ReactJS Developer course
 
+# Final Project
+
+Цель: Реализовать готовое для продакшн приложение
+
+Требования:
+- конфигурируем приложение самостоятельно через webpack + babel
+- разработка компонентов ведется отдельно в библиотеке компонентов
+- четко прослеживаемая архитектура
+- saga для управления всеми side effects
+- устойчиво к изменениям за счет тестов
+- не менее 50% прокрытие тестами
+- оценка качества через stryker должна быть на высоком уровне
+- полная работоспособность и решение конкретной задачи
+- минимально сконфигурированный и работоспособный SSR
+
+# Implementation
+
+## Github Pages Link
+
+https://warhamsterboo.github.io/reactjs-dev/#/login
+
+## Authentication
+
+Для входа в приложение пользователь должен быть зарегистрирован в БД.
+
+## Registration
+
+Можно зарегистрировать нового пользователя по сслыке:
+
+`https://boo-app.azurewebsites.net/api/Register?code=QCx8juXH2zejeitQYSUG1Al7rh3rriSA0ahctcYnT1ye1QD87Vsk/Q==&name=<UserName>`
+
+## SSR
+
+Для запуска приложения на express с SSR через puppeteer-renderer:
+1. Склонировать [puppeteer-renderer](https://github.com/zenato/puppeteer-renderer.git)
+2. Прописать в запуске puppeteer флаг `'--disable-web-security'` вот [тут](https://github.com/zenato/puppeteer-renderer/blob/e78bda694a474990f94ce9d9b1e924226453a4cb/src/renderer.js#L109)
+3. `npm i`
+4. `npm start` с портом по умолчанию 3000
+5. Вернуться репозиторий `reactjs-dev` и выполнить `npm start` из дирректории `./ssr`
+6. Приложение будет доступно по ссылке `http://localhost:5005`
+
+---
+
 # Webpack + babel + typescript базовая настройка
 Webpack + babel + typescript базовая настройка
 Цель: В результате получим базовый скелет webpack + typescript проекта
@@ -172,7 +215,7 @@ Webpack + babel + typescript базовая настройка
 
 - [x] Установка и настройка stryker
 - [x] Установка и настройка jest-puppeteer
-- [ ] Оцениваем качество тестов и рефакторим их до максимально достижимого значения
+- [x] Оцениваем качество тестов и рефакторим их до максимально достижимого значения
 
 Критерии оценки:
 + 1 балл за настройку страйкера

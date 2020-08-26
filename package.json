@@ -10,7 +10,7 @@
     "build-prod": "npx webpack --config webpack.config.ts --mode=production",
     "build-storybook": "npx build-storybook",
     "storybook": "npx start-storybook -p 6006",
-    "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./src/",
+    "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./src/ && npx eslint --ext .js,.jsx,.ts,.tsx --fix ./tests/dsl/",
     "jest-test": "npx jest --config=./tests/jest.config.js",
     "jest-e2e": "npx jest --config=./tests/jest.e2e.config.js",
     "jest-coverage": "npx jest --coverage --config=./tests/jest.config.js",
@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/WarhamsterBoo/reactjs-dev/issues"
   },
-  "homepage": "https://github.com/WarhamsterBoo/reactjs-dev#readme",
+  "homepage": "https://warhamsterboo.github.io/reactjs-dev",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
@@ -73,6 +73,7 @@
     "jest": "^25.2.4",
     "jest-emotion": "^10.0.32",
     "jest-environment-puppeteer": "^4.4.0",
+    "jest-fetch-mock": "^3.0.3",
     "jest-localstorage-mock": "^2.4.3",
     "jest-puppeteer": "^4.4.0",
     "loki": "^0.24.0",
@@ -96,6 +97,7 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@reduxjs/toolkit": "^1.3.6",
+    "connected-react-router": "^6.8.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",

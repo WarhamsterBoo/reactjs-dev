@@ -1,12 +1,16 @@
 import { auth } from "@/api/auth";
 import { userSessionStorage } from "@/api/userSessionStorage";
 import { appReducer, AppState } from "@/AppStore";
-import { expectSaga } from "redux-saga-test-plan";
+import { expectSaga, testSaga } from "redux-saga-test-plan";
 import { call } from "redux-saga-test-plan/matchers";
 import { throwError } from "redux-saga-test-plan/providers";
 import { create } from "tests/dsl/create";
 import { authStore } from "./authStore";
 import { loginSaga, restoreCurrentSession } from "./loginSaga";
+import { gameStore } from "../Game";
+import { push } from "connected-react-router";
+import { userNameSelector } from "./authStoreSelectors";
+import { take } from "redux-saga/effects";
 
 describe("login flow", () => {
   describe("restoreCurrentSessionSaga", () => {
@@ -52,6 +56,7 @@ describe("login flow", () => {
         .dispatch(authStore.actions.login());
 
       return sut
+        .put(push("/"))
         .put(authStore.actions.login_success())
         .call(auth.login, "John Doe")
         .call(userSessionStorage.newSession, "John Doe")
@@ -73,6 +78,7 @@ describe("login flow", () => {
         .put(authStore.actions.login())
         .call(auth.login, "John Doe")
         .call(userSessionStorage.newSession, "John Doe")
+        .put(push("/"))
         .put(authStore.actions.login_success())
         .silentRun();
     });
@@ -82,7 +88,7 @@ describe("login flow", () => {
         .provide([
           [call(userSessionStorage.getCurrentSession), undefined],
           [call(auth.login, "John Doe"), {}],
-          [call(auth.logout), {}],
+          [call(auth.logout, "John Doe"), {}],
         ])
         .withReducer(appReducer)
         .withState<AppState>(create.appState())
@@ -91,12 +97,14 @@ describe("login flow", () => {
         .dispatch(authStore.actions.logout());
 
       return sut
-        .call(auth.logout)
+        .put(push("/login"))
+        .call(auth.logout, "John Doe")
         .call(userSessionStorage.endSession)
+        .put(gameStore.actions.stop())
         .silentRun();
     });
 
-    it("should not login user if call to auth was not successful", () => {
+    it("should not login user if call to auth was not successful and wait for next login action", () => {
       const sut = expectSaga(loginSaga)
         .provide([
           [call(userSessionStorage.getCurrentSession), undefined],
@@ -112,10 +120,12 @@ describe("login flow", () => {
 
       return sut
         .put(authStore.actions.login_failed("something went wrong"))
+        .take(authStore.actions.login().type)
+        .take(authStore.actions.login().type)
         .silentRun();
     });
 
-    it("should not login user if username is empty", () => {
+    it("should not login user if username is empty and wait for next login action", () => {
       const sut = expectSaga(loginSaga)
         .provide([[call(userSessionStorage.getCurrentSession), undefined]])
         .withReducer(appReducer)
@@ -130,6 +140,8 @@ describe("login flow", () => {
 
       return sut
         .put(authStore.actions.login_failed("user name cannot be empty"))
+        .take(authStore.actions.login().type)
+        .take(authStore.actions.login().type)
         .silentRun();
     });
   });

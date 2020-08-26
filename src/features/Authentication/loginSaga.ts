@@ -3,6 +3,8 @@ import { userSessionStorage } from "@/api/userSessionStorage";
 import { call, fork, put, take, select } from "redux-saga/effects";
 import { authStore } from "./authStore";
 import { userNameSelector } from "./authStoreSelectors";
+import { gameStore } from "../Game";
+import { push } from "connected-react-router";
 
 export function* restoreCurrentSession() {
   const currentUsername: undefined | string = yield call(
@@ -23,21 +25,25 @@ export function* loginSaga() {
     const userName = yield select(userNameSelector);
     if (!userName) {
       yield put(authStore.actions.login_failed("user name cannot be empty"));
-      return;
+      continue;
     }
+
+    yield put(push("/"));
 
     try {
       yield call(auth.login, userName);
     } catch (e) {
       yield put(authStore.actions.login_failed(e.message));
-      return;
+      continue;
     }
     yield put(authStore.actions.login_success());
-
     yield call(userSessionStorage.newSession, userName);
 
     yield take(authStore.actions.logout.type);
-    yield call(auth.logout);
+    yield put(gameStore.actions.stop());
+
+    yield put(push("/login"));
+    yield call(auth.logout, userName);
     yield call(userSessionStorage.endSession);
   }
 }
