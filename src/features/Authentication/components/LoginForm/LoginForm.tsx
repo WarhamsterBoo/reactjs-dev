@@ -1,14 +1,14 @@
 import { Button, InputText, Label } from "@/components";
 import React, { FormEvent, useCallback } from "react";
-import { Form } from "./NameForm.styled";
+import { Form } from "./LoginForm.styled";
 
-interface NameFormProps {
+interface LoginFormProps {
   userName: string;
   onUserNameChange: (name: string) => void;
   onNameSubmit: () => void;
 }
 
-export const NameForm: React.FC<NameFormProps> = ({
+export const LoginForm: React.FC<LoginFormProps> = ({
   userName,
   onUserNameChange,
   onNameSubmit,

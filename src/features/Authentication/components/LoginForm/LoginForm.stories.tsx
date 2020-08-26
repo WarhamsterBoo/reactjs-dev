@@ -1,14 +1,14 @@
 import { action } from "@storybook/addon-actions";
 import React, { useState } from "react";
-import { NameForm } from "./NameForm";
+import { LoginForm } from "./LoginForm";
 
-export default { title: "Name Form Component" };
+export default { title: "Login Form Component" };
 
-export const NameFormStory: React.FC<{}> = () => {
+export const LoginFormStory: React.FC<{}> = () => {
   const [userName, setUserName] = useState<string>("Bob");
 
   return (
-    <NameForm
+    <LoginForm
       userName={userName}
       onUserNameChange={(userName: string) => {
         setUserName(userName);

@@ -46,7 +46,7 @@ describe("App", () => {
                 exact={true}
                 path="/login"
               >
-                <LoginScreen />
+                <Connect(LoginForm) />
               </Route>
               <Route
                 exact={true}
