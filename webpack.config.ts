@@ -1,7 +1,7 @@
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import * as webpack from 'webpack';
-import 'webpack-dev-server';
+import * as webpack from "webpack";
+import "webpack-dev-server";
 
 const config: webpack.Configuration = {
   entry: "./src/index.tsx",
