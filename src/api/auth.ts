@@ -6,7 +6,9 @@ const logOutUrl =
 
 export const auth = {
   login: async (username: string): Promise<void> =>
-    fetch(`${logInUrl}&name=${username}`).then((response) => {
+    fetch(`${logInUrl}&name=${username}`, {
+      credentials: "same-origin",
+    }).then((response) => {
       if (!response.ok) {
         throw new Error(
           `Cannot login because: ${response.status} ${response.statusText}`

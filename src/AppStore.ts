@@ -9,7 +9,6 @@ import {
 } from "@reduxjs/toolkit";
 import { connectRouter, routerMiddleware } from "connected-react-router";
 import { createHashHistory } from "history";
-import { createBrowserHistory } from "history";
 import createSagaMiddleware from "redux-saga";
 
 const sagaMiddleware = createSagaMiddleware();
